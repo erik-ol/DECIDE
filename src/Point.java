@@ -22,4 +22,12 @@ public class Point {
     public double getX() {
         return x;
     }
+
+     /**
+     * Y getter
+     * @return point y value
+     */
+    public double getY() {
+        return y;
+    }
 }
