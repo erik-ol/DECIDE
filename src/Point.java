@@ -28,6 +28,6 @@ public class Point {
      * @return point y value
      */
     public double getY() {
-        return x;
+        return y;
     }
 }
