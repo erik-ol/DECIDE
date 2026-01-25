@@ -75,20 +75,19 @@ public class LaunchInterceptorConditionParameters {
      */
     public boolean lic_1(int planarPointAmount, Point[] planarPoints) {
 
-        for (int i = 0; i < planarPointAmount; i++) {
-            if (i>=2) {
-                // compare pairwise distances
-                for (int point1 = i-2; point1 <= i; point1++) {
-                    for (int point2 = i-2; point2 <= i; point2++) {
+        for (int i = 2; i < planarPointAmount; i++) {
+            // compare pairwise distances
+            for (int point1 = i-2; point1 <= i; point1++) {
+                for (int point2 = i-2; point2 <= i; point2++) {
 
-                        double deltaX = planarPoints[point1].getX() - planarPoints[point2].getX();
-                        double deltaY = planarPoints[point1].getY() - planarPoints[point2].getY();
-                        double distance = (deltaX*deltaX)+(deltaY*deltaY);
+                    double deltaX = planarPoints[point1].getX() - planarPoints[point2].getX();
+                    double deltaY = planarPoints[point1].getY() - planarPoints[point2].getY();
+                    double distance = (deltaX*deltaX)+(deltaY*deltaY);
 
-                        // compare squared distances rather than taking square root
-                        double diameter_squared = RADIUS1*RADIUS1*4;
-                        if (distance > diameter_squared) return true;
-                    }
+                    // compare squared distances rather than taking square root
+                    double diameter_squared = RADIUS1*RADIUS1*4;
+
+                    if (distance > diameter_squared) return true;
                 }
             }
         }
