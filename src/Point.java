@@ -14,4 +14,20 @@ public class Point {
         this.x = x;
         this.y = y;
     }
+
+    /**
+     * X getter
+     * @return point x value
+     */
+    public double getX() {
+        return x;
+    }
+
+     /**
+     * Y getter
+     * @return point y value
+     */
+    public double getY() {
+        return x;
+    }
 }

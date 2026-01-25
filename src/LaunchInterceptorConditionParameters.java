@@ -68,4 +68,32 @@ public class LaunchInterceptorConditionParameters {
         this.RADIUS2 = RADIUS2;
         this.AREA2 = AREA2;
     }
+
+    /**
+     * Launch Interceptor Condition 1
+     * @return True iff there exists 3 consecutive points that cannot all be contained within or on a circle of radius RADIUS1
+     */
+    public boolean lic_1(int planarPointAmount, Point[] planarPoints) {
+
+        for (int i = 0; i < planarPointAmount; i++) {
+            if (i>=2) {
+                // compare pairwise distances
+                for (int point1 = i-2; point1 <= i; point1++) {
+                    for (int point2 = i-2; point2 <= i; point2++) {
+
+                        double deltaX = planarPoints[point1].getX() - planarPoints[point2].getX();
+                        double deltaY = planarPoints[point1].getY() - planarPoints[point2].getY();
+                        double distance = (deltaX*deltaX)+(deltaY*deltaY);
+
+                        // compare squared distances rather than taking square root
+                        double diameter_squared = RADIUS1*RADIUS1*4;
+                        if (distance > diameter_squared) return true;
+                    }
+                }
+            }
+        }
+
+        // no points met conditions
+        return false;
+    }
 }
