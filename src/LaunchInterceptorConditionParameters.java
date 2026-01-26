@@ -71,11 +71,12 @@ public class LaunchInterceptorConditionParameters {
 
     /**
      * Launch Interceptor Condition 0
+     * 
      * @param planarPointAmount
      * @param planarPoints
      * @return True iff at least one set of 2 consecutive data points that are a distance greater than length LENGTH1 apart
      */
-    public boolean lic_0(int planarPointAmount, Point[] planarPoints){
+    public boolean lic0(int planarPointAmount, Point[] planarPoints){
         for (int pointidx = 1; pointidx < planarPointAmount; pointidx++){
             double deltaX = planarPoints[pointidx].getX() - planarPoints[pointidx - 1].getX();
             double deltaY = planarPoints[pointidx].getY() - planarPoints[pointidx - 1].getY();
