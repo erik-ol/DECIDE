@@ -98,8 +98,8 @@ public class LaunchInterceptorConditionParameters {
     /**
      * Launch Interceptor Condition 5
      * 
-     * @param planarPoints
-     * @param planarPointAmount
+     * @param planarPoints the planar points
+     * @param planarPointAmount the number of planar points
      * @return True if there exists at least one set of 2 consecutive data points such that the difference in x-coordinates is less than 0.
      */
     public static boolean lic5(Point[] planarPoints, int planarPointAmount) {
