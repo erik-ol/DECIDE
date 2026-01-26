@@ -1,7 +1,8 @@
 /**
  * Holds parameters for the Launch Interceptor Conditions
  */
-public class LaunchInterceptorConditionParameters {
+public class LaunchInterceptorConditionParameters
+{
     private double LENGTH1;
     private double RADIUS1;
     private double EPSILON;
@@ -46,7 +47,8 @@ public class LaunchInterceptorConditionParameters {
      */
     public LaunchInterceptorConditionParameters( double LENGTH1, double RADIUS1, double EPSILON, double AREA1, int Q_PTS, int QUADS,
                                                  double DIST, int N_PTS, int K_PTS, int A_PTS, int B_PTS, int C_PTS, int D_PTS, int E_PTS,
-                                                 int F_PTS, int G_PTS, double LENGTH2, double RADIUS2, double AREA2) {
+                                                 int F_PTS, int G_PTS, double LENGTH2, double RADIUS2, double AREA2)
+    {
 
         this.LENGTH1 = LENGTH1;
         this.RADIUS1 = RADIUS1;
@@ -99,12 +101,15 @@ public class LaunchInterceptorConditionParameters {
      * Launch Interceptor Condition 1
      * @return True iff there exists 3 consecutive points that cannot all be contained within or on a circle of radius RADIUS1
      */
-    public boolean lic_1(int planarPointAmount, Point[] planarPoints) {
-
-        for (int i = 2; i < planarPointAmount; i++) {
+    public boolean lic_1(int planarPointAmount, Point[] planarPoints)
+    {
+        for (int i = 2; i < planarPointAmount; i++)
+        {
             // compare pairwise distances
-            for (int point1 = i-2; point1 <= i; point1++) {
-                for (int point2 = i-2; point2 <= i; point2++) {
+            for (int point1 = i-2; point1 <= i; point1++)
+            {
+                for (int point2 = i-2; point2 <= i; point2++)
+                {
 
                     double deltaX = planarPoints[point1].getX() - planarPoints[point2].getX();
                     double deltaY = planarPoints[point1].getY() - planarPoints[point2].getY();
@@ -119,6 +124,22 @@ public class LaunchInterceptorConditionParameters {
         }
 
         // no points met conditions
+        return false;
+    }
+
+
+    /* Verifies if there exists at least one set of three consecutive
+     * data points which form an angle such that (PI + EPSILON) < angle
+     * or angle < (PI - EPSILON), as a part of the LICs.
+     *
+     * @param planarPoints      - The array of Points to validate
+     * @param planarPointAmount - The amount of planar Points within the planarPoints array
+     *
+     * @returns true if there exists a set of three consecutive datapoints
+     *          that meets the conditions and false otherwise.
+     */
+    public boolean validateAngle(int planarPointAmount, Point[] planarPoints)
+    {
         return false;
     }
 
@@ -167,28 +188,30 @@ public class LaunchInterceptorConditionParameters {
 
     /**
      * Launch Interceptor Condition 5
-     * 
+     *
      * @param planarPoints the planar points
      * @param planarPointAmount the number of planar points
      * @return True if there exists at least one set of 2 consecutive data points such that the difference in x-coordinates is less than 0.
      */
-    public static boolean lic5(Point[] planarPoints, int planarPointAmount) {
-
-        if(planarPointAmount < 2) {
+    public static boolean lic5(Point[] planarPoints, int planarPointAmount)
+    {
+        if (planarPointAmount < 2)
+        {
             return false;
         }
 
-        for (int i = 0; i < planarPointAmount-1; i++) {
+        for (int i = 0; i < planarPointAmount - 1; i++)
+        {
             Point p1 = planarPoints[i];
-            Point p2 = planarPoints[i+1];
+            Point p2 = planarPoints[i + 1];
             double p1X = p1.getX();
             double p2X = p2.getX();
 
-            if(p2X - p1X < 0) {
+            if (p2X - p1X < 0)
+            {
                 return true;
             }
         }
-        return false;
     }
 
     /**
@@ -334,6 +357,4 @@ public class LaunchInterceptorConditionParameters {
         }
         return condition1 && condition2;
     }
-
-
 }
