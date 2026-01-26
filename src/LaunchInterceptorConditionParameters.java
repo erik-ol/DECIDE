@@ -138,5 +138,7 @@ public class LaunchInterceptorConditionParameters {
             if(p2X - p1X < 0) {
                 return true;
             }
-        
+        }
+        return false;
+    }
 }

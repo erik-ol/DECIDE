@@ -29,9 +29,9 @@ public class MainTest {
 
             for (int point = 1; point < points; point++){
                 pointArraySame[point] = new Point(0, 0);
-                pointArrayEqualSpace[point] = new Point(8 * point, 8 * point);
+                pointArrayEqualSpace[point] = new Point(2 * point, 3 * point);
             }
-            LaunchInterceptorConditionParameters lic0Handler = new LaunchInterceptorConditionParameters(64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            LaunchInterceptorConditionParameters lic0Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
             boolean resI = lic0Handler.lic0(points, pointArraySame);
             boolean resII = lic0Handler.lic0(points, pointArrayEqualSpace);
@@ -55,9 +55,9 @@ public class MainTest {
                 pointArray[point] = new Point(7 * point, 7 * point);
             }
             // Add outlier point
-            pointArray[49] = new Point(-8, -8);
+            pointArray[points - 1] = new Point(-8, -8);
 
-            LaunchInterceptorConditionParameters lic0Handler = new LaunchInterceptorConditionParameters(64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            LaunchInterceptorConditionParameters lic0Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
             boolean res = lic0Handler.lic0(points, pointArray);
             Assert.assertTrue(res);
