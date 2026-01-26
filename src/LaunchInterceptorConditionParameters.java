@@ -120,4 +120,22 @@ public class LaunchInterceptorConditionParameters {
         }
         return false;
     }
+
+    public boolean lic7(Point[] planarPoints, int planarPointAmount){
+        if (planarPointAmount < 3) {
+            return false;
+        }
+        for (int i = K_PTS + 1; i < planarPointAmount; i++){
+            double deltaX = planarPoints[i].getX() - planarPoints[i - K_PTS - 1].getX();
+            double deltaY = planarPoints[i].getY() - planarPoints[i - K_PTS - 1].getY();
+            double distance = (deltaX * deltaX) + (deltaY * deltaY);
+
+            double distance_required = this.LENGTH1 * this.LENGTH1;
+
+            if (distance > distance_required){
+                return true;
+            }
+        }
+        return false;
+    }
 }
