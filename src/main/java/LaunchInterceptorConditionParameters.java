@@ -70,7 +70,7 @@ public class LaunchInterceptorConditionParameters
         this.RADIUS2 = RADIUS2;
         this.AREA2 = AREA2;
     }
-    
+
     /**
      * Launch Interceptor Condition 0:
      * Verifies if there exists at least one set of two consecutive 
@@ -116,13 +116,10 @@ public class LaunchInterceptorConditionParameters
                     double distance = (deltaX*deltaX)+(deltaY*deltaY);
 
                     // compare squared distances rather than taking square root
+
                     double diameterSquared = RADIUS1*RADIUS1*4;
 
                     if (distance > diameterSquared) return true;
-
-                    double diameter_squared = RADIUS1*RADIUS1*4;
-
-                    if (distance > diameter_squared) return true;
                 }
             }
         }
@@ -420,7 +417,6 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean lic13(int planarPointAmount, Point[] planarPoints)
     {
-
         if(planarPointAmount < 5)
         {
             return false;
@@ -455,4 +451,3 @@ public class LaunchInterceptorConditionParameters
         return condition1 && condition2;
     }
 }
-
