@@ -95,6 +95,24 @@ public class LaunchInterceptorConditionParameters {
         // no points met conditions
         return false;
     }
+
+    /**
+     * Launch Interceptor Condition 3
+     * @return True iff there exists 3 consecutive data points that are the vertices of a triangle with area greater than AREA1
+     */
+    public boolean lic_3(int planarPointAmount, Point[] planarPoints) {
+
+        for (int i = 2; i < planarPointAmount; i++) {
+
+            double area = triangleArea(planarPoints[i-2], planarPoints[i-1], planarPoints[i]);
+           
+            if (area>AREA1) return true;
+        }
+
+        // no points met conditions
+        return false;
+    }
+
     /**
      * Launch Interceptor Condition 5
      * 
@@ -119,5 +137,23 @@ public class LaunchInterceptorConditionParameters {
             }
         }
         return false;
+    }
+
+    /**
+     * Calculates area of triangle from coordinates of corners
+     * @param corner0 1st corner
+     * @param corner1 2nd corner
+     * @param corner2 3rd corner
+     * @return area of triangle
+     */
+    private double triangleArea(Point corner0, Point corner1, Point corner2) {
+         // shoelace formula for triangle area
+        double determinant =  
+            ((corner0.getX()-corner2.getX()) * 
+            (corner1.getY()-corner0.getY())) -
+            ((corner0.getX()-corner1.getX()) *
+            (corner2.getY()-corner0.getY()));
+        double area = Math.abs(determinant)/2;
+        return area;
     }
 }
