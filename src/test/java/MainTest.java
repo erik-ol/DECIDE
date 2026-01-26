@@ -7,16 +7,16 @@ import org.junit.*;
 /**
  * Test class 
  */
-public class MainTest {
-
-
+public class MainTest
+{
     /**
      * Test situations where lic0 should be false
      */
     @Test
-    public void lic0Negative(){
-
-        for (int points = 2; points < 20; points++){
+    public void lic0Negative()
+    {
+        for (int points = 2; points < 20; points++)
+        {
             // Case I: When all points are the same
             // Case II: When all points are equally spaced
             Point[] pointArraySame = new Point[points];
@@ -25,7 +25,8 @@ public class MainTest {
             pointArraySame[0] = new Point(0, 0);
             pointArrayEqualSpace[0] = new Point(0, 0);
 
-            for (int point = 1; point < points; point++){
+            for (int point = 1; point < points; point++)
+            {
                 pointArraySame[point] = new Point(0, 0);
                 pointArrayEqualSpace[point] = new Point(2 * point, 3 * point);
             }
@@ -43,15 +44,19 @@ public class MainTest {
      * Test situations where lic0 should be true
      */
     @Test
-    public void lic0positive(){
+    public void lic0positive()
+    {
 
-        for (int points = 2; points < 20; points++){
+        for (int points = 2; points < 20; points++)
+        {
 
             Point[] pointArray = new Point[points];
 
-            for (int point = 0; point < (points - 1); point++){
+            for (int point = 0; point < (points - 1); point++)
+            {
                 pointArray[point] = new Point(7 * point, 7 * point);
             }
+
             // Add outlier point
             pointArray[points - 1] = new Point(-8, -8);
 
@@ -60,23 +65,24 @@ public class MainTest {
             boolean res = lic0Handler.doesTwoConsecutivePointsFurtherThanLength1(points, pointArray);
             Assert.assertTrue(res);
         }
-
-
     }
 
     /**
      * Tests situations where lic1 should be false
      */
     @Test
-    public void lic1Negative() {
+    public void lic1Negative()
+    {
 
         Random random = new Random();
         
-        for (int points = 0; points<100; points++) {
+        for (int points = 0; points<100; points++)
+        {
 
             Point[] pointArray = new Point[points];
 
-            for (int point = 0; point<points; point++) {
+            for (int point = 0; point<points; point++)
+            {
                 double pointX = random.nextDouble()*9;
                 double pointY = random.nextDouble()*9;
                 pointArray[point] = new Point(pointX, pointY);
@@ -90,19 +96,23 @@ public class MainTest {
         
     }
 
+
     /**
      * Tests situations where lic1 should be true
      */
     @Test
-    public void lic1Positive() {
+    public void lic1Positive()
+    {
 
         Random random = new Random();
         
-        for (int points = 3; points<100; points++) {
+        for (int points = 3; points<100; points++)
+        {
 
             Point[] pointArray = new Point[points];
 
-            for (int point = 0; point<points; point++) {
+            for (int point = 0; point<points; point++)
+            {
                 double pointX = random.nextDouble()*9;
                 double pointY = random.nextDouble()*9;
                 pointArray[point] = new Point(pointX, pointY);
@@ -116,7 +126,6 @@ public class MainTest {
             
             Assert.assertTrue(licHandler.lic_1(points, pointArray));
         }
-        
     }
 
     /**
@@ -218,17 +227,18 @@ public class MainTest {
      * Tests that LIC-3 triangle verification is false for line of points where consecutive points are very close
      */
     @Test
-    public void lic3FalseForRandomizedLineOfPoints() {
-
+    public void lic3FalseForRandomizedLineOfPoints()
+    {
         Random random = new Random();
 
-        for (int points = 0; points<100; points++) {
-
+        for (int points = 0; points<100; points++)
+        {
             Point[] pointArray = new Point[points];
 
             if (points>0) pointArray[0] = new Point(0, 0);
 
-            for (int point = 1; point<points; point++) {
+            for (int point = 1; point<points; point++)
+            {
                 double pointX = pointArray[point-1].getX() + random.nextDouble();
                 double pointY = pointArray[point-1].getY() + random.nextDouble() - 0.5;
                 pointArray[point] = new Point(pointX, pointY);
@@ -239,18 +249,18 @@ public class MainTest {
 
             Assert.assertFalse(licHandler.validateTriangleArea(points, pointArray));
         }
-
     }
 
     /**
      * Tests that LIC-3 triangle verification is true for a triangle with area greater than AREA1
      */
     @Test
-    public void lic3TrueWhenTriangleAreaSufficient() {
-
+    public void lic3TrueWhenTriangleAreaSufficient()
+    {
         int points = 4;
 
-        Point[] pointArray = {
+        Point[] pointArray =
+                {
                 new Point(0.0, 0.0),
                 new Point(1.0, 0.0),
                 new Point(5.0, 0.0),
@@ -264,14 +274,13 @@ public class MainTest {
     }
 
     /**
-     * Test situation where the x-coordinate decreases
-     */
+    * Test situation where the x-coordinate decreases
+    */
     @Test
-    public void lic5TrueWhenXDecreases() {
-        Point[] points = {
-            new Point(3.0, 0.0),
-            new Point(2.0, 0.0)
-        };
+    public void lic5TrueWhenXDecreases()
+    {
+        Point[] points = {new Point(3.0, 0.0),
+                          new Point(2.0, 0.0)};
 
         boolean res = LaunchInterceptorConditionParameters.lic5(points, 2);
         assertTrue(res);
@@ -281,11 +290,10 @@ public class MainTest {
      * Test situation where the x-coordinate increases
      */
     @Test
-    public void lic5FalseWhenXIncreases() {
-        Point[] points = {
-            new Point(2.0, 0.0),
-            new Point(3.0, 0.0)
-        };
+    public void lic5FalseWhenXIncreases()
+    {
+        Point[] points = {new Point(2.0, 0.0),
+                          new Point(3.0, 0.0)};
 
         boolean res = LaunchInterceptorConditionParameters.lic5(points, 2);
         assertFalse(res);
@@ -296,10 +304,8 @@ public class MainTest {
      */
     @Test
     public void lic5FalseWhenXIsEqual() {
-        Point[] points = {
-            new Point(2.0, 0.0),
-            new Point(2.0, 0.0)
-        };
+        Point[] points = {new Point(2.0, 0.0),
+                          new Point(2.0, 0.0)};
 
         boolean res = LaunchInterceptorConditionParameters.lic5(points, 2);
         assertFalse(res);
@@ -309,10 +315,14 @@ public class MainTest {
      * Test situation where all points are the same
      */
     @Test
-    public void lic7FalseWhenAllPointsSame(){
-        for (int points = 3; points < 10; points++){
+    public void lic7FalseWhenAllPointsSame()
+    {
+        for (int points = 3; points < 10; points++)
+        {
             Point[] pointArray = new Point[points];
-            for (int point = 0; point < points; point++){
+
+            for (int point = 0; point < points; point++)
+            {
                 pointArray[point] = new Point(0, 0);
             }
 
@@ -327,14 +337,19 @@ public class MainTest {
      * Test situation when points pair differed by exactly LENGHT1
      */
     @Test
-    public void lic7FalseWhenPointsPairEqual(){
-        for (int points = 10; points < 20; points++){
+    public void lic7FalseWhenPointsPairEqual()
+    {
+        for (int points = 10; points < 20; points++)
+        {
             Point[] pointArray = new Point[points];
-            for (int point = 0; point < points; point++){
-                if (point != (points % 10 + 2) ){
+            for (int point = 0; point < points; point++)
+            {
+                if (point != (points % 10 + 2))
+                {
                     pointArray[point] = new Point(1, 1);
                 }
-                else{
+                else
+                {
                     pointArray[point] = new Point(3, 4);
                 }
             }
@@ -350,10 +365,14 @@ public class MainTest {
      * Test situation where number of points < 3
      */
     @Test
-    public void lic7FalseWhenNotEnoughPoints(){
-        for (int points = 1; points < 3; points++){
+    public void lic7FalseWhenNotEnoughPoints()
+    {
+        for (int points = 1; points < 3; points++)
+        {
             Point[] pointArray = new Point[points];
-            for (int point = 0; point < points; point++){
+
+            for (int point = 0; point < points; point++)
+            {
                 pointArray[point] = new Point(0, 0);
             }
 
@@ -368,14 +387,19 @@ public class MainTest {
      * Test situation where there is one exact pair of points longer than LENGTH1
      */
     @Test
-    public void lic7TrueWhenOnePair(){
-        for (int points = 10; points < 20; points++){
+    public void lic7TrueWhenOnePair()
+    {
+        for (int points = 10; points < 20; points++)
+        {
             Point[] pointArray = new Point[points];
-            for (int point = 0; point < points; point++){
+
+            for (int point = 0; point < points; point++)
+            {
                 if (point != (points % 10 + 2) ){
                     pointArray[point] = new Point(1, 1);
                 }
-                else{
+                else
+                {
                     pointArray[point] = new Point(10, 10);
                 }
             }
@@ -391,19 +415,25 @@ public class MainTest {
      * Test situation where all pairs longer than LENGTH1
      */
     @Test
-    public void lic7TrueWhenAllPair(){
-        for (int points = 10; points < 20; points++){
+    public void lic7TrueWhenAllPair()
+    {
+        for (int points = 10; points < 20; points++)
+        {
             Point[] pointArray = new Point[points];
-            for (int point = 0; point < points; point++){
-                if (point < (points / 2) ){
+            for (int point = 0; point < points; point++)
+            {
+                if (point < (points / 2) )
+                {
                     pointArray[point] = new Point(1, 1);
                 }
-                else{
+                else
+                {
                     pointArray[point] = new Point(point * 2 + 1, point * 3 + 1);
                 }
             }
 
-            for (int point = 0; point < points; point++){
+            for (int point = 0; point < points; point++)
+            {
                 System.out.print(pointArray[point].getX());
                 System.out.print(", ");
                 System.out.print(pointArray[point].getY());
@@ -422,13 +452,13 @@ public class MainTest {
      * Verifies that LIC8 returns false when the number of input points is < 5.
      */
     @Test
-    public void lic8TestInvalidInput() {
+    public void lic8TestInvalidInput()
+    {
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0);
-        Point[] planarPoints = {
-                new Point(0,0),
-                new Point(0,0),
-                new Point(0,0),
-        };
+        Point[] planarPoints = {new Point(0,0),
+                                new Point(0,0),
+                                new Point(0,0)};
+
         assertFalse(licHandler.lic8(planarPoints.length, planarPoints));
     }
 
@@ -439,18 +469,17 @@ public class MainTest {
      * within a circle of radius RADIUS1.
      */
     @Test
-    public void lic8CanFitR1() {
+    public void lic8CanFitR1()
+    {
         // Uses A_PTS = B_PTS = 1 and RADIUS1 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0);
-        Point[] planarPoints = {
-                new Point(0,10),
-                new Point(0,0), // skipped
-                new Point(20,0),
-                new Point(20,0), // skipped
-                new Point(30,0),
-        };
-        assertTrue(licHandler.lic8(planarPoints.length, planarPoints));
+        Point[] planarPoints = {new Point(0,10),
+                                new Point(0,0), // skipped
+                                new Point(20,0),
+                                new Point(20,0), // skipped
+                                new Point(30,0)};
 
+        assertTrue(licHandler.lic8(planarPoints.length, planarPoints));
     }
 
     /**
@@ -460,16 +489,16 @@ public class MainTest {
      * radius RADIUS1.
      */
     @Test
-    public void lic8CannotFitR1() {
+    public void lic8CannotFitR1()
+    {
         // Uses A_PTS = B_PTS = 1 and RADIUS1 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0);
-        Point[] planarPoints = {
-                new Point(0,0),
-                new Point(0,0), // skipped
-                new Point(1,0),
-                new Point(0,1), // skipped
-                new Point(0,0),
-        };
+        Point[] planarPoints = {new Point(0,0),
+                                new Point(0,0), // skipped
+                                new Point(1,0),
+                                new Point(0,1), // skipped
+                                new Point(0,0)};
+
         assertFalse(licHandler.lic8(planarPoints.length, planarPoints));
     }
 
@@ -477,10 +506,14 @@ public class MainTest {
      * Test situation where number of points < 3
      */
     @Test
-    public void lic12FalseWhenNotEnoughPoints(){
-        for (int points = 1; points < 3; points++){
+    public void lic12FalseWhenNotEnoughPoints()
+    {
+        for (int points = 1; points < 3; points++)
+        {
             Point[] pointArray = new Point[points];
-            for (int point = 0; point < points; point++){
+
+            for (int point = 0; point < points; point++)
+            {
                 pointArray[point] = new Point(0, 0);
             }
 
@@ -495,10 +528,13 @@ public class MainTest {
      * Test situation where all points are the same
      */
     @Test
-    public void lic12FalseWhenAllPointsSame(){
-        for (int points = 3; points < 10; points++){
+    public void lic12FalseWhenAllPointsSame()
+    {
+        for (int points = 3; points < 10; points++)
+        {
             Point[] pointArray = new Point[points];
-            for (int point = 0; point < points; point++){
+            for (int point = 0; point < points; point++)
+            {
                 pointArray[point] = new Point(0, 0);
             }
 
@@ -513,14 +549,20 @@ public class MainTest {
      * Test situation when points pair differed by exactly LENGHT1
      */
     @Test
-    public void lic12FalseWhenPointsPairEqual1(){
-        for (int points = 10; points < 20; points++){
+    public void lic12FalseWhenPointsPairEqual1()
+    {
+        for (int points = 10; points < 20; points++)
+        {
             Point[] pointArray = new Point[points];
-            for (int point = 0; point < points; point++){
-                if (point < (points / 2) ){
+
+            for (int point = 0; point < points; point++)
+            {
+                if (point < (points / 2))
+                {
                     pointArray[point] = new Point(1, 1);
                 }
-                else{
+                else
+                {
                     pointArray[point] = new Point(3, 4);
                 }
             }
@@ -537,14 +579,19 @@ public class MainTest {
      * Test situation where all pairs longer than LENGTH1, shorter than LENGTH2
      */
     @Test
-    public void lic12TrueWhenAllPair(){
-        for (int points = 10; points < 20; points++){
+    public void lic12TrueWhenAllPair()
+    {
+        for (int points = 10; points < 20; points++)
+        {
             Point[] pointArray = new Point[points];
-            for (int point = 0; point < points; point++){
-                if (point < (points / 2) ){
+            for (int point = 0; point < points; point++)
+            {
+                if (point < (points / 2))
+                {
                     pointArray[point] = new Point(1, 1);
                 }
-                else{
+                else
+                {
                     pointArray[point] = new Point(5, 11);
                 }
             }
@@ -560,14 +607,19 @@ public class MainTest {
      * Test situation where all pairs equal to LENGTH2
      */
     @Test
-    public void lic12FalseWhenPointsPairEqual2(){
-        for (int points = 10; points < 20; points++){
+    public void lic12FalseWhenPointsPairEqual2()
+    {
+        for (int points = 10; points < 20; points++)
+        {
             Point[] pointArray = new Point[points];
-            for (int point = 0; point < points; point++){
-                if (point < (points / 2) ){
+            for (int point = 0; point < points; point++)
+            {
+                if (point < (points / 2) )
+                {
                     pointArray[point] = new Point(1, 1);
                 }
-                else{
+                else
+                {
                     pointArray[point] = new Point(6, 13);
                 }
             }
@@ -583,14 +635,20 @@ public class MainTest {
      * Test situation where all pairs strictly larger than LENGTH2
      */
     @Test
-    public void lic12FalseWhenPointsPairGreater(){
-        for (int points = 10; points < 20; points++){
+    public void lic12FalseWhenPointsPairGreater()
+    {
+        for (int points = 10; points < 20; points++)
+        {
             Point[] pointArray = new Point[points];
-            for (int point = 0; point < points; point++){
-                if (point < (points / 2) ){
+
+            for (int point = 0; point < points; point++)
+            {
+                if (point < (points / 2))
+                {
                     pointArray[point] = new Point(1, 1);
                 }
-                else{
+                else
+                {
                     pointArray[point] = new Point(10, 20);
                 }
             }
@@ -607,13 +665,14 @@ public class MainTest {
      * Verifies that LIC13 returns false when the number of input points is < 5.
      */
     @Test
-    public void lic13TestInvalidInput() {
+    public void lic13TestInvalidInput()
+    {
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
-        Point[] planarPoints = {
-                new Point(0,0),
-                new Point(0,0),
-                new Point(0,0),
-        };
+
+        Point[] planarPoints = {new Point(0,0),
+                                new Point(0,0),
+                                new Point(0,0)};
+
         assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
     }
 
@@ -625,18 +684,18 @@ public class MainTest {
      * circle of radius RADIUS2.
      */
     @Test
-    public void lic13CanFitR2ButNotR1() {
+    public void lic13CanFitR2ButNotR1()
+    {
         // Uses A_PTS = B_PTR = RADIUS1 = 1 and RADIUS2 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
-        Point[] planarPoints = {
-                new Point(0,0),
-                new Point(10,0), // skipped
-                new Point(3,0),
-                new Point(20,0), // skipped
-                new Point(0,3),
-        };
-        assertTrue(licHandler.lic13(planarPoints.length, planarPoints));
 
+        Point[] planarPoints = {new Point(0,0),
+                                new Point(10,0), // skipped
+                                new Point(3,0),
+                                new Point(20,0), // skipped
+                                new Point(0,3)};
+
+        assertTrue(licHandler.lic13(planarPoints.length, planarPoints));
     }
 
     /**
@@ -645,16 +704,17 @@ public class MainTest {
      * that can fit within a circle of radius RADIUS1.
      */
     @Test
-    public void lic13FitR1ButNotR2() {
+    public void lic13FitR1ButNotR2()
+    {
         // Uses A_PTS = B_PTR = RADIUS1 = 1 and RADIUS2 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
-        Point[] planarPoints = {
-                new Point(0,0),
-                new Point(0,0), // skipped
-                new Point(1,0),
-                new Point(0,1), // skipped
-                new Point(0,0),
-        };
+
+        Point[] planarPoints = {new Point(0,0),
+                                new Point(0,0), // skipped
+                                new Point(1,0),
+                                new Point(0,1), // skipped
+                                new Point(0,0)};
+
         assertFalse(licHandler.lic13(5, planarPoints));
     }
 
@@ -664,16 +724,17 @@ public class MainTest {
      * that fit a circle of radius RADIUS1 nor a circle of radius RADIUS2.
      */
     @Test
-    public void lic13FitNone() {
+    public void lic13FitNone()
+    {
         // Uses A_PTS = B_PTR = RADIUS1 = 1 and RADIUS2 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
-        Point[] planarPoints = {
-                new Point(0,0),
-                new Point(10,0),
-                new Point(20,0),
-                new Point(0,10),
-                new Point(0,20),
-        };
+
+        Point[] planarPoints = {new Point(0,0),
+                                new Point(10,0),
+                                new Point(20,0),
+                                new Point(0,10),
+                                new Point(0,20)};
+
         assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
     }
 
@@ -686,14 +747,14 @@ public class MainTest {
     public void lic13FitBothR1AndR2() {
         // Uses A_PTS = B_PTR = RADIUS1 = 1 and RADIUS2 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
-        Point[] planarPoints = {
-                new Point(0.0,0.0),
-                new Point(0.2,0),
-                new Point(0.4,0.0),
-                new Point(0.2,0.2),
-                new Point(0.4,0.2),
-                new Point(0.3, 0.1)
-        };
+
+        Point[] planarPoints = {new Point(0.0,0.0),
+                                new Point(0.2,0),
+                                new Point(0.4,0.0),
+                                new Point(0.2,0.2),
+                                new Point(0.4,0.2),
+                                new Point(0.3, 0.1)};
+
         assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
     }
 }

@@ -119,6 +119,10 @@ public class LaunchInterceptorConditionParameters
                     double diameterSquared = RADIUS1*RADIUS1*4;
 
                     if (distance > diameterSquared) return true;
+
+                    double diameter_squared = RADIUS1*RADIUS1*4;
+
+                    if (distance > diameter_squared) return true;
                 }
             }
         }
@@ -136,8 +140,8 @@ public class LaunchInterceptorConditionParameters
      * @param planarPoints      - The array of Points to validate
      * @param planarPointAmount - The amount of planar Points within the planarPoints array
      *
-     * @return true if there exists a set of three consecutive datapoints
-     *          that meets the conditions and false otherwise.
+     * @return true if there exists a set of three consecutive data points
+     *         that meets the conditions and false otherwise.
      */
     public boolean validateAngle(int planarPointAmount, Point[] planarPoints)
     {
@@ -218,6 +222,7 @@ public class LaunchInterceptorConditionParameters
                               (corner1.getY()-corner0.getY())) -
                              ((corner0.getX()-corner1.getX()) *
                               (corner2.getY()-corner0.getY()));
+
         double area = Math.abs(determinant)/2;
 
         return area;
@@ -230,7 +235,7 @@ public class LaunchInterceptorConditionParameters
      * @param planarPoints      - the planar points
      *
      * @return True if there exists at least one set of 2 consecutive data points
-     *                 such that the difference in x-coordinates is less than 0.
+     *         such that the difference in x-coordinates is less than 0.
      */
     public static boolean lic5(Point[] planarPoints, int planarPointAmount)
     {
@@ -417,3 +422,4 @@ public class LaunchInterceptorConditionParameters
         return condition1 && condition2;
     }
 }
+
