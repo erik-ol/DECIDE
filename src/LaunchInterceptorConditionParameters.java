@@ -70,6 +70,27 @@ public class LaunchInterceptorConditionParameters {
     }
 
     /**
+     * Launch Interceptor Condition 0
+     * 
+     * @param planarPointAmount
+     * @param planarPoints
+     * @return True iff at least one set of 2 consecutive data points that are a distance greater than length LENGTH1 apart
+     */
+    public boolean lic0(int planarPointAmount, Point[] planarPoints){
+        for (int pointidx = 1; pointidx < planarPointAmount; pointidx++){
+            double deltaX = planarPoints[pointidx].getX() - planarPoints[pointidx - 1].getX();
+            double deltaY = planarPoints[pointidx].getY() - planarPoints[pointidx - 1].getY();
+            double distance = (deltaX * deltaX) + (deltaY * deltaY);
+            
+            // Compare the squared distance rather than taking square root
+            double distance_required = this.LENGTH1 * this.LENGTH1;
+
+            if (distance > distance_required) return true;
+        }
+        return false;
+    }
+    
+    /**
      * Launch Interceptor Condition 1
      * @return True iff there exists 3 consecutive points that cannot all be contained within or on a circle of radius RADIUS1
      */
@@ -117,7 +138,5 @@ public class LaunchInterceptorConditionParameters {
             if(p2X - p1X < 0) {
                 return true;
             }
-        }
-        return false;
-    }
+        
 }
