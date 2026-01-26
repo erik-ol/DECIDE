@@ -92,7 +92,7 @@ public class MainTest {
         
     }
 
-    
+    @Test
     /**
      * Tests situations where lic1 should be true
      */
