@@ -9,6 +9,8 @@ import org.junit.*;
  */
 public class MainTest {
 
+    //// TEST CASES FOR LIC 1
+
     @Test
     /**
      * Tests situations where lic1 should be false
@@ -64,6 +66,57 @@ public class MainTest {
         
     }
 
+
+    //// TEST CASES FOR LIC 3
+
+    @Test
+    /**
+     * Tests situations where lic3 should be false
+     */
+    public void lic3Negative() {
+
+        Random random = new Random();
+        
+        for (int points = 0; points<100; points++) {
+
+            Point[] pointArray = new Point[points];
+
+            if (points>0) pointArray[0] = new Point(0, 0);
+
+            for (int point = 1; point<points; point++) {
+                double pointX = pointArray[point-1].getX() + random.nextDouble();
+                double pointY = pointArray[point-1].getY() + random.nextDouble() - 0.5;
+                pointArray[point] = new Point(pointX, pointY);
+
+            }
+
+            LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            
+            Assert.assertFalse(licHandler.lic_3(points, pointArray));
+        }
+        
+    }
+
+    @Test
+    /**
+     * Tests situations where lic3 should be true
+     */
+    public void lic3Positive() {
+
+        int points = 4;
+
+        Point[] pointArray = {
+            new Point(0.0, 0.0),
+            new Point(1.0, 0.0),
+            new Point(5.0, 0.0),
+            new Point(2.0, 11.0)
+        };
+
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        
+        Assert.assertTrue(licHandler.lic_3(points, pointArray));
+        
+    }
  
     //// TEST CASES FOR LIC 5
 
