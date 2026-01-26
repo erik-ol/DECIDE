@@ -85,9 +85,9 @@ public class LaunchInterceptorConditionParameters {
                     double distance = (deltaX*deltaX)+(deltaY*deltaY);
 
                     // compare squared distances rather than taking square root
-                    double diameter_squared = RADIUS1*RADIUS1*4;
+                    double diameterSquared = RADIUS1*RADIUS1*4;
 
-                    if (distance > diameter_squared) return true;
+                    if (distance > diameterSquared) return true;
                 }
             }
         }
