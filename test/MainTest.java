@@ -110,5 +110,110 @@ public class MainTest {
         assertFalse(res);
     }
 
-    
+
+    /**
+     * Negative test for LIC13 with invalid input
+     * 
+     * Verifies that LIC13 returns false when the number of input points is < 5.
+     */
+    @Test
+    public void lic13TestInvalidInput() {
+        // typ 0, 2, 0,...
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
+        Point[] planarPoints = {
+            new Point(0,0),
+            new Point(0,0),
+            new Point(0,0),
+        };
+        assertFalse(licHandler.lic_13(planarPoints.length, planarPoints));
+    }
+
+
+    /**
+     * Positive test for LIC13
+     * 
+     * Verifies that LIC13 returns true when there exist a triplet of points
+     * that cannot fit within a circle of radius RADIUS1, but there exists a 
+     * triplet (possibly different triplet) of points that can fit within a
+     * circle of radius RADIUS2.
+     * 
+     * Test uses A_PTS = B_PTS = RADIUS1 = 1 and RADIUS2 = 5.
+     */
+    @Test
+    public void lic13CanFitR2ButNotR1() {
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
+        Point[] planarPoints = {
+            new Point(0,0),
+            new Point(10,0), // skipped
+            new Point(3,0),
+            new Point(20,0), // skipped
+            new Point(0,3),
+        };
+        assertTrue(licHandler.lic_13(planarPoints.length, planarPoints));
+
+    }
+
+    /**
+     * Negative test for LIC13
+     * 
+     * Verifies that LIC13 returns false when there exists a triplet of points
+     * that can fit within a circle of radius RADIUS1.
+     * 
+     * Test uses A_PTS = B_PTS = RADIUS1 = 1 and RADIUS2 = 5
+     */
+    @Test
+    public void lic13FitR1ButNotR2() {
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
+        Point[] planarPoints = {
+            new Point(0,0),
+            new Point(0,0), // skipped
+            new Point(1,0),
+            new Point(0,1), // skipped
+            new Point(0,0),
+        };
+        assertFalse(licHandler.lic_13(5, planarPoints));
+    }
+
+    /**
+     * Negative test for LIC13.
+     * 
+     * Verifies that LIC13 returns false when there exist no triplet of points
+     * that fit a circle of radius RADIUS1 nor a circle of radius RADIUS2.
+     * 
+     * Test uses A_PTS = B_PTS = RADIUS1 = 1 and RADIUS2 = 5
+     */
+    @Test
+    public void lic13FitNone() {
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
+        Point[] planarPoints = {
+            new Point(0,0),
+            new Point(10,0),
+            new Point(20,0),
+            new Point(0,10),
+            new Point(0,20),
+        };
+        assertFalse(licHandler.lic_13(planarPoints.length, planarPoints));    
+    }
+
+    /**
+     * Negative test for LIC13.
+     * 
+     * Verifies that LIC13 returns false when there exist triplet(s) of points
+     * that fit both a circle of radius RADIUS1 and a circle of radius RADIUS2.
+     * 
+     * Test uses A_PTS = B_PTR = RADIUS1 = 1 and RADIUS2 = 5
+     */
+    @Test
+    public void lic13FitBothR1AndR2() {
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
+        Point[] planarPoints = {
+            new Point(0.0,0.0),
+            new Point(0.2,0),
+            new Point(0.4,0.0),
+            new Point(0.2,0.2),
+            new Point(0.4,0.2),
+            new Point(0.3, 0.1)
+        };
+        assertFalse(licHandler.lic_13(planarPoints.length, planarPoints));    
+    }   
 }
