@@ -344,8 +344,8 @@ public class MainTest
     }
 
     /**
-    * Test situation where the x-coordinate decreases
-    */
+     * Test situation where the x-coordinate decreases
+     */
     @Test
 
     public void lic5TrueWhenXDecreases()
@@ -1170,6 +1170,7 @@ public class MainTest
                                 new Point(20,0),
                                 new Point(0,10),
                                 new Point(0,20)};
+
 
         assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
     }
