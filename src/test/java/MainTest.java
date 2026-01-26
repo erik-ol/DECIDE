@@ -96,7 +96,6 @@ public class MainTest
         
     }
 
-
     /**
      * Tests situations where lic1 should be true
      */

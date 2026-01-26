@@ -297,7 +297,7 @@ public class LaunchInterceptorConditionParameters
     /**
      * Verifies Launch Interceptor Condition 8
      * LIC8 is true iff:
-     * There exists at least one triplet of consequtive points, seperated by 
+     * There exists at least one triplet of consecutive points, separated by
      * A_PTS and B_PTS, that cannot be contained with or on a circle of radius RADIUS1
      * 
      * @param planarPointAmount - number of points in the planarPoints array
