@@ -68,4 +68,24 @@ public class LaunchInterceptorConditionParameters {
         this.RADIUS2 = RADIUS2;
         this.AREA2 = AREA2;
     }
+
+    /**
+     * Launch Interceptor Condition 0
+     * @param planarPointAmount
+     * @param planarPoints
+     * @return True iff at least one set of 2 consecutive data points that are a distance greater than length LENGTH1 apart
+     */
+    public boolean lic_0(int planarPointAmount, Point[] planarPoints){
+        for (int pointidx = 1; pointidx < planarPointAmount; pointidx++){
+            double deltaX = planarPoints[pointidx].getX() - planarPoints[pointidx - 1].getX();
+            double deltaY = planarPoints[pointidx].getY() - planarPoints[pointidx - 1].getY();
+            double distance = (deltaX * deltaX) + (deltaY * deltaY);
+            
+            // Compare the squared distance rather than taking square root
+            double distance_required = this.LENGTH1 * this.LENGTH1;
+
+            if (distance > distance_required) return true;
+        }
+        return false;
+    }
 }
