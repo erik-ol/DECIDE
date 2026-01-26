@@ -140,6 +140,36 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean validateAngle(int planarPointAmount, Point[] planarPoints)
     {
+        // Check if the array has enough elements
+        if(planarPointAmount < 3)
+            return false;
+
+        for(int point = 0; point < planarPointAmount; point += 3)
+        {
+            double[] firstPoint = {planarPoints[point].getX(), planarPoints[point].getY()};
+            double[] vertex     = {planarPoints[point + 1].getX(), planarPoints[point + 1].getY()};
+            double[] lastPoint  = {planarPoints[point + 2].getX(), planarPoints[point + 2].getY()};
+
+            // Check if the first and last point coincides with the vertex
+            double epsilon = 1e-9;
+            boolean firstNotVertex = Math.abs(firstPoint[0] - vertex[0]) > epsilon || Math.abs(firstPoint[1] - vertex[1]) > epsilon;
+            boolean lastNotVertex  = Math.abs(lastPoint[0] - vertex[0]) > epsilon || Math.abs(lastPoint[1] - vertex[1]) > epsilon;
+
+            if(firstNotVertex && lastNotVertex)
+            {
+                double[] vertexToFirstPoint = {firstPoint[0] - vertex[0], firstPoint[1] - vertex[1]};
+                double[] vertexToLastPoint  = {lastPoint[0] - vertex[0], lastPoint[1] - vertex[1]};
+
+                double angle = Math.acos(((vertexToFirstPoint[0] * vertexToLastPoint[0]) +
+                                          (vertexToFirstPoint[1] * vertexToLastPoint[1])) /
+                                         (Math.sqrt(Math.pow(vertexToFirstPoint[0]) + Math.pow(vertexToFirstPoint[1])) *
+                                          Math.sqrt(Math.pow(vertexToLastPoint[0]) + Math.pow(vertexToLastPoint[1]))));
+
+                if ((angle < (PI - EPSILON)) || (angle > (PI + EPSILON)))
+                    return true;
+            }
+        }
+
         return false;
     }
 
