@@ -89,4 +89,54 @@ public class LaunchInterceptorConditionParameters {
         }
         return false;
     }
+    
+    /**
+     * Launch Interceptor Condition 1
+     * @return True iff there exists 3 consecutive points that cannot all be contained within or on a circle of radius RADIUS1
+     */
+    public boolean lic_1(int planarPointAmount, Point[] planarPoints) {
+
+        for (int i = 2; i < planarPointAmount; i++) {
+            // compare pairwise distances
+            for (int point1 = i-2; point1 <= i; point1++) {
+                for (int point2 = i-2; point2 <= i; point2++) {
+
+                    double deltaX = planarPoints[point1].getX() - planarPoints[point2].getX();
+                    double deltaY = planarPoints[point1].getY() - planarPoints[point2].getY();
+                    double distance = (deltaX*deltaX)+(deltaY*deltaY);
+
+                    // compare squared distances rather than taking square root
+                    double diameter_squared = RADIUS1*RADIUS1*4;
+
+                    if (distance > diameter_squared) return true;
+                }
+            }
+        }
+
+        // no points met conditions
+        return false;
+    }
+    /**
+     * Launch Interceptor Condition 5
+     * 
+     * @param planarPoints the planar points
+     * @param planarPointAmount the number of planar points
+     * @return True if there exists at least one set of 2 consecutive data points such that the difference in x-coordinates is less than 0.
+     */
+    public static boolean lic5(Point[] planarPoints, int planarPointAmount) {
+
+        if(planarPointAmount < 2) {
+            return false;
+        }
+
+        for (int i = 0; i < planarPointAmount-1; i++) {
+            Point p1 = planarPoints[i];
+            Point p2 = planarPoints[i+1];
+            double p1X = p1.getX();
+            double p2X = p2.getX();
+
+            if(p2X - p1X < 0) {
+                return true;
+            }
+        
 }
