@@ -276,6 +276,7 @@ public class MainTest
     * Test situation where the x-coordinate decreases
     */
     @Test
+
     public void lic5TrueWhenXDecreases()
     {
         Point[] points = {new Point(3.0, 0.0),
@@ -302,7 +303,8 @@ public class MainTest
      * Test situation where the x-coordinate stays the same
      */
     @Test
-    public void lic5FalseWhenXIsEqual() {
+    public void lic5FalseWhenXIsEqual()
+    {
         Point[] points = {new Point(2.0, 0.0),
                           new Point(2.0, 0.0)};
 

@@ -188,8 +188,8 @@ public class LaunchInterceptorConditionParameters
      * @param planarPoints      - The array of Points to validate
      * @param planarPointAmount - The amount of planar Points within the planarPoints array
      * 
-     * @return true if there exists a set of three consecutive datapoints
-     *          that meets the conditions and false otherwise.
+     * @return true if there exists a set of three consecutive data points
+     *         that meets the conditions and false otherwise.
      */
     public boolean validateTriangleArea(int planarPointAmount, Point[] planarPoints)
     {
