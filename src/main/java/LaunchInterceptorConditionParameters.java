@@ -135,7 +135,7 @@ public class LaunchInterceptorConditionParameters
      * @param planarPoints      - The array of Points to validate
      * @param planarPointAmount - The amount of planar Points within the planarPoints array
      *
-     * @returns true if there exists a set of three consecutive datapoints
+     * @return true if there exists a set of three consecutive datapoints
      *          that meets the conditions and false otherwise.
      */
     public boolean validateAngle(int planarPointAmount, Point[] planarPoints)
@@ -160,12 +160,13 @@ public class LaunchInterceptorConditionParameters
                 double[] vertexToFirstPoint = {firstPoint[0] - vertex[0], firstPoint[1] - vertex[1]};
                 double[] vertexToLastPoint  = {lastPoint[0] - vertex[0], lastPoint[1] - vertex[1]};
 
-                double angle = Math.acos(((vertexToFirstPoint[0] * vertexToLastPoint[0]) +
-                                          (vertexToFirstPoint[1] * vertexToLastPoint[1])) /
-                                         (Math.sqrt(Math.pow(vertexToFirstPoint[0]) + Math.pow(vertexToFirstPoint[1])) *
-                                          Math.sqrt(Math.pow(vertexToLastPoint[0]) + Math.pow(vertexToLastPoint[1]))));
+                double angle = Math.atan2((vertexToFirstPoint[0] * vertexToLastPoint[1]) + (vertexToFirstPoint[1] * vertexToLastPoint[0]),
+                                          (vertexToFirstPoint[0] * vertexToLastPoint[0]) + (vertexToFirstPoint[1] * vertexToLastPoint[1]));
 
-                if ((angle < (PI - EPSILON)) || (angle > (PI + EPSILON)))
+                if(angle < 0)
+                    angle += 2 * Math.PI;
+
+                if ((angle < (Math.PI - EPSILON)) || (angle > (Math.PI + EPSILON)))
                     return true;
             }
         }
@@ -242,6 +243,7 @@ public class LaunchInterceptorConditionParameters
                 return true;
             }
         }
+        return false;
     }
 
     /**

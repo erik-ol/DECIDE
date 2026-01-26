@@ -197,7 +197,7 @@ public class MainTest {
 
     /**
      * Tests LIC-2 angle verification for the case when all Points have different
-     * values creating an angle > (PI - EPSILON).
+     * values creating an angle > (PI + EPSILON).
      */
     @Test
     public void lic2ValidateAngleDifferentPoints()
@@ -209,7 +209,7 @@ public class MainTest {
                                                                                             0, 0, 0, 0);
         Point[] points = {new Point(1.0, 0.0),
                           new Point(0.0, 0.0),
-                          new Point(-1.0, -1.0)};
+                          new Point(0.1, -1.0)};
 
         Assert.assertTrue(lic.validateAngle(points.length, points));
     }
