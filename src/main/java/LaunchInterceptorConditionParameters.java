@@ -24,7 +24,8 @@ public class LaunchInterceptorConditionParameters
     private double AREA2;
     
     /**
-     * Connstructs the LaunchInterceptorConditionParameters
+     * Constructs the LaunchInterceptorConditionParameters
+     * 
      * @param LENGTH1 Length in LICs 0, 7, 12
      * @param RADIUS1 Radius in LICs 1, 8, 13
      * @param EPSILON Deviation from PI in LICs 2, 9
@@ -79,7 +80,7 @@ public class LaunchInterceptorConditionParameters
      * @param planarPointAmount - Number of planar points
      * @param planarPoints      - Planar points array
      * 
-     * @return True iff at least one set of 2 consecutive data points that are a distance greater than length LENGTH1 apart
+     * @return True if at least one set of 2 consecutive data points that are a distance greater than length LENGTH1 apart
      */
     public boolean doesTwoConsecutivePointsFurtherThanLength1(int planarPointAmount, Point[] planarPoints)
     {
@@ -99,7 +100,11 @@ public class LaunchInterceptorConditionParameters
 
     /**
      * Launch Interceptor Condition 1
-     * @return True iff there exists 3 consecutive points that cannot all be contained within or on a circle of radius RADIUS1
+     *
+     * @param planarPointAmount - Number of planar points
+     * @param planarPoints      - Planar points array
+     *
+     * @return True if there exists 3 consecutive points that cannot all be contained within or on a circle of radius RADIUS1
      */
     public boolean lic_1(int planarPointAmount, Point[] planarPoints)
     {
