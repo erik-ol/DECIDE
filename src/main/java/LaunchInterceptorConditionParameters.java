@@ -348,7 +348,7 @@ public class LaunchInterceptorConditionParameters
      * @return true if the points are separated by C_PTS and D_PTS as well as
      *         fulfilling the validateAngle() condition, otherwise false.
      */
-    public boolean validateConsecutivePointsSeparation(int planarPointAmount, Point[] planarPoints)
+    public boolean validateAngleConsecutivePointsSeparation(int planarPointAmount, Point[] planarPoints)
     {
         if((planarPointAmount < 5) || (1 > C_PTS) || (1 > D_PTS) || ((C_PTS + D_PTS) > (planarPointAmount - 3)))
             return false;

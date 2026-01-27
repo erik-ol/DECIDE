@@ -506,7 +506,7 @@ public class MainTest
      * too short.
      */
     @Test
-    public void lic9ValidateConsecutivePointsSeparationTooFewPoints()
+    public void lic9ValidateAngleConsecutivePointsSeparationTooFewPoints()
     {
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
                 0, 0, 0, 0,
@@ -516,14 +516,14 @@ public class MainTest
         Point[] points = {new Point(1.0, 2.0),
                 new Point(2.0, 3.0)};
 
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+        Assert.assertFalse(lic.validateAngleConsecutivePointsSeparation(points.length, points));
     }
 
     /**
      * LIC-9 consecutive points verification for the case when too many Points.
      */
     @Test
-    public void lic9ValidateConsecutivePointsSeparationTooManyPoints()
+    public void lic9ValidateAngleConsecutivePointsSeparationTooManyPoints()
     {
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
                 0, 0, 0, 0,
@@ -537,7 +537,7 @@ public class MainTest
                 new Point(0.1, -1.0),
                 new Point(0.5, -1.0)};
 
-        Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
+        Assert.assertTrue(lic.validateAngleConsecutivePointsSeparation(points.length, points));
     }
 
     /**
@@ -545,7 +545,7 @@ public class MainTest
      * consecutive intervening Points.
      */
     @Test
-    public void lic9ValidateConsecutivePointsSeparationNoConsecutivePoints()
+    public void lic9ValidateAngleConsecutivePointsSeparationNoConsecutivePoints()
     {
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
                 0, 0, 0, 0,
@@ -558,7 +558,7 @@ public class MainTest
                 new Point(0.5, -1.0),
                 new Point(1.0, -1.0)};
 
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+        Assert.assertFalse(lic.validateAngleConsecutivePointsSeparation(points.length, points));
     }
 
     /**
@@ -566,7 +566,7 @@ public class MainTest
      * is not valid, where one periphery Points is equal to the vertex.
      */
     @Test
-    public void lic9ValidateConsecutivePointsSeparationInvalidAngle()
+    public void lic9ValidateAngleConsecutivePointsSeparationInvalidAngle()
     {
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
                 0, 0, 0, 0,
@@ -579,7 +579,7 @@ public class MainTest
                 new Point(2.0, 2.0),
                 new Point(3.0, 4.0)};
 
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+        Assert.assertFalse(lic.validateAngleConsecutivePointsSeparation(points.length, points));
     }
 
     /**
@@ -587,7 +587,7 @@ public class MainTest
      * are valid.
      */
     @Test
-    public void lic9ValidateConsecutivePointsSeparationValidParameters()
+    public void lic9ValidateAngleConsecutivePointsSeparationValidParameters()
     {
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
                 0, 0, 0, 0,
@@ -600,7 +600,7 @@ public class MainTest
                 new Point(0.0, -0.5),
                 new Point(0.1, -1.0)};
 
-        Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
+        Assert.assertTrue(lic.validateAngleConsecutivePointsSeparation(points.length, points));
     }
 
     /**
