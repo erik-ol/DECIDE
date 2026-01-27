@@ -112,6 +112,92 @@ public class MainTest {
 
 
 
+    //// TEST CASES FOR LIC 6
+
+    /**
+     * Negative test for LIC6 with invalid input.
+     * Verifies that LIC6 returns false when NUMPOINTS < 3.
+     */
+    @Test
+    public void lic6FalseWhenTooFewPoints() {
+        // N_PTS=3, DIST=1.0
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 0, 0, 1.0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        Point[] planarPoints = {
+            new Point(0, 0),
+            new Point(5, 5),
+        };
+        assertFalse(licHandler.lic6(planarPoints.length, planarPoints));
+    }
+
+    /**
+     * Positive test for LIC6.
+     * Verifies that LIC6 returns true when a point lies far from the line
+     * joining the first and last of the N_PTS consecutive points.
+     */
+    @Test
+    public void lic6TrueWhenPointFarFromLine() {
+        // Points: (0,0), (0,10), (10,0) — middle point is far from line (0,0)-(10,0)
+        // N_PTS=3, DIST=1.0
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 0, 0, 1.0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        Point[] planarPoints = {
+            new Point(0, 0),
+            new Point(0, 10),
+            new Point(10, 0),
+        };
+        assertTrue(licHandler.lic6(planarPoints.length, planarPoints));
+    }
+
+    /**
+     * Negative test for LIC6.
+     * Verifies that LIC6 returns false when all intermediate points are close to the line.
+     */
+    @Test
+    public void lic6FalseWhenAllPointsNearLine() {
+        // Points all on x-axis, DIST=1.0 — all on the line
+        // N_PTS=3, DIST=1.0
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 0, 0, 1.0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        Point[] planarPoints = {
+            new Point(0, 0),
+            new Point(5, 0),
+            new Point(10, 0),
+        };
+        assertFalse(licHandler.lic6(planarPoints.length, planarPoints));
+    }
+
+    /**
+     * Positive test for LIC6 when first and last points coincide.
+     * Verifies that LIC6 returns true when first and last points are identical
+     * and another point is farther than DIST from the coincident point.
+     */
+    @Test
+    public void lic6TrueWhenFirstLastCoincide() {
+        // N_PTS=3, DIST=1.0; first and last are (0,0), middle is (5,5) — distance ~7.07 > 1.0
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 0, 0, 1.0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        Point[] planarPoints = {
+            new Point(0, 0),
+            new Point(5, 5),
+            new Point(0, 0),
+        };
+        assertTrue(licHandler.lic6(planarPoints.length, planarPoints));
+    }
+
+    /**
+     * Negative test for LIC6 when first and last points coincide.
+     * Verifies that LIC6 returns false when first and last points are identical
+     * and all other points are within DIST of the coincident point.
+     */
+    @Test
+    public void lic6FalseWhenFirstLastCoincideAllClose() {
+        // N_PTS=3, DIST=10.0; first and last are (0,0), middle is (0.5,0.5) — distance ~0.7 < 10.0
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 0, 0, 10.0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        Point[] planarPoints = {
+            new Point(0, 0),
+            new Point(0.5, 0.5),
+            new Point(0, 0),
+        };
+        assertFalse(licHandler.lic6(planarPoints.length, planarPoints));
+    }
+
     /**
      * Negative test for LIC8 with invalid input
      * Verifies that LIC8 returns false when the number of input points is < 5.
