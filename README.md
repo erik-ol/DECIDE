@@ -1,1 +1,11 @@
-# DECIDE
+# DECIDE REPORT
+
+## Statements of contributions
+
+| Name | Contribution                                                                                                                                                                                                                                                                                                                                          |
+|------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Josefine | <ul><li>[x] LIC-2, angle verification for three consecutive datapoints<ul><li>[x] Implemented LIC-2 logic in `validateAngle()` within `LaunchInterceptorConditionParameters.java`</li></ul><ul><li>[x] Implemented relevant test methods in accordance to **JUnit 4** and **Maven** corresponding to LIC-2 within `MainTest.java`</li></ul></li></ul> |
+| |                                                                                                                                                                                                                                                                                                                                                       |
+| |                                                                                                                                                                                                                                                                                                                                                       |
+| |                                                                                                                                                                                                                                                                                                                                                       |
+| |                                                                                                                                                                                                                                                                                                                                                       |
