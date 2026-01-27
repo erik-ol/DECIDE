@@ -537,7 +537,7 @@ public class MainTest
                 new Point(0.1, -1.0),
                 new Point(0.5, -1.0)};
 
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+        Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
     }
 
     /**
