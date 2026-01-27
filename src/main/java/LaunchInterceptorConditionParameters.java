@@ -336,10 +336,11 @@ public class LaunchInterceptorConditionParameters
     }
 
     /**
-     *  Verifies if there exists at least one set of three points separated
-     *  exactly C_PTS and D_PTS consecutive intervening points, respectively,
-     *  such that: angle < (PI - EPSILON) or angle > (PI + EPSILON), where
-     *  angle is the angle between the three points. This as a part of the LICs.
+     * Launch Interceptor Condition 9:
+     * Verifies if there exists at least one set of three points separated
+     * exactly C_PTS and D_PTS consecutive intervening points, respectively,
+     * such that: angle < (PI - EPSILON) or angle > (PI + EPSILON), where
+     * angle is the angle between the three points. This as a part of the LICs.
      *
      * @param planarPoints      - The array of Points to validate
      * @param planarPointAmount - The amount of planar Points within the planarPoints array
