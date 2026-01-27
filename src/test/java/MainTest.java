@@ -777,8 +777,6 @@ public class MainTest
         Assert.assertTrue(lic.validateAngleConsecutivePointsSeparation(points.length, points));
     }
 
-    //// TEST CASES FOR LIC 10
-
     /**
      * Negative test for LIC10 with invalid input.
      * Verifies that LIC10 returns false when NUMPOINTS < 5.
@@ -1192,11 +1190,10 @@ public class MainTest
      * that fit both a circle of radius RADIUS1 and a circle of radius RADIUS2.
      */
     @Test
-    public void lic13FitBothR1AndR2()
-    {
+    public void lic13FitBothR1AndR2() {
         // Uses A_PTS = B_PTR = RADIUS1 = 1 and RADIUS2 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
-
+        
         Point[] planarPoints = {new Point(0.0, 0.0),
                 new Point(0.2, 0),
                 new Point(0.4, 0.0),
