@@ -71,8 +71,8 @@ public class LaunchInterceptorConditionParameters {
     
     /**
      * Launch Interceptor Condition 0
-     * @param planarPointAmount
-     * @param planarPoints
+     * @param planarPointAmount Number of planar points
+     * @param planarPoints Planar points array
      * @return True iff at least one set of 2 consecutive data points that are a distance greater than length LENGTH1 apart
      */
     public boolean lic_0(int planarPointAmount, Point[] planarPoints){
