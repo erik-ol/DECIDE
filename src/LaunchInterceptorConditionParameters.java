@@ -122,7 +122,7 @@ public class LaunchInterceptorConditionParameters {
     }
 
     /**
-     * Launch Interceptor Condition 13
+     * Verifies Launch Interceptor Condition 13
      * 
      * LIC13 is true iff:
      * 1) There exists at least one triplet of points, seperated by A_PTS and B_PTS,
@@ -131,10 +131,12 @@ public class LaunchInterceptorConditionParameters {
      * that can be contained with or on a circle of radius RADIUS2.
      * 
      * @param planarPointAmount number of points in the planarPoints array
+     * 
      * @param planarPoints the array of 2D coordinates
-     * @return true if the LIC13condition is satisfied; false otherwise
+     * 
+     * @return true if the LIC13 condition is satisfied; false otherwise
      */
-    public boolean lic_13(int planarPointAmount, Point[] planarPoints) {
+    public boolean lic13(int planarPointAmount, Point[] planarPoints) {
 
         if(planarPointAmount < 5) {
             return false;
@@ -155,19 +157,14 @@ public class LaunchInterceptorConditionParameters {
             double distance12 = Math.pow(p1.getX()-p2.getX(), 2) + Math.pow(p1.getY()-p2.getY(), 2);
             double distance13 = Math.pow(p1.getX()-p3.getX(), 2) + Math.pow(p1.getY()-p3.getY(), 2);
             double distance23 = Math.pow(p2.getX()-p3.getX(), 2) + Math.pow(p2.getY()-p3.getY(), 2);
-             
-
+            
             if(!(distance12 <= diameter1Squared && distance13 <= diameter1Squared && distance23 <= diameter1Squared)) {
                 condition1 = true;
             }
             if(distance12 <= diameter2Squared && distance13 <= diameter2Squared && distance23 <= diameter2Squared) {
                 condition2 = true;
             }
-
         }
-
         return condition1 && condition2;
     }
-
-
 }
