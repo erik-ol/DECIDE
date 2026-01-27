@@ -66,14 +66,11 @@ public class MainTest {
         
     }
 
-
-    //// TEST CASES FOR LIC 3
-
     @Test
     /**
-     * Tests situations where lic3 should be false
+     * Tests that LIC-3 triangle verification is false for line of points where consecutive points are very close
      */
-    public void lic3Negative() {
+    public void lic3FalseForRandomizedLineOfPoints() {
 
         Random random = new Random();
         
@@ -92,16 +89,16 @@ public class MainTest {
 
             LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             
-            Assert.assertFalse(licHandler.lic_3(points, pointArray));
+            Assert.assertFalse(licHandler.validateTriangleArea(points, pointArray));
         }
         
     }
 
     @Test
     /**
-     * Tests situations where lic3 should be true
+     * Tests that LIC-3 triangle verification is true for a triangle with area greater than AREA1
      */
-    public void lic3Positive() {
+    public void lic3TrueWhenTriangleAreaSufficient() {
 
         int points = 4;
 
@@ -114,7 +111,7 @@ public class MainTest {
 
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         
-        Assert.assertTrue(licHandler.lic_3(points, pointArray));
+        Assert.assertTrue(licHandler.validateTriangleArea(points, pointArray));
         
     }
  

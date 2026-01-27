@@ -97,10 +97,18 @@ public class LaunchInterceptorConditionParameters {
     }
 
     /**
-     * Launch Interceptor Condition 3
-     * @return True iff there exists 3 consecutive data points that are the vertices of a triangle with area greater than AREA1
+     * Launch Interceptor Condition 3:
+     * Verifies there exists at least one set of three
+     * consecutive data points that are the vertices of
+     * a triangle with area greater than AREA1.
+     * 
+     * @param planarPoints      - The array of Points to validate
+     * @param planarPointAmount - The amount of planar Points within the planarPoints array
+     * 
+     * @return true if there exists a set of three consecutive datapoints
+     *          that meets the conditions and false otherwise.
      */
-    public boolean lic_3(int planarPointAmount, Point[] planarPoints) {
+    public boolean validateTriangleArea(int planarPointAmount, Point[] planarPoints) {
 
         for (int i = 2; i < planarPointAmount; i++) {
 
