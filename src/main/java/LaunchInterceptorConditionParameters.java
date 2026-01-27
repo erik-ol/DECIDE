@@ -388,6 +388,15 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean validateConsecutivePointsSeparation(int planarPointAmount, Point[] planarPoints)
     {
+        if((planarPointAmount < 3) || (G_PTS < 1) || (G_PTS > (planarPointAmount - 2)))
+            return false;
+
+        for(int point = 0; point < planarPointAmount; point += (2 + G_PTS))
+        {
+            if((planarPoints[point + G_PTS + 1].getX() - planarPoints[point].getX()) < 0)
+                return true;
+        }
+
         return false;
     }
 
