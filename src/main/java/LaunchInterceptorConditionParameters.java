@@ -336,6 +336,22 @@ public class LaunchInterceptorConditionParameters
     }
 
     /**
+     *  Verifies if there exists at least one set of three points separated
+     *  exactly C_PTS and D_PTS consecutive intervening points, respectively,
+     *  such that: angle < (PI - EPSILON) or angle > (PI + EPSILON)
+     *
+     * @param planarPoints      - The array of Points to validate
+     * @param planarPointAmount - The amount of planar Points within the planarPoints array
+     *
+     * @return true if the points are separated by C_PTS and D_PTS as well as
+     *         fulfilling the validateAngle() condition, otherwise false.
+     */
+    public boolean validatePointsSeparation(int planarPointAmount, Point[] planarPoints)
+    {
+        return false;
+    }
+
+    /**
      * Launch Interceptor Condition 12:
      * Verify if there exists at least one set of 2 points
      * that are separated by K_PTS (exclusively)
