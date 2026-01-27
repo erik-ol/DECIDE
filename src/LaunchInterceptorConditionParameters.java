@@ -124,11 +124,15 @@ public class LaunchInterceptorConditionParameters {
     /**
      * Launch Interceptor Condition 7
      * 
+     * Verify if there are at least one set of 2 data points
+     * that are separated by K_PTS (exclusively)
+     * that has a distance larger than LENGHT1
+     * 
      * @param planarPoints
      * @param planarPointAmount
      * @return True if there exists at least one set of 2 data points separated by K_PTS exclusively have a distance larger than LENGTH1.
      */
-    public boolean lic7(Point[] planarPoints, int planarPointAmount){
+    public boolean doesPointsSeparatedByKFurtherThanLength1(Point[] planarPoints, int planarPointAmount){
         if (planarPointAmount < 3) {
             return false;
         }

@@ -123,7 +123,7 @@ public class MainTest {
 
             LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-            boolean res = lic7Handler.lic7(pointArray, points);
+            boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
             Assert.assertFalse(res);
         }
     }
@@ -141,7 +141,7 @@ public class MainTest {
 
             LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters((points - 1) * 4, 0, 0, 0, 0, 0, 0, 0, points - 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-            boolean res = lic7Handler.lic7(pointArray, points);
+            boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
             Assert.assertFalse(res);
         }
     }
@@ -159,7 +159,7 @@ public class MainTest {
 
             LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-            boolean res = lic7Handler.lic7(pointArray, points);
+            boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
             Assert.assertFalse(res);
         }
     }
@@ -182,7 +182,7 @@ public class MainTest {
 
             LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points % 10 + 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-            boolean res = lic7Handler.lic7(pointArray, points);
+            boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
             Assert.assertTrue(res);
         }
     }
@@ -212,7 +212,7 @@ public class MainTest {
 
             LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-            boolean res = lic7Handler.lic7(pointArray, points);
+            boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
             Assert.assertTrue(res);
         }
     }
