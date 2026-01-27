@@ -121,6 +121,46 @@ public class LaunchInterceptorConditionParameters {
         return false;
     }
 
+
+
+    /**
+     * Verifies Launch Interceptor Condition 8
+     * 
+     * LIC8 is true iff:
+     * There exists at least one triplet of consequtive points, seperated by 
+     * A_PTS and B_PTS, that cannot be contained with or on a circle of radius RADIUS1
+     * 
+     * @param planarPointAmount number of points in the planarPoints array
+     * 
+     * @param planarPoints the array of 2D coordinates
+     * 
+     * @return true if the LIC13 condition is satisfied; false otherwise
+     */
+    public boolean lic8(int planarPointAmount, Point[] planarPoints) {
+
+        if(planarPointAmount < 5) {
+            return false;
+        }
+
+        for(int i = 0; i + A_PTS + B_PTS + 2 < planarPointAmount; i++) {
+            Point p1 = planarPoints[i];
+            Point p2 = planarPoints[i+A_PTS+1];
+            Point p3 = planarPoints[i+A_PTS+B_PTS+2];
+
+            double diameterSquared = 4*Math.pow(RADIUS1, 2);
+
+            // Compute squared distances between points
+            double distance12 = Math.pow(p1.getX()-p2.getX(), 2) + Math.pow(p1.getY()-p2.getY(), 2);
+            double distance13 = Math.pow(p1.getX()-p3.getX(), 2) + Math.pow(p3.getY()-p3.getY(), 2);
+            double distance23 = Math.pow(p2.getX()-p3.getX(), 2) + Math.pow(p2.getY()-p3.getY(), 2);
+            
+            if (distance12 > diameterSquared || distance13 > diameterSquared || distance23 > diameterSquared) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Verifies Launch Interceptor Condition 13
      * 
@@ -131,7 +171,6 @@ public class LaunchInterceptorConditionParameters {
      * that can be contained with or on a circle of radius RADIUS2.
      * 
      * @param planarPointAmount number of points in the planarPoints array
-     * 
      * @param planarPoints the array of 2D coordinates
      * 
      * @return true if the LIC13 condition is satisfied; false otherwise

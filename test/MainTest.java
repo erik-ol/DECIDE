@@ -111,6 +111,64 @@ public class MainTest {
     }
 
 
+
+    /**
+     * Negative test for LIC8 with invalid input
+     * Verifies that LIC8 returns false when the number of input points is < 5.
+     */
+    @Test
+    public void lic8TestInvalidInput() {
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+        Point[] planarPoints = {
+            new Point(0,0),
+            new Point(0,0),
+            new Point(0,0),
+        };
+        assertFalse(licHandler.lic8(planarPoints.length, planarPoints));
+    }
+
+
+    /**
+     * Positive test for LIC8
+     * Verifies that LIC8 returns true when there exist at least one triplet 
+     * of consequtive points separated by A_PTS and B_PTS, that cannot fit 
+     * within a circle of radius RADIUS1.
+     */
+    @Test
+    public void lic8CanFitR1() {
+        // Uses A_PTS = B_PTS = 1 and RADIUS1 = 5
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+        Point[] planarPoints = {
+            new Point(0,10),
+            new Point(0,0), // skipped
+            new Point(20,0),
+            new Point(20,0), // skipped
+            new Point(30,0),
+        };
+        assertTrue(licHandler.lic8(planarPoints.length, planarPoints));
+
+    }
+
+    /**
+     * Negative test for LIC8
+     * Verifies that LIC8 returns false when there no triplet of consecutive
+     * points, separated by A_PTS and B_PTS, that cannot fit within a circle of
+     * radius RADIUS1.
+     */
+    @Test
+    public void lic8CannotFitR1() {
+        // Uses A_PTS = B_PTS = 1 and RADIUS1 = 5
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+        Point[] planarPoints = {
+            new Point(0,0),
+            new Point(0,0), // skipped
+            new Point(1,0),
+            new Point(0,1), // skipped
+            new Point(0,0),
+        };
+        assertFalse(licHandler.lic8(planarPoints.length, planarPoints));
+    }
+
     /**
      * Negative test for LIC13 with invalid input
      * Verifies that LIC13 returns false when the number of input points is < 5.
