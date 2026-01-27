@@ -133,13 +133,18 @@ public class MainTest {
      */
     @Test
     public void lic7FalseWhenPointsPairEqual(){
-        for (int points = 3; points < 10; points++){
+        for (int points = 10; points < 20; points++){
             Point[] pointArray = new Point[points];
             for (int point = 0; point < points; point++){
-                pointArray[point] = new Point(point * 2, point * 3);
+                if (point != (points % 10 + 2) ){
+                    pointArray[point] = new Point(1, 1);
+                }
+                else{
+                    pointArray[point] = new Point(3, 4);
+                }
             }
 
-            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters((points - 1) * 4, 0, 0, 0, 0, 0, 0, 0, points - 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points % 10 + 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
             boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
             Assert.assertFalse(res);
@@ -176,7 +181,7 @@ public class MainTest {
                     pointArray[point] = new Point(1, 1);
                 }
                 else{
-                    pointArray[point] = new Point(point * 2 + 1, point * 3 + 1);
+                    pointArray[point] = new Point(10, 10);
                 }
             }
 
