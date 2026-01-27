@@ -128,7 +128,7 @@ public class LaunchInterceptorConditionParameters {
      * @param planarPoints Array of planar points
      * @return True if there exists at least one set of 2 points separated by K_PTS exclusively that is longer than LENGTH1 but shorter than LENGHT2
      */
-    public boolean lic12(int planarPointAmount, Point[] planarPoints){
+    public boolean lic12(Point[] planarPoints, int planarPointAmount){
         if (planarPointAmount < 3) {
             return false;
         }
