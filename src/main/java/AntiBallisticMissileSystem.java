@@ -1,16 +1,20 @@
 /**
  * LIC operations for the logical connector matrix
  */
-enum LogicalConnector {
+enum LogicalConnector
+{
   ANDD,
   ORR,
   NOTUSED,
 }
 
 /**
- * Handles the anti ballistic missile system
+ * Handles the anti-ballistic missile system
  */
-public class AntiBallisticMissileSystem {
+public class AntiBallisticMissileSystem
+{
+  public static boolean[] conditionsMetVector = new boolean[15];
+
   /**
    * Determines whether an interceptor should be launched
    * based upon input radar tracking information and outputs
@@ -24,6 +28,34 @@ public class AntiBallisticMissileSystem {
    */
   static void decide(int planarPointAmount, Point[] planarPoints, LaunchInterceptorConditionParameters launchInterceptorConditionParameters, LogicalConnector[][] logicalConnectorMatrix, boolean[] preliminaryUnlockingVector)
   {
+    initConditionsMetVector(launchInterceptorConditionParameters, planarPoints);
+
     System.out.println("NO");
+  }
+
+  /**
+   * Initializes the conditions met vector (CMV) of which the elements shall
+   * represent all the launch interceptor conditions (LICs) in order.
+   *
+   * @param launchInterceptorConditionsParameters - The LIC object of which the condition parameters has been defined
+   * @param planarPoints                          - The array of Points to be validated by each LIC
+   */
+  public static void initConditionsMetVector(LaunchInterceptorConditionParameters launchInterceptorConditionsParameters, Point[] planarPoints)
+  {
+    conditionsMetVector[0]  = false;
+    conditionsMetVector[1]  = launchInterceptorConditionsParameters.lic_1(planarPoints.length, planarPoints);
+    conditionsMetVector[2]  = launchInterceptorConditionsParameters.validateAngle(planarPoints.length, planarPoints);
+    conditionsMetVector[3]  = false;
+    conditionsMetVector[4]  = false;
+    conditionsMetVector[5]  = false;
+    conditionsMetVector[6]  = false;
+    conditionsMetVector[7]  = false;
+    conditionsMetVector[8]  = false;
+    conditionsMetVector[9]  = launchInterceptorConditionsParameters.validateAngleConsecutivePointsSeparation(planarPoints.length, planarPoints);
+    conditionsMetVector[10] = false;
+    conditionsMetVector[11] = launchInterceptorConditionsParameters.validateConsecutivePointsSeparation(planarPoints.length, planarPoints);
+    conditionsMetVector[12] = false;
+    conditionsMetVector[13] = launchInterceptorConditionsParameters.lic13(planarPoints.length, planarPoints);
+    conditionsMetVector[14] = false;
   }
 }
