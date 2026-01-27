@@ -605,6 +605,82 @@ public class MainTest
         Assert.assertTrue(lic.validateAngleConsecutivePointsSeparation(points.length, points));
     }
 
+    /*
+     * LIC-11 consecutive points verification for the case when the Point
+     * array is too short.
+     */
+    @Test
+    public void lic11ValidateConsecutivePointsSeparationTooFewPoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            1, 0, 0, 0);
+        Point[] points = {new Point(1.0, 0.0),
+                          new Point(0.0, 0.0)};
+
+        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
+
+    /**
+     * LIC-11 consecutive points verification for the case when the Point
+     * array is too long.
+     */
+    @Test
+    public void lic11ValidateConsecutivePointsSeparationTooManyPoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            1, 0, 0, 0);
+        Point[] points = {new Point(2.0, 0.0),
+                          new Point(0.0, 0.0),
+                          new Point(1.0, 0.0),
+                          new Point(1.0, 1.0)};
+
+        Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
+
+    /**
+     * LIC-11 consecutive points verification for the case when there exist
+     * no consecutive Points.
+     */
+    @Test
+    public void lic11ValidateConsecutivePointsSeparationNoConsecutivePoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0);
+        Point[] points = {new Point(2.0, 0.0),
+                          new Point(0.0, 0.0),
+                          new Point(1.0, 0.0)};
+
+        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
+
+    /**
+     * LIC-11 consecutive points verification for the case when all parameters
+     * are valid.
+     */
+    @Test
+    public void lic11ValidateConsecutivePointsSeparationValidParameters()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            1, 0, 0, 0);
+        Point[] points = {new Point(2.0, 0.0),
+                          new Point(0.0, 0.0),
+                          new Point(1.0, 0.0)};
+
+        Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
+
     /**
      * Test situation where number of points < 3
      */
@@ -847,7 +923,8 @@ public class MainTest
      * that fit both a circle of radius RADIUS1 and a circle of radius RADIUS2.
      */
     @Test
-    public void lic13FitBothR1AndR2() {
+    public void lic13FitBothR1AndR2()
+    {
         // Uses A_PTS = B_PTR = RADIUS1 = 1 and RADIUS2 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
 
