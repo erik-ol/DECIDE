@@ -80,7 +80,7 @@ public class LaunchInterceptorConditionParameters {
      * 
      * @return True iff at least one set of 2 consecutive data points that are a distance greater than length LENGTH1 apart
      */
-    public boolean lic0DoesTwoConsecutivePointsFurtherThanLength1(int planarPointAmount, Point[] planarPoints){
+    public boolean doesTwoConsecutivePointsFurtherThanLength1(int planarPointAmount, Point[] planarPoints){
         // Check all consecutive points
         for (int point = 1; point < planarPointAmount; point++){
             double deltaX = planarPoints[point].getX() - planarPoints[point-1].getX();

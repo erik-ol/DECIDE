@@ -33,8 +33,8 @@ public class MainTest {
             }
             LaunchInterceptorConditionParameters lic0Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-            boolean resI = lic0Handler.lic0(points, pointArraySame);
-            boolean resII = lic0Handler.lic0(points, pointArrayEqualSpace);
+            boolean resI = lic0Handler.doesTwoConsecutivePointsFurtherThanLength1(points, pointArraySame);
+            boolean resII = lic0Handler.doesTwoConsecutivePointsFurtherThanLength1(points, pointArrayEqualSpace);
 
             Assert.assertFalse(resI);
             Assert.assertFalse(resII);
@@ -59,7 +59,7 @@ public class MainTest {
 
             LaunchInterceptorConditionParameters lic0Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-            boolean res = lic0Handler.lic0(points, pointArray);
+            boolean res = lic0Handler.doesTwoConsecutivePointsFurtherThanLength1(points, pointArray);
             Assert.assertTrue(res);
         }
 
