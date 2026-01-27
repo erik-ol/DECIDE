@@ -301,7 +301,7 @@ public class LaunchInterceptorConditionParameters
 
     /**
      * Verifies Launch Interceptor Condition 8
-     * LIC8 is true iff:
+     * LIC8 is true if:
      * There exists at least one triplet of consecutive points, separated by
      * A_PTS and B_PTS, that cannot be contained with or on a circle of radius RADIUS1
      * 
@@ -373,8 +373,23 @@ public class LaunchInterceptorConditionParameters
         return false;
     }
 
-    public boolean validatePointsSeparation(int planarPointAmount, Point[] planarPoints)
+    public boolean validateConsecutivePointsSeparation(int planarPointAmount, Point[] planarPoints)
     {
+        if((planarPointAmount < 5) || (1 <= C_PTS) || (1 <= D_PTS) || ((C_PTS + D_PTS) <= (planarPointAmount - 3)))
+            return false;
+
+        for(int point = 0; point < planarPointAmount; point += (3 + C_PTS + D_PTS))
+        {
+            Point firstPoint = planarPoints[point];
+            Point vertex     = planarPoints[point + C_PTS + 1];
+            Point lastPoint  = planarPoints[point + C_PTS + 1 + D_PTS + 1];
+
+            Point[] cornerPoints = {firstPoint, vertex, lastPoint};
+
+            if(validateAngle(cornerPoints.length, cornerPoints))
+                return true;
+        }
+
         return false;
     }
 
