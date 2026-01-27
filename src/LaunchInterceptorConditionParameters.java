@@ -171,7 +171,6 @@ public class LaunchInterceptorConditionParameters {
      * that can be contained with or on a circle of radius RADIUS2.
      * 
      * @param planarPointAmount number of points in the planarPoints array
-     * 
      * @param planarPoints the array of 2D coordinates
      * 
      * @return true if the LIC13 condition is satisfied; false otherwise
