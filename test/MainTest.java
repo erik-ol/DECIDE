@@ -112,6 +112,105 @@ public class MainTest {
 
 
 
+    //// TEST CASES FOR LIC 14
+
+    /**
+     * Negative test for LIC14 with invalid input.
+     * Verifies that LIC14 returns false when NUMPOINTS < 5.
+     */
+    @Test
+    public void lic14FalseWhenTooFewPoints() {
+        // E_PTS=1, F_PTS=1, AREA1=1.0, AREA2=10.0
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 10.0);
+        Point[] planarPoints = {
+            new Point(0, 0),
+            new Point(5, 0),
+            new Point(0, 5),
+            new Point(1, 1),
+        };
+        assertFalse(licHandler.lic14(planarPoints.length, planarPoints));
+    }
+
+    /**
+     * Positive test for LIC14.
+     * Verifies that LIC14 returns true when one triplet has area > AREA1
+     * and another triplet has area < AREA2.
+     */
+    @Test
+    public void lic14TrueWhenBothConditionsMet() {
+        // E_PTS=1, F_PTS=1, AREA1=1.0, AREA2=100.0
+        // Triplet from i=0: (0,0),(10,0),(0,10) => area=50 > 1.0 AND 50 < 100.0
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 100.0);
+        Point[] planarPoints = {
+            new Point(0, 0),
+            new Point(99, 99),  // skipped
+            new Point(10, 0),
+            new Point(99, 99),  // skipped
+            new Point(0, 10),
+        };
+        assertTrue(licHandler.lic14(planarPoints.length, planarPoints));
+    }
+
+    /**
+     * Negative test for LIC14.
+     * Verifies that LIC14 returns false when area > AREA1 is satisfied but
+     * no triplet has area < AREA2.
+     */
+    @Test
+    public void lic14FalseWhenOnlyFirstConditionMet() {
+        // E_PTS=1, F_PTS=1, AREA1=1.0, AREA2=0.0 (no area can be < 0)
+        // Triplet: (0,0),(10,0),(0,10) => area=50 > 1.0 but 50 is not < 0
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0.0);
+        Point[] planarPoints = {
+            new Point(0, 0),
+            new Point(99, 99),
+            new Point(10, 0),
+            new Point(99, 99),
+            new Point(0, 10),
+        };
+        assertFalse(licHandler.lic14(planarPoints.length, planarPoints));
+    }
+
+    /**
+     * Negative test for LIC14.
+     * Verifies that LIC14 returns false when area < AREA2 is satisfied but
+     * no triplet has area > AREA1.
+     */
+    @Test
+    public void lic14FalseWhenOnlySecondConditionMet() {
+        // E_PTS=1, F_PTS=1, AREA1=1000.0, AREA2=100.0
+        // Triplet: (0,0),(1,0),(0,1) => area=0.5, not > 1000, but 0.5 < 100
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 1000.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 100.0);
+        Point[] planarPoints = {
+            new Point(0, 0),
+            new Point(99, 99),
+            new Point(1, 0),
+            new Point(99, 99),
+            new Point(0, 1),
+        };
+        assertFalse(licHandler.lic14(planarPoints.length, planarPoints));
+    }
+
+    /**
+     * Negative test for LIC14.
+     * Verifies that LIC14 returns false when points are collinear (area = 0),
+     * so area > AREA1 is never met (for AREA1 > 0).
+     */
+    @Test
+    public void lic14FalseWhenCollinear() {
+        // E_PTS=1, F_PTS=1, AREA1=1.0, AREA2=100.0
+        // Collinear: (0,0),(5,0),(10,0) => area=0, not > 1.0
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 100.0);
+        Point[] planarPoints = {
+            new Point(0, 0),
+            new Point(99, 99),
+            new Point(5, 0),
+            new Point(99, 99),
+            new Point(10, 0),
+        };
+        assertFalse(licHandler.lic14(planarPoints.length, planarPoints));
+    }
+
     /**
      * Negative test for LIC8 with invalid input
      * Verifies that LIC8 returns false when the number of input points is < 5.

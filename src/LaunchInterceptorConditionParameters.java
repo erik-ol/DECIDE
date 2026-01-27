@@ -206,4 +206,48 @@ public class LaunchInterceptorConditionParameters {
         }
         return condition1 && condition2;
     }
+
+    /**
+     * Verifies Launch Interceptor Condition 14
+     *
+     * LIC14 is true iff:
+     * 1) There exists at least one set of three data points, separated by exactly E_PTS and F_PTS
+     *    consecutive intervening points, that are the vertices of a triangle with area greater than AREA1.
+     * 2) There exists at least one set of three data points (can be the same or different), separated
+     *    by exactly E_PTS and F_PTS consecutive intervening points, that are the vertices of a triangle
+     *    with area less than AREA2.
+     * Both parts must be true. The condition is not met when NUMPOINTS < 5.
+     *
+     * @param planarPointAmount number of points in the planarPoints array
+     * @param planarPoints the array of 2D coordinates
+     * @return true if the LIC14 condition is satisfied; false otherwise
+     */
+    public boolean lic14(int planarPointAmount, Point[] planarPoints) {
+        if (planarPointAmount < 5) {
+            return false;
+        }
+
+        boolean condition1 = false;
+        boolean condition2 = false;
+
+        for (int i = 0; i + E_PTS + F_PTS + 2 < planarPointAmount; i++) {
+            Point p1 = planarPoints[i];
+            Point p2 = planarPoints[i + E_PTS + 1];
+            Point p3 = planarPoints[i + E_PTS + F_PTS + 2];
+
+            double area = Math.abs(
+                p1.getX() * (p2.getY() - p3.getY()) +
+                p2.getX() * (p3.getY() - p1.getY()) +
+                p3.getX() * (p1.getY() - p2.getY())
+            ) / 2.0;
+
+            if (area > AREA1) {
+                condition1 = true;
+            }
+            if (area < AREA2) {
+                condition2 = true;
+            }
+        }
+        return condition1 && condition2;
+    }
 }
