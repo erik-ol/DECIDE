@@ -120,4 +120,30 @@ public class LaunchInterceptorConditionParameters {
         }
         return false;
     }
+
+    /**
+     * Launch Interceptor Condition 12
+     * 
+     * @param planarPointAmount Number of planar points
+     * @param planarPoints Array of planar points
+     * @return True if there exists at least one set of 2 points separated by K_PTS exclusively that is longer than LENGTH1 but shorter than LENGHT2
+     */
+    public boolean lic12(int planarPointAmount, Point[] planarPoints){
+        if (planarPointAmount < 3) {
+            return false;
+        }
+        for (int i = K_PTS + 1; i < planarPointAmount; i++){
+            double deltaX = planarPoints[i].getX() - planarPoints[i - K_PTS - 1].getX();
+            double deltaY = planarPoints[i].getY() - planarPoints[i - K_PTS - 1].getY();
+            double distance = (deltaX * deltaX) + (deltaY * deltaY);
+
+            double distance_required_1 = this.LENGTH1 * this.LENGTH1;
+            double distance_required_2 = this.LENGTH2 * this.LENGTH2;
+
+            if ((distance > distance_required_1)&&(distance < distance_required_2)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
