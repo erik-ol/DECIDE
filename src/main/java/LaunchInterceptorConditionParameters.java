@@ -373,6 +373,19 @@ public class LaunchInterceptorConditionParameters
         return false;
     }
 
+    /**
+     * Launch Interceptor Condition 11:
+     * Verifies if there exist at least one set of two data Points,
+     * separated by exactly G_PTS such that the x-coordinate of the
+     * second Point subtracted with the x-coordinate of the first
+     * Point is lesser than zero. This as a part of the LICs.
+     *
+     * @param planarPoints      - The array of Points to validate
+     * @param planarPointAmount - The amount of planar Points within the planarPoints array
+     *
+     * @return true if two points separated by G_PTS exists and their
+     *         difference is lesser than zero, otherwise false.
+     */
     public boolean validateConsecutivePointsSeparation(int planarPointAmount, Point[] planarPoints)
     {
         if((planarPointAmount < 5) || (1 <= C_PTS) || (1 <= D_PTS) || ((C_PTS + D_PTS) <= (planarPointAmount - 3)))

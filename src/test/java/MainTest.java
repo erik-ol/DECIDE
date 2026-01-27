@@ -511,12 +511,12 @@ public class MainTest
     public void lic9ValidateAngleConsecutivePointsSeparationTooFewPoints()
     {
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                1, 1, 0, 0,
-                0, 0, 0, 0);
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            1, 1, 0, 0,
+                                                                                            0, 0, 0, 0);
         Point[] points = {new Point(1.0, 2.0),
-                new Point(2.0, 3.0)};
+                          new Point(2.0, 3.0)};
 
         Assert.assertFalse(lic.validateAngleConsecutivePointsSeparation(points.length, points));
     }
@@ -528,16 +528,16 @@ public class MainTest
     public void lic9ValidateAngleConsecutivePointsSeparationTooManyPoints()
     {
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                1, 1, 0, 0,
-                0, 0, 0, 0);
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            1, 1, 0, 0,
+                                                                                            0, 0, 0, 0);
         Point[] points = {new Point(1.0, 0.0),
-                new Point(0.5, 0.0),
-                new Point(0.0, 0.0),
-                new Point(0.0, -0.5),
-                new Point(0.1, -1.0),
-                new Point(0.5, -1.0)};
+                          new Point(0.5, 0.0),
+                          new Point(0.0, 0.0),
+                          new Point(0.0, -0.5),
+                          new Point(0.1, -1.0),
+                          new Point(0.5, -1.0)};
 
         Assert.assertTrue(lic.validateAngleConsecutivePointsSeparation(points.length, points));
     }
@@ -550,15 +550,15 @@ public class MainTest
     public void lic9ValidateAngleConsecutivePointsSeparationNoConsecutivePoints()
     {
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0);
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0);
         Point[] points = {new Point(1.0, 0.0),
-                new Point(0.0, 0.0),
-                new Point(0.1, -1.0),
-                new Point(0.5, -1.0),
-                new Point(1.0, -1.0)};
+                          new Point(0.0, 0.0),
+                          new Point(0.1, -1.0),
+                          new Point(0.5, -1.0),
+                          new Point(1.0, -1.0)};
 
         Assert.assertFalse(lic.validateAngleConsecutivePointsSeparation(points.length, points));
     }
@@ -571,17 +571,17 @@ public class MainTest
     public void lic9ValidateAngleConsecutivePointsSeparationInvalidAngle()
     {
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                1, 1, 0, 0,
-                0, 0, 0, 0);
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            1, 1, 0, 0,
+                                                                                            0, 0, 0, 0);
         Point[] points = {new Point(1.0, 2.0),
-                new Point(1.0, 0.0),
-                new Point(1.0, 2.0),
-                new Point(2.0, 2.0),
-                new Point(3.0, 4.0)};
+                          new Point(1.0, 0.0),
+                          new Point(1.0, 2.0),
+                          new Point(2.0, 2.0),
+                          new Point(3.0, 4.0)};
 
-        Assert.assertFalse(lic.validateAngleConsecutivePointsSeparation(points.length, points));
+        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
     }
 
     /**
@@ -592,15 +592,15 @@ public class MainTest
     public void lic9ValidateAngleConsecutivePointsSeparationValidParameters()
     {
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                1, 1, 0, 0,
-                0, 0, 0, 0);
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            1, 1, 0, 0,
+                                                                                            0, 0, 0, 0);
         Point[] points = {new Point(1.0, 0.0),
-                new Point(0.5, 0.0),
-                new Point(0.0, 0.0),
-                new Point(0.0, -0.5),
-                new Point(0.1, -1.0)};
+                          new Point(0.5, 0.0),
+                          new Point(0.0, 0.0),
+                          new Point(0.0, -0.5),
+                          new Point(0.1, -1.0)};
 
         Assert.assertTrue(lic.validateAngleConsecutivePointsSeparation(points.length, points));
     }
@@ -847,17 +847,16 @@ public class MainTest
      * that fit both a circle of radius RADIUS1 and a circle of radius RADIUS2.
      */
     @Test
-    public void lic13FitBothR1AndR2()
-    {
+    public void lic13FitBothR1AndR2() {
         // Uses A_PTS = B_PTR = RADIUS1 = 1 and RADIUS2 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
 
         Point[] planarPoints = {new Point(0.0, 0.0),
-                                new Point(0.2, 0),
-                                new Point(0.4, 0.0),
-                                new Point(0.2, 0.2),
-                                new Point(0.4, 0.2),
-                                new Point(0.3, 0.1)};
+                new Point(0.2, 0),
+                new Point(0.4, 0.0),
+                new Point(0.2, 0.2),
+                new Point(0.4, 0.2),
+                new Point(0.3, 0.1)};
 
         assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
     }
