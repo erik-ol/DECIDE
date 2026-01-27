@@ -4,9 +4,6 @@ import java.util.Random;
 
 import org.junit.*;
 
-import main.java.LaunchInterceptorConditionParameters;
-import main.java.Point;
-
 /**
  * Test class 
  */
@@ -275,10 +272,11 @@ public class MainTest
 
     }
 
-    @Test
+
     /**
      * Tests situations where lic4 must be false due to more QUADS than Q_PTS
      */
+    @Test
     public void lic4FalseWhenMoreQuadsThanPoints() {
 
         Random random = new Random();
@@ -301,10 +299,11 @@ public class MainTest
         
     }
 
-    @Test
+
     /**
      * Tests situations where lic4 should be false due to quadrant priority
      */
+    @Test
     public void lic4FalseFromQuadOverlap() {
 
         int points = 4;
@@ -322,10 +321,11 @@ public class MainTest
         
     }
 
-    @Test
+
     /**
      * Tests situations where lic4 should be true since each quadrant contains a point and QUADS is 3
      */
+    @Test
     public void lic4Positive() {
 
         int points = 4;
@@ -399,93 +399,6 @@ public class MainTest
 
         Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
     }
-
-    /**
-     * LIC-9 consecutive points verification for the case when too many Points.
-     */
-    @Test
-    public void lic9ValidateConsecutivePointsSeparationTooManyPoints()
-    {
-        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                1, 1, 0, 0,
-                0, 0, 0, 0);
-        Point[] points = {new Point(1.0, 0.0),
-                new Point(0.5, 0.0),
-                new Point(0.0, 0.0),
-                new Point(0.0, -0.5),
-                new Point(0.1, -1.0),
-                new Point(0.5, -1.0)};
-
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
-    }
-
-    /**
-     * LIC-9 consecutive points verification for the case when there are no
-     * consecutive intervening Points.
-     */
-    @Test
-    public void lic9ValidateConsecutivePointsSeparationNoConsecutivePoints()
-    {
-        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0);
-        Point[] points = {new Point(1.0, 0.0),
-                new Point(0.0, 0.0),
-                new Point(0.1, -1.0),
-                new Point(0.5, -1.0),
-                new Point(1.0, -1.0)};
-
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
-    }
-
-    /**
-     * LIC-9 consecutive points verification for the case when the angle
-     * is not valid, where one periphery Points is equal to the vertex.
-     */
-    @Test
-    public void lic9ValidateConsecutivePointsSeparationInvalidAngle()
-    {
-        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                1, 1, 0, 0,
-                0, 0, 0, 0);
-        Point[] points = {new Point(1.0, 2.0),
-                new Point(1.0, 0.0),
-                new Point(1.0, 2.0),
-                new Point(2.0, 2.0),
-                new Point(3.0, 4.0)};
-
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
-    }
-
-    /**
-     * LIC-9 consecutive points verification for the case when all parameters
-     * are valid.
-     */
-    @Test
-    public void lic9ValidateConsecutivePointsSeparationValidParameters()
-    {
-        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                1, 1, 0, 0,
-                0, 0, 0, 0);
-        Point[] points = {new Point(1.0, 0.0),
-                new Point(0.5, 0.0),
-                new Point(0.0, 0.0),
-                new Point(0.0, -0.5),
-                new Point(0.1, -1.0)};
-
-        Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
-    }
-
-<<<<<<< HEAD
-    //// TEST CASES FOR LIC 6
 
     /**
      * Negative test for LIC6 with invalid input.
@@ -571,8 +484,6 @@ public class MainTest
         assertFalse(licHandler.hasPointFarFromLine(planarPoints.length, planarPoints));
     }
 
-=======
->>>>>>> origin/main
     /**
      * Test situation where all points are the same
      */

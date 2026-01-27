@@ -293,38 +293,6 @@ public class LaunchInterceptorConditionParameters
         }
         return false;
     }
-    
-    /**
-     * Verifies if there exists at least one set of three points separated
-     *  exactly C_PTS and D_PTS consecutive intervening points, respectively,
-     *  such that: angle < (PI - EPSILON) or angle > (PI + EPSILON), where
-     *  angle is the angle between the three points. This as a part of the LICs.
-     *
-     * @param planarPoints      - The array of Points to validate
-     * @param planarPointAmount - The amount of planar Points within the planarPoints array
-     *
-     * @return true if the points are separated by C_PTS and D_PTS as well as
-     *         fulfilling the validateAngle() condition, otherwise false.
-     */
-    public boolean validateConsecutivePointsSeparation(int planarPointAmount, Point[] planarPoints)
-    {
-        if((planarPointAmount < 5) || (1 <= C_PTS) || (1 <= D_PTS) || ((C_PTS + D_PTS) <= (planarPointAmount - 3)))
-            return false;
-
-        for(int point = 0; point < planarPointAmount; point += (3 + C_PTS + D_PTS))
-        {
-            Point firstPoint = planarPoints[point];
-            Point vertex     = planarPoints[point + C_PTS + 1];
-            Point lastPoint  = planarPoints[point + C_PTS + 1 + D_PTS + 1];
-
-            Point[] cornerPoints = {firstPoint, vertex, lastPoint};
-
-            if(validateAngle(cornerPoints.length, cornerPoints))
-                return true;
-        }
-
-        return false;
-    }
 
     /**
 <<<<<<< HEAD
@@ -496,7 +464,6 @@ public class LaunchInterceptorConditionParameters
 
     /**
      * Verifies Launch Interceptor Condition 10
-     *
      * LIC10 is true iff:
      * There exists at least one set of three data points separated by exactly E_PTS and F_PTS
      * consecutive intervening points, respectively, that are the vertices of a triangle with
@@ -557,7 +524,6 @@ public class LaunchInterceptorConditionParameters
             if((planarPoints[point + G_PTS + 1].getX() - planarPoints[point].getX()) < 0)
                 return true;
         }
-
         return false;
     }
 
