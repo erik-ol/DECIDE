@@ -123,7 +123,7 @@ public class MainTest {
 
             LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
 
-            boolean res = lic12Handler.lic12(pointArray, points);
+            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
             Assert.assertFalse(res);
         }
     }
@@ -141,7 +141,7 @@ public class MainTest {
 
             LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
 
-            boolean res = lic12Handler.lic12(pointArray, points);
+            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
             Assert.assertFalse(res);
         }
     }
@@ -164,7 +164,7 @@ public class MainTest {
 
             LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
 
-            boolean res = lic12Handler.lic12(pointArray, points);
+            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
             System.out.println(res);
             Assert.assertFalse(res);
         }
@@ -188,7 +188,7 @@ public class MainTest {
 
             LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
 
-            boolean res = lic12Handler.lic12(pointArray, points);
+            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
             Assert.assertTrue(res);
         }
     }
@@ -211,7 +211,7 @@ public class MainTest {
 
             LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
 
-            boolean res = lic12Handler.lic12(pointArray, points);
+            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
             Assert.assertFalse(res);
         }
     }
@@ -234,7 +234,7 @@ public class MainTest {
 
             LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
 
-            boolean res = lic12Handler.lic12(pointArray, points);
+            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
             Assert.assertFalse(res);
         }
     }

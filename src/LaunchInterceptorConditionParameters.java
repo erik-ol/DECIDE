@@ -124,11 +124,16 @@ public class LaunchInterceptorConditionParameters {
     /**
      * Launch Interceptor Condition 12
      * 
+     * Verify if there exists at least one set of 2 points
+     * that are separated by K_PTS (exclusively)
+     * that is longer than LENGHT1
+     * But shorter than LENGTH2
+     * 
      * @param planarPointAmount Number of planar points
      * @param planarPoints Array of planar points
      * @return True if there exists at least one set of 2 points separated by K_PTS exclusively that is longer than LENGTH1 but shorter than LENGHT2
      */
-    public boolean lic12(Point[] planarPoints, int planarPointAmount){
+    public boolean doesPointsSeparatedByKApartByRange(Point[] planarPoints, int planarPointAmount){
         if (planarPointAmount < 3) {
             return false;
         }
