@@ -109,6 +109,135 @@ public class MainTest {
         boolean res = LaunchInterceptorConditionParameters.lic5(points, 2);
         assertFalse(res);
     }
+    
+    /**
+     * Test situation where number of points < 3
+     */
+    @Test
+    public void lic12FalseWhenNotEnoughPoints(){
+        for (int points = 1; points < 3; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                pointArray[point] = new Point(0, 0);
+            }
+
+            LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
+
+            boolean res = lic12Handler.lic12(pointArray, points);
+            Assert.assertFalse(res);
+        }
+    }
+
+    /**
+     * Test situation where all points are the same
+     */
+    @Test
+    public void lic12FalseWhenAllPointsSame(){
+        for (int points = 3; points < 10; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                pointArray[point] = new Point(0, 0);
+            }
+
+            LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
+
+            boolean res = lic12Handler.lic12(pointArray, points);
+            Assert.assertFalse(res);
+        }
+    }
+
+    /**
+     * Test situation when points pair differed by exactly LENGHT1
+     */
+    @Test
+    public void lic12FalseWhenPointsPairEqual1(){
+        for (int points = 10; points < 20; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                if (point < (points / 2) ){
+                    pointArray[point] = new Point(1, 1);
+                }
+                else{
+                    pointArray[point] = new Point(3, 4);
+                }
+            }
+
+            LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
+
+            boolean res = lic12Handler.lic12(pointArray, points);
+            System.out.println(res);
+            Assert.assertFalse(res);
+        }
+    }
+
+    /**
+     * Test situation where all pairs longer than LENGTH1, shorter than LENGTH2
+     */
+    @Test
+    public void lic12TrueWhenAllPair(){
+        for (int points = 10; points < 20; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                if (point < (points / 2) ){
+                    pointArray[point] = new Point(1, 1);
+                }
+                else{
+                    pointArray[point] = new Point(5, 11);
+                }
+            }
+
+            LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
+
+            boolean res = lic12Handler.lic12(pointArray, points);
+            Assert.assertTrue(res);
+        }
+    }
+
+    /**
+     * Test situation where all pairs equal to LENGTH2
+     */
+    @Test
+    public void lic12FalseWhenPointsPairEqual2(){
+        for (int points = 10; points < 20; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                if (point < (points / 2) ){
+                    pointArray[point] = new Point(1, 1);
+                }
+                else{
+                    pointArray[point] = new Point(6, 13);
+                }
+            }
+
+            LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
+
+            boolean res = lic12Handler.lic12(pointArray, points);
+            Assert.assertFalse(res);
+        }
+    }
+
+    /**
+     * Test situation where all pairs strictly larger than LENGTH2
+     */
+    @Test
+    public void lic12FalseWhenPointsPairGreater(){
+        for (int points = 10; points < 20; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                if (point < (points / 2) ){
+                    pointArray[point] = new Point(1, 1);
+                }
+                else{
+                    pointArray[point] = new Point(10, 20);
+                }
+            }
+
+            LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
+
+            boolean res = lic12Handler.lic12(pointArray, points);
+            Assert.assertFalse(res);
+        }
+    }
 
     
 }
