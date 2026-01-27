@@ -31,7 +31,7 @@ public class LaunchInterceptorConditionParameters
      * @param EPSILON Deviation from PI in LICs 2, 9
      * @param AREA1 Area in LICs 3, 10, 14
      * @param Q_PTS No. of consecutive points in LIC 4
-     * @param QUADS No. of quadrantsin LIC 4
+     * @param QUADS No. of quadrants in LIC 4
      * @param DIST Distance in LIC 6
      * @param N_PTS No. of consecutive pts. in LIC 6
      * @param K_PTS No. of int. pts. in LICs 7, 12
@@ -370,6 +370,11 @@ public class LaunchInterceptorConditionParameters
                 return true;
         }
 
+        return false;
+    }
+
+    public boolean validatePointsSeparation(int planarPointAmount, Point[] planarPoints)
+    {
         return false;
     }
 
