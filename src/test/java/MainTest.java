@@ -382,6 +382,107 @@ public class MainTest
         boolean res = LaunchInterceptorConditionParameters.lic5(points, 2);
         assertFalse(res);
     }
+    /*
+     * LIC-9 consecutive points verification for the case when the Point array is
+     * too short.
+     */
+    @Test
+    public void lic9ValidateConsecutivePointsSeparationTooFewPoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                1, 1, 0, 0,
+                0, 0, 0, 0);
+        Point[] points = {new Point(1.0, 2.0),
+                new Point(2.0, 3.0)};
+
+        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
+
+    /**
+     * LIC-9 consecutive points verification for the case when too many Points.
+     */
+    @Test
+    public void lic9ValidateConsecutivePointsSeparationTooManyPoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                1, 1, 0, 0,
+                0, 0, 0, 0);
+        Point[] points = {new Point(1.0, 0.0),
+                new Point(0.5, 0.0),
+                new Point(0.0, 0.0),
+                new Point(0.0, -0.5),
+                new Point(0.1, -1.0),
+                new Point(0.5, -1.0)};
+
+        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
+
+    /**
+     * LIC-9 consecutive points verification for the case when there are no
+     * consecutive intervening Points.
+     */
+    @Test
+    public void lic9ValidateConsecutivePointsSeparationNoConsecutivePoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0);
+        Point[] points = {new Point(1.0, 0.0),
+                new Point(0.0, 0.0),
+                new Point(0.1, -1.0),
+                new Point(0.5, -1.0),
+                new Point(1.0, -1.0)};
+
+        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
+
+    /**
+     * LIC-9 consecutive points verification for the case when the angle
+     * is not valid, where one periphery Points is equal to the vertex.
+     */
+    @Test
+    public void lic9ValidateConsecutivePointsSeparationInvalidAngle()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                1, 1, 0, 0,
+                0, 0, 0, 0);
+        Point[] points = {new Point(1.0, 2.0),
+                new Point(1.0, 0.0),
+                new Point(1.0, 2.0),
+                new Point(2.0, 2.0),
+                new Point(3.0, 4.0)};
+
+        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
+
+    /**
+     * LIC-9 consecutive points verification for the case when all parameters
+     * are valid.
+     */
+    @Test
+    public void lic9ValidateConsecutivePointsSeparationValidParameters()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                1, 1, 0, 0,
+                0, 0, 0, 0);
+        Point[] points = {new Point(1.0, 0.0),
+                new Point(0.5, 0.0),
+                new Point(0.0, 0.0),
+                new Point(0.0, -0.5),
+                new Point(0.1, -1.0)};
+
+        Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
 
 <<<<<<< HEAD
     //// TEST CASES FOR LIC 6
@@ -1170,7 +1271,6 @@ public class MainTest
                                 new Point(20,0),
                                 new Point(0,10),
                                 new Point(0,20)};
-
 
         assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
     }
