@@ -136,7 +136,7 @@ public class LaunchInterceptorConditionParameters {
      * @param planarPoints the array of 2D coordinates
      * @return true if the LIC6 condition is satisfied; false otherwise
      */
-    public boolean lic6(int planarPointAmount, Point[] planarPoints) {
+    public boolean checkLic6(int planarPointAmount, Point[] planarPoints) {
         if (planarPointAmount < 3) {
             return false;
         }
