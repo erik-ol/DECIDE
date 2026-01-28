@@ -520,6 +520,7 @@ public class LaunchInterceptorConditionParameters
             if((planarPoints[point + G_PTS + 1].getX() - planarPoints[point].getX()) < 0)
                 return true;
         }
+
         return false;
     }
 

@@ -344,7 +344,11 @@ public class MainTest
 
 
     /**
+<<<<<<< HEAD
+     * Test situation where the x-coordinate decreases
+=======
      * Tests situations where lic4 must be false due to more QUADS than Q_PTS
+>>>>>>> main
      */
     @Test
     public void lic4FalseWhenMoreQuadsThanPoints() {
@@ -467,6 +471,107 @@ public class MainTest
 
         boolean res = lic.lic5(points, 2);
         assertFalse(res);
+    }
+    /*
+     * LIC-9 consecutive points verification for the case when the Point array is
+     * too short.
+     */
+    @Test
+    public void lic9ValidateConsecutivePointsSeparationTooFewPoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                1, 1, 0, 0,
+                0, 0, 0, 0);
+        Point[] points = {new Point(1.0, 2.0),
+                new Point(2.0, 3.0)};
+
+        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
+
+    /**
+     * LIC-9 consecutive points verification for the case when too many Points.
+     */
+    @Test
+    public void lic9ValidateConsecutivePointsSeparationTooManyPoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                1, 1, 0, 0,
+                0, 0, 0, 0);
+        Point[] points = {new Point(1.0, 0.0),
+                new Point(0.5, 0.0),
+                new Point(0.0, 0.0),
+                new Point(0.0, -0.5),
+                new Point(0.1, -1.0),
+                new Point(0.5, -1.0)};
+
+        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
+
+    /**
+     * LIC-9 consecutive points verification for the case when there are no
+     * consecutive intervening Points.
+     */
+    @Test
+    public void lic9ValidateConsecutivePointsSeparationNoConsecutivePoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0);
+        Point[] points = {new Point(1.0, 0.0),
+                new Point(0.0, 0.0),
+                new Point(0.1, -1.0),
+                new Point(0.5, -1.0),
+                new Point(1.0, -1.0)};
+
+        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
+
+    /**
+     * LIC-9 consecutive points verification for the case when the angle
+     * is not valid, where one periphery Points is equal to the vertex.
+     */
+    @Test
+    public void lic9ValidateConsecutivePointsSeparationInvalidAngle()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                1, 1, 0, 0,
+                0, 0, 0, 0);
+        Point[] points = {new Point(1.0, 2.0),
+                new Point(1.0, 0.0),
+                new Point(1.0, 2.0),
+                new Point(2.0, 2.0),
+                new Point(3.0, 4.0)};
+
+        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
+
+    /**
+     * LIC-9 consecutive points verification for the case when all parameters
+     * are valid.
+     */
+    @Test
+    public void lic9ValidateConsecutivePointsSeparationValidParameters()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                1, 1, 0, 0,
+                0, 0, 0, 0);
+        Point[] points = {new Point(1.0, 0.0),
+                new Point(0.5, 0.0),
+                new Point(0.0, 0.0),
+                new Point(0.0, -0.5),
+                new Point(0.1, -1.0)};
+
+        Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
     }
 
     /**
@@ -877,6 +982,82 @@ public class MainTest
                           new Point(0.1, -1.0)};
 
         Assert.assertTrue(lic.validateAngleConsecutivePointsSeparation(points.length, points));
+    }
+
+    /*
+     * LIC-11 consecutive points verification for the case when the Point
+     * array is too short.
+     */
+    @Test
+    public void lic11ValidateConsecutivePointsSeparationTooFewPoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                1, 0, 0, 0);
+        Point[] points = {new Point(1.0, 0.0),
+                new Point(0.0, 0.0)};
+
+        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
+
+    /**
+     * LIC-11 consecutive points verification for the case when the Point
+     * array is too long.
+     */
+    @Test
+    public void lic11ValidateConsecutivePointsSeparationTooManyPoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                1, 0, 0, 0);
+        Point[] points = {new Point(2.0, 0.0),
+                new Point(0.0, 0.0),
+                new Point(1.0, 0.0),
+                new Point(1.0, 1.0)};
+
+        Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
+
+    /**
+     * LIC-11 consecutive points verification for the case when there exist
+     * no consecutive Points.
+     */
+    @Test
+    public void lic11ValidateConsecutivePointsSeparationNoConsecutivePoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0);
+        Point[] points = {new Point(2.0, 0.0),
+                new Point(0.0, 0.0),
+                new Point(1.0, 0.0)};
+
+        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+    }
+
+    /**
+     * LIC-11 consecutive points verification for the case when all parameters
+     * are valid.
+     */
+    @Test
+    public void lic11ValidateConsecutivePointsSeparationValidParameters()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                1, 0, 0, 0);
+        Point[] points = {new Point(2.0, 0.0),
+                new Point(0.0, 0.0),
+                new Point(1.0, 0.0)};
+
+        Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
     }
 
     /**
@@ -1303,7 +1484,7 @@ public class MainTest
     public void lic13FitBothR1AndR2() {
         // Uses A_PTS = B_PTR = RADIUS1 = 1 and RADIUS2 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
-
+        
         Point[] planarPoints = {new Point(0.0, 0.0),
                 new Point(0.2, 0),
                 new Point(0.4, 0.0),
@@ -1411,5 +1592,72 @@ public class MainTest
                                 new Point(10, 0)};
 
         assertFalse(licHandler.hasTriangleAreaInRange(planarPoints.length, planarPoints));
+    }
+
+        /**
+     * Verifies that the LCM operator NOTUSED always results in a TRUE element in the PUM.
+     */
+    @Test
+    public void preliminaryUnlockingMatrixAlwaysTrueForNotUsed() {
+        LogicalConnector[][] logicalConnectorMatrix = new LogicalConnector[15][15];
+        for (int i = 0; i<15; i++) {
+            for (int j = 0; j<15; j++) {
+                logicalConnectorMatrix[i][j] = LogicalConnector.NOTUSED;
+            }
+        }
+
+        Random random = new Random();
+
+        AntiBallisticMissileSystem.conditionsMetVector = new boolean[15];
+        for (int i = 0; i<15; i++) {
+            AntiBallisticMissileSystem.conditionsMetVector[i] = random.nextBoolean();
+        }
+
+
+        AntiBallisticMissileSystem.evaluateLogicalConnectorMatrix(logicalConnectorMatrix);
+
+        for (int i = 0; i<15; i++) {
+            for (int j = 0; j<15; j++) {
+                assertTrue(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[i][j]);
+            }
+        }
+
+    }
+
+    /**
+     * Tests that ANDD and ORR operations in the logical connector matrix yield the right results to the preliminary unlocking matrix.
+     */
+    @Test
+    public void logicalConnectorMatrixOperationResults() {
+        LogicalConnector[][] logicalConnectorMatrix = new LogicalConnector[15][15];
+        for (int i = 0; i<15; i++) {
+            for (int j = 0; j<15; j++) {
+                logicalConnectorMatrix[i][j] = LogicalConnector.NOTUSED;
+            }
+        }
+
+        AntiBallisticMissileSystem.conditionsMetVector = new boolean[15];
+        for (int i = 0; i<15; i++) {
+            AntiBallisticMissileSystem.conditionsMetVector[i] = true;
+        }
+
+        logicalConnectorMatrix[0][1] = LogicalConnector.ANDD;
+        logicalConnectorMatrix[2][3] = LogicalConnector.ANDD;
+        AntiBallisticMissileSystem.conditionsMetVector[3] = false;
+
+        logicalConnectorMatrix[4][5] = LogicalConnector.ORR;
+        logicalConnectorMatrix[6][7] = LogicalConnector.ORR;
+        AntiBallisticMissileSystem.conditionsMetVector[5] = false;
+        AntiBallisticMissileSystem.conditionsMetVector[6] = false;
+        AntiBallisticMissileSystem.conditionsMetVector[7] = false;
+        
+
+        AntiBallisticMissileSystem.evaluateLogicalConnectorMatrix(logicalConnectorMatrix);
+
+        assertTrue(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[0][1]);
+        assertFalse(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[2][3]);
+
+        assertTrue(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[4][5]);
+        assertFalse(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[6][7]);
     }
 }
