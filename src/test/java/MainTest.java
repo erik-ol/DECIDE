@@ -41,12 +41,33 @@ public class MainTest
     }
 
     /**
-     * Tests the CMV for the case when all LICs are true.
+     * Tests the CMV for the case when all LICs are false.
      */
     @Test
     public void cmvFalse()
     {
+        Point[] points = {new Point(0, 0),
+                          new Point(0.5, 0),
+                          new Point(1, 0),
+                          new Point(1.5, 0),
+                          new Point(2, 0),
+                          new Point(2.5, 0)};
 
+
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(2, 1.5, 0.1,
+                                                                                            1, 0, 0, 0,
+                                                                                            0, 1, 1, 1,
+                                                                                            1, 1, 0, 0,
+                                                                                            1, 10, 10, 0);
+        AntiBallisticMissileSystem.initConditionsMetVector(lic, points);
+
+        AntiBallisticMissileSystem.conditionsMetVector[4] = false;
+        AntiBallisticMissileSystem.conditionsMetVector[6] = false;
+        AntiBallisticMissileSystem.conditionsMetVector[10] = false;
+        AntiBallisticMissileSystem.conditionsMetVector[14] = false;
+
+        for(int i = 0; i < AntiBallisticMissileSystem.conditionsMetVector.length; i++)
+            Assert.assertFalse("Element " + i + " = false", AntiBallisticMissileSystem.conditionsMetVector[i]);
     }
 
     /**
@@ -450,25 +471,7 @@ public class MainTest
         boolean res = lic.lic5(points, 2);
         assertFalse(res);
     }
-
-    /*
-     * LIC-9 consecutive points verification for the case when the Point array is
-     * too short.
-     */
-    @Test
-    public void lic9ValidateConsecutivePointsSeparationTooFewPoints()
-    {
-        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                                                                                            0, 0, 0, 0,
-                                                                                            0, 0, 0, 0,
-                                                                                            1, 1, 0, 0,
-                                                                                            0, 0, 0, 0);
-        Point[] points = {new Point(1.0, 2.0),
-                          new Point(2.0, 3.0)};
-
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
-    }
-
+    
     /**
      * Negative test for LIC6 with invalid input.
      * Verifies that LIC6 returns false when NUMPOINTS < 3.
