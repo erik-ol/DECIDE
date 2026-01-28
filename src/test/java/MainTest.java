@@ -4,6 +4,9 @@ import java.util.Random;
 
 import org.junit.*;
 
+import main.java.LaunchInterceptorConditionParameters;
+import main.java.Point;
+
 /**
  * Test class 
  */
@@ -270,6 +273,74 @@ public class MainTest
 
         Assert.assertTrue(licHandler.validateTriangleArea(points, pointArray));
 
+    }
+
+    @Test
+    /**
+     * Tests situations where lic4 must be false due to more QUADS than Q_PTS
+     */
+    public void lic4FalseWhenMoreQuadsThanPoints() {
+
+        Random random = new Random();
+        
+        for (int points = 0; points<100; points++) {
+
+            Point[] pointArray = new Point[points];
+
+            for (int point = 0; point<points; point++) {
+                double pointX = (random.nextDouble() - 0.5) * 100;
+                double pointY = (random.nextDouble() - 0.5) * 100;
+                pointArray[point] = new Point(pointX, pointY);
+
+            }
+
+            LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            
+            Assert.assertFalse(licHandler.validateQuadrants(points, pointArray));
+        }
+        
+    }
+
+    @Test
+    /**
+     * Tests situations where lic4 should be false due to quadrant priority
+     */
+    public void lic4FalseFromQuadOverlap() {
+
+        int points = 4;
+
+        Point[] pointArray = {
+            new Point(0.0, 0.0),
+            new Point(0.0, 0.0),
+            new Point(0.0, 0.0),
+            new Point(0.0, 0.0)
+        };
+
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        
+        Assert.assertFalse(licHandler.validateQuadrants(points, pointArray));
+        
+    }
+
+    @Test
+    /**
+     * Tests situations where lic4 should be true since each quadrant contains a point and QUADS is 3
+     */
+    public void lic4Positive() {
+
+        int points = 4;
+
+        Point[] pointArray = {
+            new Point(1.0, -1.0),
+            new Point(-1.0, -1.0),
+            new Point(-1.0, 1.0),
+            new Point(1.0, 1.0)
+        };
+
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        
+        Assert.assertTrue(licHandler.validateQuadrants(points, pointArray));
+        
     }
 
     /**
