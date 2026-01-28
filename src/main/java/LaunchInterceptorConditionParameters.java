@@ -24,13 +24,14 @@ public class LaunchInterceptorConditionParameters
     private double AREA2;
     
     /**
-     * Connstructs the LaunchInterceptorConditionParameters
+     * Constructs the LaunchInterceptorConditionParameters
+     * 
      * @param LENGTH1 Length in LICs 0, 7, 12
      * @param RADIUS1 Radius in LICs 1, 8, 13
      * @param EPSILON Deviation from PI in LICs 2, 9
      * @param AREA1 Area in LICs 3, 10, 14
      * @param Q_PTS No. of consecutive points in LIC 4
-     * @param QUADS No. of quadrantsin LIC 4
+     * @param QUADS No. of quadrants in LIC 4
      * @param DIST Distance in LIC 6
      * @param N_PTS No. of consecutive pts. in LIC 6
      * @param K_PTS No. of int. pts. in LICs 7, 12
@@ -79,7 +80,7 @@ public class LaunchInterceptorConditionParameters
      * @param planarPointAmount - Number of planar points
      * @param planarPoints      - Planar points array
      * 
-     * @return True iff at least one set of 2 consecutive data points that are a distance greater than length LENGTH1 apart
+     * @return True if at least one set of 2 consecutive data points that are a distance greater than length LENGTH1 apart
      */
     public boolean doesTwoConsecutivePointsFurtherThanLength1(int planarPointAmount, Point[] planarPoints)
     {
@@ -99,7 +100,11 @@ public class LaunchInterceptorConditionParameters
 
     /**
      * Launch Interceptor Condition 1
-     * @return True iff there exists 3 consecutive points that cannot all be contained within or on a circle of radius RADIUS1
+     *
+     * @param planarPointAmount - Number of planar points
+     * @param planarPoints      - Planar points array
+     *
+     * @return True if there exists 3 consecutive points that cannot all be contained within or on a circle of radius RADIUS1
      */
     public boolean lic_1(int planarPointAmount, Point[] planarPoints)
     {
@@ -188,8 +193,8 @@ public class LaunchInterceptorConditionParameters
      * @param planarPoints      - The array of Points to validate
      * @param planarPointAmount - The amount of planar Points within the planarPoints array
      * 
-     * @return true if there exists a set of three consecutive datapoints
-     *          that meets the conditions and false otherwise.
+     * @return true if there exists a set of three consecutive data points
+     *         that meets the conditions and false otherwise.
      */
     public boolean validateTriangleArea(int planarPointAmount, Point[] planarPoints)
     {
@@ -296,7 +301,7 @@ public class LaunchInterceptorConditionParameters
 
     /**
      * Verifies Launch Interceptor Condition 8
-     * LIC8 is true iff:
+     * LIC8 is true if:
      * There exists at least one triplet of consecutive points, separated by
      * A_PTS and B_PTS, that cannot be contained with or on a circle of radius RADIUS1
      * 
@@ -362,6 +367,33 @@ public class LaunchInterceptorConditionParameters
             Point[] cornerPoints = {firstPoint, vertex, lastPoint};
 
             if(validateAngle(cornerPoints.length, cornerPoints))
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Launch Interceptor Condition 11:
+     * Verifies if there exist at least one set of two data Points,
+     * separated by exactly G_PTS such that the x-coordinate of the
+     * second Point subtracted with the x-coordinate of the first
+     * Point is lesser than zero. This as a part of the LICs.
+     *
+     * @param planarPoints      - The array of Points to validate
+     * @param planarPointAmount - The amount of planar Points within the planarPoints array
+     *
+     * @return true if two points separated by G_PTS exists and their
+     *         difference is lesser than zero, otherwise false.
+     */
+    public boolean validateConsecutivePointsSeparation(int planarPointAmount, Point[] planarPoints)
+    {
+        if((planarPointAmount < 3) || (G_PTS < 1) || (G_PTS > (planarPointAmount - 2)))
+            return false;
+
+        for(int point = 0; point < planarPointAmount; point += (2 + G_PTS))
+        {
+            if((planarPoints[point + G_PTS + 1].getX() - planarPoints[point].getX()) < 0)
                 return true;
         }
 
