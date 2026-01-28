@@ -128,7 +128,7 @@ public class MainTest {
             new Point(0, 5),
             new Point(1, 1),
         };
-        assertFalse(licHandler.lic10(planarPoints.length, planarPoints));
+        assertFalse(licHandler.checkLic10(planarPoints.length, planarPoints));
     }
 
     /**
@@ -148,7 +148,7 @@ public class MainTest {
             new Point(99, 99),  // skipped
             new Point(0, 10),
         };
-        assertTrue(licHandler.lic10(planarPoints.length, planarPoints));
+        assertTrue(licHandler.checkLic10(planarPoints.length, planarPoints));
     }
 
     /**
@@ -168,7 +168,7 @@ public class MainTest {
             new Point(99, 99),  // skipped
             new Point(0, 1),
         };
-        assertFalse(licHandler.lic10(planarPoints.length, planarPoints));
+        assertFalse(licHandler.checkLic10(planarPoints.length, planarPoints));
     }
 
     /**
@@ -187,7 +187,7 @@ public class MainTest {
             new Point(99, 99),
             new Point(10, 0),
         };
-        assertFalse(licHandler.lic10(planarPoints.length, planarPoints));
+        assertFalse(licHandler.checkLic10(planarPoints.length, planarPoints));
     }
 
     /**
@@ -206,7 +206,7 @@ public class MainTest {
             new Point(99, 99),
             new Point(0, 2),
         };
-        assertTrue(licHandler.lic10(planarPoints.length, planarPoints));
+        assertTrue(licHandler.checkLic10(planarPoints.length, planarPoints));
     }
 
     /**
