@@ -65,7 +65,7 @@ public class AntiBallisticMissileSystem
 
   /**
    * Initializes the preliminary unlocking matrix (PUM) based on if corresponding elements in the conditions met vector (CMV) fullfill the operator in the logical connector matrix (LCM).
-   * @param logicalConnectorMatrix
+   * @param logicalConnectorMatrix - The LCM matrix object where the operator to apply to each CMV pair are defined.
    */
   public static void evaluateLogicalConnectorMatrix(LogicalConnector[][] logicalConnectorMatrix)
   {
