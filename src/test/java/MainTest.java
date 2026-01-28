@@ -25,16 +25,13 @@ public class MainTest
 
 
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(2, 1.5, 0.1,
-                                                                                            1, 0, 0, 0,
-                                                                                            0, 1, 1, 1,
                                                                                             1, 1, 0, 0,
-                                                                                            1, 10, 10, 0);
-        AntiBallisticMissileSystem.initConditionsMetVector(lic, points);
+                                                                                            3, 1, 1, 1,
+                                                                                            1, 1, 1, 1,
+                                                                                            1, 10, 10, 6);
 
-        AntiBallisticMissileSystem.conditionsMetVector[4] = true;
-        AntiBallisticMissileSystem.conditionsMetVector[6] = true;
-        AntiBallisticMissileSystem.conditionsMetVector[10] = true;
-        AntiBallisticMissileSystem.conditionsMetVector[14] = true;
+
+        AntiBallisticMissileSystem.initConditionsMetVector(lic, points);
 
         for(int i = 0; i < AntiBallisticMissileSystem.conditionsMetVector.length; i++)
             Assert.assertTrue("Element " + i + " = true", AntiBallisticMissileSystem.conditionsMetVector[i]);
@@ -55,10 +52,10 @@ public class MainTest
 
 
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(2, 1.5, 0.1,
-                                                                                            1, 0, 0, 0,
-                                                                                            0, 1, 1, 1,
+                                                                                            1, 2, 1, 0.1,
+                                                                                            3, 1, 1, 1,
                                                                                             1, 1, 0, 0,
-                                                                                            1, 10, 10, 0);
+                                                                                            1, 10, 10, 2);
         AntiBallisticMissileSystem.initConditionsMetVector(lic, points);
 
         AntiBallisticMissileSystem.conditionsMetVector[4] = false;
@@ -471,7 +468,7 @@ public class MainTest
         boolean res = lic.lic5(points, 2);
         assertFalse(res);
     }
-    
+
     /**
      * Negative test for LIC6 with invalid input.
      * Verifies that LIC6 returns false when NUMPOINTS < 3.
