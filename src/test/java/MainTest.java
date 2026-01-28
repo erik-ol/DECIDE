@@ -8,14 +8,12 @@ import org.junit.*;
  * Test class 
  */
 public class MainTest {
-    // Tests to be added...
 
 
-    //// TEST CASES FOR LIC 0
-    @Test
     /**
      * Test situations where lic0 should be false
      */
+    @Test
     public void lic0Negative(){
 
         for (int points = 2; points < 20; points++){
@@ -39,12 +37,12 @@ public class MainTest {
             Assert.assertFalse(resI);
             Assert.assertFalse(resII);
         }
-	}
-	
-	@Test
+    }
+
     /**
      * Test situations where lic0 should be true
      */
+    @Test
     public void lic0positive(){
 
         for (int points = 2; points < 20; points++){
@@ -63,15 +61,13 @@ public class MainTest {
             Assert.assertTrue(res);
         }
 
-        
+
     }
 
-    //// TEST CASES FOR LIC 1
-
-    @Test
     /**
      * Tests situations where lic1 should be false
      */
+    @Test
     public void lic1Negative() {
 
         Random random = new Random();
@@ -94,10 +90,10 @@ public class MainTest {
         
     }
 
-    @Test
     /**
      * Tests situations where lic1 should be true
      */
+    @Test
     public void lic1Positive() {
 
         Random random = new Random();
@@ -123,14 +119,109 @@ public class MainTest {
         
     }
 
+    /**
+     * Tests LIC-2 angle verification for the case when the array is too short.
+     */
     @Test
+    public void lic2ValidateAngleTooFewPoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0);
+        Point[] points = {new Point(1.0, 2.0),
+                          new Point(3.0, 4.0)};
+
+        Assert.assertFalse(lic.validateAngle(points.length, points));
+    }
+
+    /**
+     * Tests LIC-2 angle verification for the case when the array has one Point
+     * too many.
+     */
+    @Test
+    public void lic2ValidateAngleTooManyPoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0);
+        Point[] points = {new Point(1.0, 2.0),
+                          new Point(3.0, 4.0),
+                          new Point(1.0, 2.0),
+                          new Point(3.0, 4.0)};
+
+        Assert.assertTrue(lic.validateAngle(points.length, points));
+    }
+
+    /**
+     * Tests LIC-2 angle verification for the case when a set of three data points
+     * has a Point that coincides with the vertex.
+     */
+    @Test
+    public void lic2ValidateAnglePointEqualToVertex()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0);
+        Point[] points = {new Point(1.0, 2.0),
+                          new Point(1.0, 2.0),
+                          new Point(3.0, 4.0)};
+
+        Assert.assertFalse(lic.validateAngle(points.length, points));
+    }
+
+    /**
+     * Tests LIC-2 angle verification for the case when a set of three data points
+     * has two equal Points, excluding the vertex.
+     */
+    @Test
+    public void lic2ValidateAngleTwoEqualPoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0);
+
+        Point[] points = {new Point(1.0, 2.0),
+                          new Point(3.0, 4.0),
+                          new Point(1.0, 2.0)};
+
+        Assert.assertTrue(lic.validateAngle(points.length, points));
+    }
+
+    /**
+     * Tests LIC-2 angle verification for the case when all Points have different
+     * values creating an angle > (PI + EPSILON).
+     */
+    @Test
+    public void lic2ValidateAngleDifferentPoints()
+    {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0);
+        Point[] points = {new Point(1.0, 0.0),
+                          new Point(0.0, 0.0),
+                          new Point(0.1, -1.0)};
+
+        Assert.assertTrue(lic.validateAngle(points.length, points));
+    }
+
     /**
      * Tests that LIC-3 triangle verification is false for line of points where consecutive points are very close
      */
+    @Test
     public void lic3FalseForRandomizedLineOfPoints() {
 
         Random random = new Random();
-        
+
         for (int points = 0; points<100; points++) {
 
             Point[] pointArray = new Point[points];
@@ -145,38 +236,36 @@ public class MainTest {
             }
 
             LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-            
+
             Assert.assertFalse(licHandler.validateTriangleArea(points, pointArray));
         }
-        
+
     }
 
-    @Test
     /**
      * Tests that LIC-3 triangle verification is true for a triangle with area greater than AREA1
      */
+    @Test
     public void lic3TrueWhenTriangleAreaSufficient() {
 
         int points = 4;
 
         Point[] pointArray = {
-            new Point(0.0, 0.0),
-            new Point(1.0, 0.0),
-            new Point(5.0, 0.0),
-            new Point(2.0, 11.0)
+                new Point(0.0, 0.0),
+                new Point(1.0, 0.0),
+                new Point(5.0, 0.0),
+                new Point(2.0, 11.0)
         };
 
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-        
+
         Assert.assertTrue(licHandler.validateTriangleArea(points, pointArray));
-        
+
     }
- 
-    //// TEST CASES FOR LIC 5
 
     /**
-    * Test situation where the x-coordinate decreases
-    */
+     * Test situation where the x-coordinate decreases
+     */
     @Test
     public void lic5TrueWhenXDecreases() {
         Point[] points = {
@@ -189,8 +278,8 @@ public class MainTest {
     }
 
     /**
-    * Test situation where the x-coordinate increases
-    */
+     * Test situation where the x-coordinate increases
+     */
     @Test
     public void lic5FalseWhenXIncreases() {
         Point[] points = {
@@ -202,10 +291,9 @@ public class MainTest {
         assertFalse(res);
     }
 
-
     /**
-    * Test situation where the x-coordinate stays the same
-    */
+     * Test situation where the x-coordinate stays the same
+     */
     @Test
     public void lic5FalseWhenXIsEqual() {
         Point[] points = {
@@ -328,8 +416,6 @@ public class MainTest {
             Assert.assertTrue(res);
         }
     }
-    
-
 
     /**
      * Negative test for LIC8 with invalid input
@@ -339,18 +425,17 @@ public class MainTest {
     public void lic8TestInvalidInput() {
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0);
         Point[] planarPoints = {
-            new Point(0,0),
-            new Point(0,0),
-            new Point(0,0),
+                new Point(0,0),
+                new Point(0,0),
+                new Point(0,0),
         };
         assertFalse(licHandler.lic8(planarPoints.length, planarPoints));
     }
 
-
     /**
      * Positive test for LIC8
-     * Verifies that LIC8 returns true when there exist at least one triplet 
-     * of consequtive points separated by A_PTS and B_PTS, that cannot fit 
+     * Verifies that LIC8 returns true when there exist at least one triplet
+     * of consecutive points separated by A_PTS and B_PTS, that cannot fit
      * within a circle of radius RADIUS1.
      */
     @Test
@@ -358,11 +443,11 @@ public class MainTest {
         // Uses A_PTS = B_PTS = 1 and RADIUS1 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0);
         Point[] planarPoints = {
-            new Point(0,10),
-            new Point(0,0), // skipped
-            new Point(20,0),
-            new Point(20,0), // skipped
-            new Point(30,0),
+                new Point(0,10),
+                new Point(0,0), // skipped
+                new Point(20,0),
+                new Point(20,0), // skipped
+                new Point(30,0),
         };
         assertTrue(licHandler.lic8(planarPoints.length, planarPoints));
 
@@ -379,11 +464,11 @@ public class MainTest {
         // Uses A_PTS = B_PTS = 1 and RADIUS1 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0);
         Point[] planarPoints = {
-            new Point(0,0),
-            new Point(0,0), // skipped
-            new Point(1,0),
-            new Point(0,1), // skipped
-            new Point(0,0),
+                new Point(0,0),
+                new Point(0,0), // skipped
+                new Point(1,0),
+                new Point(0,1), // skipped
+                new Point(0,0),
         };
         assertFalse(licHandler.lic8(planarPoints.length, planarPoints));
     }
@@ -525,18 +610,17 @@ public class MainTest {
     public void lic13TestInvalidInput() {
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
         Point[] planarPoints = {
-            new Point(0,0),
-            new Point(0,0),
-            new Point(0,0),
+                new Point(0,0),
+                new Point(0,0),
+                new Point(0,0),
         };
         assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
     }
 
-
     /**
      * Positive test for LIC13
      * Verifies that LIC13 returns true when there exist a triplet of points
-     * that cannot fit within a circle of radius RADIUS1, but there exists a 
+     * that cannot fit within a circle of radius RADIUS1, but there exists a
      * triplet (possibly different triplet) of points that can fit within a
      * circle of radius RADIUS2.
      */
@@ -545,11 +629,11 @@ public class MainTest {
         // Uses A_PTS = B_PTR = RADIUS1 = 1 and RADIUS2 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
         Point[] planarPoints = {
-            new Point(0,0),
-            new Point(10,0), // skipped
-            new Point(3,0),
-            new Point(20,0), // skipped
-            new Point(0,3),
+                new Point(0,0),
+                new Point(10,0), // skipped
+                new Point(3,0),
+                new Point(20,0), // skipped
+                new Point(0,3),
         };
         assertTrue(licHandler.lic13(planarPoints.length, planarPoints));
 
@@ -565,11 +649,11 @@ public class MainTest {
         // Uses A_PTS = B_PTR = RADIUS1 = 1 and RADIUS2 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
         Point[] planarPoints = {
-            new Point(0,0),
-            new Point(0,0), // skipped
-            new Point(1,0),
-            new Point(0,1), // skipped
-            new Point(0,0),
+                new Point(0,0),
+                new Point(0,0), // skipped
+                new Point(1,0),
+                new Point(0,1), // skipped
+                new Point(0,0),
         };
         assertFalse(licHandler.lic13(5, planarPoints));
     }
@@ -584,13 +668,13 @@ public class MainTest {
         // Uses A_PTS = B_PTR = RADIUS1 = 1 and RADIUS2 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
         Point[] planarPoints = {
-            new Point(0,0),
-            new Point(10,0),
-            new Point(20,0),
-            new Point(0,10),
-            new Point(0,20),
+                new Point(0,0),
+                new Point(10,0),
+                new Point(20,0),
+                new Point(0,10),
+                new Point(0,20),
         };
-        assertFalse(licHandler.lic13(planarPoints.length, planarPoints));    
+        assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
     }
 
     /**
@@ -603,13 +687,13 @@ public class MainTest {
         // Uses A_PTS = B_PTR = RADIUS1 = 1 and RADIUS2 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
         Point[] planarPoints = {
-            new Point(0.0,0.0),
-            new Point(0.2,0),
-            new Point(0.4,0.0),
-            new Point(0.2,0.2),
-            new Point(0.4,0.2),
-            new Point(0.3, 0.1)
+                new Point(0.0,0.0),
+                new Point(0.2,0),
+                new Point(0.4,0.0),
+                new Point(0.2,0.2),
+                new Point(0.4,0.2),
+                new Point(0.3, 0.1)
         };
-        assertFalse(licHandler.lic13(planarPoints.length, planarPoints));    
-    }   
+        assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
+    }
 }
