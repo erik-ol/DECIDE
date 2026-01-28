@@ -46,16 +46,16 @@ public class AntiBallisticMissileSystem
     conditionsMetVector[1]  = launchInterceptorConditionsParameters.lic_1(planarPoints.length, planarPoints);
     conditionsMetVector[2]  = launchInterceptorConditionsParameters.validateAngle(planarPoints.length, planarPoints);
     conditionsMetVector[3]  = launchInterceptorConditionsParameters.validateTriangleArea(planarPoints.length, planarPoints);
-    conditionsMetVector[4]  = false;
+    conditionsMetVector[4]  = launchInterceptorConditionsParameters.validateQuadrants(planarPoints.length, planarPoints);
     conditionsMetVector[5]  = launchInterceptorConditionsParameters.lic5(planarPoints, planarPoints.length);
-    conditionsMetVector[6]  = false;
+    conditionsMetVector[6]  = launchInterceptorConditionsParameters.hasPointFarFromLine(planarPoints.length, planarPoints);
     conditionsMetVector[7]  = launchInterceptorConditionsParameters.doesPointsSeparatedByKFurtherThanLength1(planarPoints, planarPoints.length);
     conditionsMetVector[8]  = launchInterceptorConditionsParameters.lic8(planarPoints.length, planarPoints);
     conditionsMetVector[9]  = launchInterceptorConditionsParameters.validateAngleConsecutivePointsSeparation(planarPoints.length, planarPoints);
-    conditionsMetVector[10] = false;
+    conditionsMetVector[10] = launchInterceptorConditionsParameters.hasLargeTriangleArea(planarPoints.length, planarPoints);
     conditionsMetVector[11] = launchInterceptorConditionsParameters.validateConsecutivePointsSeparation(planarPoints.length, planarPoints);
     conditionsMetVector[12] = launchInterceptorConditionsParameters.doesPointsSeparatedByKApartByRange(planarPoints, planarPoints.length);
     conditionsMetVector[13] = launchInterceptorConditionsParameters.lic13(planarPoints.length, planarPoints);
-    conditionsMetVector[14] = false;
+    conditionsMetVector[14] = launchInterceptorConditionsParameters.hasTriangleAreaInRange(planarPoints.length, planarPoints);
   }
 }
