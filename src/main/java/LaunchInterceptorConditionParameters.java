@@ -119,6 +119,10 @@ public class LaunchInterceptorConditionParameters
                     double diameterSquared = RADIUS1*RADIUS1*4;
 
                     if (distance > diameterSquared) return true;
+
+                    double diameter_squared = RADIUS1*RADIUS1*4;
+
+                    if (distance > diameter_squared) return true;
                 }
             }
         }
@@ -136,8 +140,8 @@ public class LaunchInterceptorConditionParameters
      * @param planarPoints      - The array of Points to validate
      * @param planarPointAmount - The amount of planar Points within the planarPoints array
      *
-     * @return true if there exists a set of three consecutive datapoints
-     *          that meets the conditions and false otherwise.
+     * @return true if there exists a set of three consecutive data points
+     *         that meets the conditions and false otherwise.
      */
     public boolean validateAngle(int planarPointAmount, Point[] planarPoints)
     {
@@ -218,6 +222,7 @@ public class LaunchInterceptorConditionParameters
                               (corner1.getY()-corner0.getY())) -
                              ((corner0.getX()-corner1.getX()) *
                               (corner2.getY()-corner0.getY()));
+
         double area = Math.abs(determinant)/2;
 
         return area;
@@ -230,7 +235,7 @@ public class LaunchInterceptorConditionParameters
      * @param planarPoints      - the planar points
      *
      * @return True if there exists at least one set of 2 consecutive data points
-     *                 such that the difference in x-coordinates is less than 0.
+     *         such that the difference in x-coordinates is less than 0.
      */
     public static boolean lic5(Point[] planarPoints, int planarPointAmount)
     {
@@ -292,7 +297,7 @@ public class LaunchInterceptorConditionParameters
     /**
      * Verifies Launch Interceptor Condition 8
      * LIC8 is true iff:
-     * There exists at least one triplet of consequtive points, seperated by 
+     * There exists at least one triplet of consecutive points, separated by
      * A_PTS and B_PTS, that cannot be contained with or on a circle of radius RADIUS1
      * 
      * @param planarPointAmount - number of points in the planarPoints array
@@ -325,6 +330,39 @@ public class LaunchInterceptorConditionParameters
             {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    /**
+     * Launch Interceptor Condition 9:
+     * Verifies if there exists at least one set of three points separated
+     * exactly C_PTS and D_PTS consecutive intervening points, respectively,
+     * such that: angle < (PI - EPSILON) or angle > (PI + EPSILON), where
+     * angle is the angle between the three points. This as a part of the LICs.
+     *
+     * @param planarPoints      - The array of Points to validate
+     * @param planarPointAmount - The amount of planar Points within the planarPoints array
+     *
+     * @return true if the points are separated by C_PTS and D_PTS as well as
+     *         fulfilling the validateAngle() condition, otherwise false.
+     */
+    public boolean validateAngleConsecutivePointsSeparation(int planarPointAmount, Point[] planarPoints)
+    {
+        if((planarPointAmount < 5) || (1 > C_PTS) || (1 > D_PTS) || ((C_PTS + D_PTS) > (planarPointAmount - 3)))
+            return false;
+
+        for(int point = 0; point < planarPointAmount; point += (3 + C_PTS + D_PTS))
+        {
+            Point firstPoint = planarPoints[point];
+            Point vertex     = planarPoints[point + C_PTS + 1];
+            Point lastPoint  = planarPoints[point + C_PTS + 1 + D_PTS + 1];
+
+            Point[] cornerPoints = {firstPoint, vertex, lastPoint};
+
+            if(validateAngle(cornerPoints.length, cornerPoints))
+                return true;
         }
 
         return false;
@@ -417,3 +455,4 @@ public class LaunchInterceptorConditionParameters
         return condition1 && condition2;
     }
 }
+
