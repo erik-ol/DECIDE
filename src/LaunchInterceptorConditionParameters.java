@@ -192,6 +192,35 @@ public class LaunchInterceptorConditionParameters {
     }
 
     /**
+     * Launch Interceptor Condition 7
+     * 
+     * Verify if there are at least one set of 2 data points
+     * that are separated by K_PTS (exclusively)
+     * that has a distance larger than LENGHT1
+     * 
+     * @param planarPoints
+     * @param planarPointAmount
+     * @return True if there exists at least one set of 2 data points separated by K_PTS exclusively have a distance larger than LENGTH1.
+     */
+    public boolean doesPointsSeparatedByKFurtherThanLength1(Point[] planarPoints, int planarPointAmount){
+        if (planarPointAmount < 3) {
+            return false;
+        }
+        for (int i = K_PTS + 1; i < planarPointAmount; i++){
+            double deltaX = planarPoints[i].getX() - planarPoints[i - K_PTS - 1].getX();
+            double deltaY = planarPoints[i].getY() - planarPoints[i - K_PTS - 1].getY();
+            double distance = (deltaX * deltaX) + (deltaY * deltaY);
+
+            double distance_required = this.LENGTH1 * this.LENGTH1;
+
+            if (distance > distance_required){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Verifies Launch Interceptor Condition 8
      * 
      * LIC8 is true iff:

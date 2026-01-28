@@ -218,6 +218,120 @@ public class MainTest {
     }
 
     /**
+     * Test situation where all points are the same
+     */
+    @Test
+    public void lic7FalseWhenAllPointsSame(){
+        for (int points = 3; points < 10; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                pointArray[point] = new Point(0, 0);
+            }
+
+            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+            boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
+            Assert.assertFalse(res);
+        }
+    }
+
+    /**
+     * Test situation when points pair differed by exactly LENGHT1
+     */
+    @Test
+    public void lic7FalseWhenPointsPairEqual(){
+        for (int points = 10; points < 20; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                if (point != (points % 10 + 2) ){
+                    pointArray[point] = new Point(1, 1);
+                }
+                else{
+                    pointArray[point] = new Point(3, 4);
+                }
+            }
+
+            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points % 10 + 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+            boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
+            Assert.assertFalse(res);
+        }
+    }
+
+    /**
+     * Test situation where number of points < 3
+     */
+    @Test
+    public void lic7FalseWhenNotEnoughPoints(){
+        for (int points = 1; points < 3; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                pointArray[point] = new Point(0, 0);
+            }
+
+            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+            boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
+            Assert.assertFalse(res);
+        }
+    }
+
+    /**
+     * Test situation where there is one exact pair of points longer than LENGTH1
+     */
+    @Test
+    public void lic7TrueWhenOnePair(){
+        for (int points = 10; points < 20; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                if (point != (points % 10 + 2) ){
+                    pointArray[point] = new Point(1, 1);
+                }
+                else{
+                    pointArray[point] = new Point(10, 10);
+                }
+            }
+
+            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points % 10 + 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+            boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
+            Assert.assertTrue(res);
+        }
+    }
+
+    /**
+     * Test situation where all pairs longer than LENGTH1
+     */
+    @Test
+    public void lic7TrueWhenAllPair(){
+        for (int points = 10; points < 20; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                if (point < (points / 2) ){
+                    pointArray[point] = new Point(1, 1);
+                }
+                else{
+                    pointArray[point] = new Point(point * 2 + 1, point * 3 + 1);
+                }
+            }
+
+            for (int point = 0; point < points; point++){
+                System.out.print(pointArray[point].getX());
+                System.out.print(", ");
+                System.out.print(pointArray[point].getY());
+                System.out.println();
+            }
+
+            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+            boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
+            Assert.assertTrue(res);
+        }
+    }
+    
+
+
+    /**
      * Negative test for LIC8 with invalid input
      * Verifies that LIC8 returns false when the number of input points is < 5.
      */
