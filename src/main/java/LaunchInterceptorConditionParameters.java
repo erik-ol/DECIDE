@@ -25,7 +25,7 @@ public class LaunchInterceptorConditionParameters
     
     /**
      * Constructs the LaunchInterceptorConditionParameters
-     * 
+     *
      * @param LENGTH1 Length in LICs 0, 7, 12
      * @param RADIUS1 Radius in LICs 1, 8, 13
      * @param EPSILON Deviation from PI in LICs 2, 9
@@ -71,7 +71,7 @@ public class LaunchInterceptorConditionParameters
         this.RADIUS2 = RADIUS2;
         this.AREA2 = AREA2;
     }
-    
+
     /**
      * Launch Interceptor Condition 0:
      * Verifies if there exists at least one set of two consecutive 
@@ -121,13 +121,10 @@ public class LaunchInterceptorConditionParameters
                     double distance = (deltaX*deltaX)+(deltaY*deltaY);
 
                     // compare squared distances rather than taking square root
+
                     double diameterSquared = RADIUS1*RADIUS1*4;
 
                     if (distance > diameterSquared) return true;
-
-                    double diameter_squared = RADIUS1*RADIUS1*4;
-
-                    if (distance > diameter_squared) return true;
                 }
             }
         }
@@ -275,7 +272,7 @@ public class LaunchInterceptorConditionParameters
      * @return True if there exists at least one set of 2 consecutive data points
      *         such that the difference in x-coordinates is less than 0.
      */
-    public static boolean lic5(Point[] planarPoints, int planarPointAmount)
+    public boolean lic5(Point[] planarPoints, int planarPointAmount)
     {
         if (planarPointAmount < 2)
         {
@@ -298,10 +295,8 @@ public class LaunchInterceptorConditionParameters
     }
 
     /**
-<<<<<<< HEAD
      * Verifies Launch Interceptor Condition 6
-     *
-     * LIC6 is true iff:
+     * LIC6 is true if:
      * There exists at least one set of N_PTS consecutive data points such that at least one of
      * the points lies a distance greater than DIST from the line joining the first and last of
      * these N_PTS points. If the first and last points are identical, the distance is measured
@@ -355,8 +350,6 @@ public class LaunchInterceptorConditionParameters
     }
 
     /**
-=======
->>>>>>> origin/main
      * Launch Interceptor Condition 7:
      * Verify if there are at least one set of 2 data points
      * that are separated by K_PTS (exclusively)
@@ -420,7 +413,7 @@ public class LaunchInterceptorConditionParameters
 
             // Compute squared distances between points
             double distance12 = Math.pow(p1.getX()-p2.getX(), 2) + Math.pow(p1.getY()-p2.getY(), 2);
-            double distance13 = Math.pow(p1.getX()-p3.getX(), 2) + Math.pow(p3.getY()-p3.getY(), 2);
+            double distance13 = Math.pow(p1.getX()-p3.getX(), 2) + Math.pow(p1.getY()-p3.getY(), 2);
             double distance23 = Math.pow(p2.getX()-p3.getX(), 2) + Math.pow(p2.getY()-p3.getY(), 2);
             
             if (distance12 > diameterSquared || distance13 > diameterSquared || distance23 > diameterSquared)
@@ -450,7 +443,7 @@ public class LaunchInterceptorConditionParameters
         if((planarPointAmount < 5) || (1 > C_PTS) || (1 > D_PTS) || ((C_PTS + D_PTS) > (planarPointAmount - 3)))
             return false;
 
-        for(int point = 0; point < planarPointAmount; point += (3 + C_PTS + D_PTS))
+        for(int point = 0; point < (planarPointAmount - (2 + C_PTS + D_PTS)); point ++)
         {
             Point firstPoint = planarPoints[point];
             Point vertex     = planarPoints[point + C_PTS + 1];
@@ -467,7 +460,6 @@ public class LaunchInterceptorConditionParameters
 
     /**
      * Verifies Launch Interceptor Condition 10
-     *
      * LIC10 is true iff:
      * There exists at least one set of three data points separated by exactly E_PTS and F_PTS
      * consecutive intervening points, respectively, that are the vertices of a triangle with
@@ -528,7 +520,6 @@ public class LaunchInterceptorConditionParameters
             if((planarPoints[point + G_PTS + 1].getX() - planarPoints[point].getX()) < 0)
                 return true;
         }
-
         return false;
     }
 
@@ -584,7 +575,6 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean lic13(int planarPointAmount, Point[] planarPoints)
     {
-
         if(planarPointAmount < 5)
         {
             return false;
@@ -621,7 +611,6 @@ public class LaunchInterceptorConditionParameters
 
     /**
      * Verifies Launch Interceptor Condition 14
-     *
      * LIC14 is true iff:
      * 1) There exists at least one set of three data points, separated by exactly E_PTS and F_PTS
      *    consecutive intervening points, that are the vertices of a triangle with area greater than AREA1.
@@ -669,4 +658,3 @@ public class LaunchInterceptorConditionParameters
         return condition1 && condition2;
     }
 }
-
