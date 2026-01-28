@@ -414,6 +414,7 @@ public class MainTest
     }
 
     /**
+     * Positive test for LIC5
      * Test situation where the x-coordinate decreases
      */
     @Test
@@ -428,11 +429,12 @@ public class MainTest
         Point[] points = {new Point(3.0, 0.0),
                           new Point(2.0, 0.0)};
 
-        boolean res = lic.lic5(points, 2);
+        boolean res = lic.hasDecreasingConsecutivePoints(points, 2);
         assertTrue(res);
     }
 
     /**
+     * Negative test for LIC5
      * Test situation where the x-coordinate increases
      */
     @Test
@@ -446,11 +448,12 @@ public class MainTest
         Point[] points = {new Point(2.0, 0.0),
                           new Point(3.0, 0.0)};
 
-        boolean res = lic.lic5(points, 2);
+        boolean res = lic.hasDecreasingConsecutivePoints(points, 2);
         assertFalse(res);
     }
 
     /**
+     * Negative test for LIC5
      * Test situation where the x-coordinate stays the same
      */
     @Test
@@ -465,7 +468,7 @@ public class MainTest
         Point[] points = {new Point(2.0, 0.0),
                           new Point(2.0, 0.0)};
 
-        boolean res = lic.lic5(points, 2);
+        boolean res = lic.hasDecreasingConsecutivePoints(points, 2);
         assertFalse(res);
     }
     /*
@@ -828,7 +831,7 @@ public class MainTest
                                 new Point(0,0),
                                 new Point(0,0)};
 
-        assertFalse(licHandler.lic8(planarPoints.length, planarPoints));
+        assertFalse(licHandler.hasTripleNotContainedInRadius1Circle(planarPoints.length, planarPoints));
     }
 
     /**
@@ -852,7 +855,7 @@ public class MainTest
                                 new Point(20,0), // skipped
                                 new Point(30,0)};
 
-        assertTrue(licHandler.lic8(planarPoints.length, planarPoints));
+        assertTrue(licHandler.hasTripleNotContainedInRadius1Circle(planarPoints.length, planarPoints));
     }
 
     /**
@@ -876,7 +879,7 @@ public class MainTest
                                 new Point(0,1), // skipped
                                 new Point(0,0)};
 
-        assertFalse(licHandler.lic8(planarPoints.length, planarPoints));
+        assertFalse(licHandler.hasTripleNotContainedInRadius1Circle(planarPoints.length, planarPoints));
     }
 
     /**
@@ -1328,7 +1331,7 @@ public class MainTest
                                 new Point(0,0),
                                 new Point(0,0)};
 
-        assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
+        assertFalse(licHandler.hasPointsThatFitCircleOfRadius2ButNotRadius1(planarPoints.length, planarPoints));
     }
 
     /**
@@ -1354,7 +1357,7 @@ public class MainTest
                                 new Point(20,0), // skipped
                                 new Point(0,3)};
 
-        assertTrue(licHandler.lic13(planarPoints.length, planarPoints));
+        assertTrue(licHandler.hasPointsThatFitCircleOfRadius2ButNotRadius1(planarPoints.length, planarPoints));
     }
 
     /**
@@ -1374,7 +1377,7 @@ public class MainTest
                                 new Point(0,1), // skipped
                                 new Point(0,0)};
 
-        assertFalse(licHandler.lic13(5, planarPoints));
+        assertFalse(licHandler.hasPointsThatFitCircleOfRadius2ButNotRadius1(5, planarPoints));
     }
 
     /**
@@ -1394,7 +1397,7 @@ public class MainTest
                                 new Point(0,10),
                                 new Point(0,20)};
 
-        assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
+        assertFalse(licHandler.hasPointsThatFitCircleOfRadius2ButNotRadius1(planarPoints.length, planarPoints));
     }
 
     /**
@@ -1414,7 +1417,7 @@ public class MainTest
                 new Point(0.4, 0.2),
                 new Point(0.3, 0.1)};
 
-        assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
+        assertFalse(licHandler.hasPointsThatFitCircleOfRadius2ButNotRadius1(planarPoints.length, planarPoints));
     }
 
     //// TEST CASES FOR LIC 14
