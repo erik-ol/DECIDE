@@ -466,6 +466,46 @@ public class LaunchInterceptorConditionParameters
     }
 
     /**
+     * Verifies Launch Interceptor Condition 10
+     *
+     * LIC10 is true iff:
+     * There exists at least one set of three data points separated by exactly E_PTS and F_PTS
+     * consecutive intervening points, respectively, that are the vertices of a triangle with
+     * area greater than AREA1. The condition is not met when NUMPOINTS < 5.
+     *
+     * @param planarPointAmount number of points in the planarPoints array
+     * @param planarPoints the array of 2D coordinates
+     * @return true if the LIC10 condition is satisfied; false otherwise
+     */
+    public boolean hasLargeTriangleArea(int planarPointAmount, Point[] planarPoints)
+    {
+        if (planarPointAmount < 5)
+        {
+            return false;
+        }
+
+        for (int i = 0; i + E_PTS + F_PTS + 2 < planarPointAmount; i++)
+        {
+            Point p1 = planarPoints[i];
+            Point p2 = planarPoints[i + E_PTS + 1];
+            Point p3 = planarPoints[i + E_PTS + F_PTS + 2];
+
+            // Triangle area using the cross-product formula: 0.5 * |x1(y2-y3) + x2(y3-y1) + x3(y1-y2)|
+            double area = Math.abs(
+                p1.getX() * (p2.getY() - p3.getY()) +
+                p2.getX() * (p3.getY() - p1.getY()) +
+                p3.getX() * (p1.getY() - p2.getY())
+            ) / 2.0;
+
+            if (area > AREA1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Launch Interceptor Condition 11:
      * Verifies if there exist at least one set of two data Points,
      * separated by exactly G_PTS such that the x-coordinate of the

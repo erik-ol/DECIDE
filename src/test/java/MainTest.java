@@ -765,6 +765,103 @@ public class MainTest
         Assert.assertTrue(lic.validateAngleConsecutivePointsSeparation(points.length, points));
     }
 
+    //// TEST CASES FOR LIC 10
+
+    /**
+     * Negative test for LIC10 with invalid input.
+     * Verifies that LIC10 returns false when NUMPOINTS < 5.
+     */
+    @Test
+    public void lic10FalseWhenTooFewPoints()
+    {
+        // E_PTS=1, F_PTS=1, AREA1=1.0
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0);
+        Point[] planarPoints = {new Point(0, 0),
+                                new Point(5, 0),
+                                new Point(0, 5),
+                                new Point(1, 1)};
+
+        assertFalse(licHandler.hasLargeTriangleArea(planarPoints.length, planarPoints));
+    }
+
+    /**
+     * Positive test for LIC10.
+     * Verifies that LIC10 returns true when three points separated by E_PTS and F_PTS
+     * form a triangle with area greater than AREA1.
+     */
+    @Test
+    public void lic10TrueWhenAreaExceedsThreshold()
+    {
+        // E_PTS=1, F_PTS=1, AREA1=1.0
+        // Points: p0=(0,0), skip p1, p2=(10,0), skip p3, p4=(0,10) => area = 50 > 1.0
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0);
+        Point[] planarPoints = {new Point(0, 0),
+                                new Point(99, 99),  // skipped
+                                new Point(10, 0),
+                                new Point(99, 99),  // skipped
+                                new Point(0, 10)};
+
+        assertTrue(licHandler.hasLargeTriangleArea(planarPoints.length, planarPoints));
+    }
+
+    /**
+     * Negative test for LIC10.
+     * Verifies that LIC10 returns false when no triplet of points separated by E_PTS and F_PTS
+     * forms a triangle with area greater than AREA1.
+     */
+    @Test
+    public void lic10FalseWhenAreaBelowThreshold()
+    {
+        // E_PTS=1, F_PTS=1, AREA1=100.0
+        // Points: p0=(0,0), skip p1, p2=(1,0), skip p3, p4=(0,1) => area = 0.5 < 100.0
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 100.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0);
+        Point[] planarPoints = {new Point(0, 0),
+                                new Point(99, 99),  // skipped
+                                new Point(1, 0),
+                                new Point(99, 99),  // skipped
+                                new Point(0, 1)};
+
+        assertFalse(licHandler.hasLargeTriangleArea(planarPoints.length, planarPoints));
+    }
+
+    /**
+     * Negative test for LIC10.
+     * Verifies that LIC10 returns false when the three points are collinear (area = 0).
+     */
+    @Test
+    public void lic10FalseWhenCollinear()
+    {
+        // E_PTS=1, F_PTS=1, AREA1=0.0 (area must be strictly greater)
+        // Points: p0=(0,0), skip, p2=(5,0), skip, p4=(10,0) => area = 0, not > 0
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0);
+        Point[] planarPoints = {new Point(0, 0),
+                                new Point(99, 99),
+                                new Point(5, 0),
+                                new Point(99, 99),
+                                new Point(10, 0)};
+
+        assertFalse(licHandler.hasLargeTriangleArea(planarPoints.length, planarPoints));
+    }
+
+    /**
+     * Positive test for LIC10 with area exactly above threshold.
+     * Verifies boundary: triangle area is slightly greater than AREA1.
+     */
+    @Test
+    public void lic10TrueWhenAreaJustAboveThreshold()
+    {
+        // E_PTS=1, F_PTS=1, AREA1=4.99
+        // Points: p0=(0,0), skip, p2=(5,0), skip, p4=(0,2) => area = 5.0 > 4.99
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 4.99, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0);
+        Point[] planarPoints = {new Point(0, 0),
+                                new Point(99, 99),
+                                new Point(5, 0),
+                                new Point(99, 99),
+                                new Point(0, 2)};
+
+        assertTrue(licHandler.hasLargeTriangleArea(planarPoints.length, planarPoints));
+    }
+
     /*
      * LIC-11 consecutive points verification for the case when the Point
      * array is too short.
