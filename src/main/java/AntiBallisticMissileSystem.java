@@ -15,6 +15,8 @@ public class AntiBallisticMissileSystem
 {
   public static boolean[] conditionsMetVector = new boolean[15];
 
+  public static boolean[][] preliminaryUnlockingMatrix = new boolean[15][15];
+
   /**
    * Determines whether an interceptor should be launched
    * based upon input radar tracking information and outputs
@@ -29,6 +31,8 @@ public class AntiBallisticMissileSystem
   static void decide(int planarPointAmount, Point[] planarPoints, LaunchInterceptorConditionParameters launchInterceptorConditionParameters, LogicalConnector[][] logicalConnectorMatrix, boolean[] preliminaryUnlockingVector)
   {
     initConditionsMetVector(launchInterceptorConditionParameters, planarPoints);
+
+    evaluateLogicalConnectorMatrix(logicalConnectorMatrix);
 
     System.out.println("NO");
   }
@@ -57,5 +61,30 @@ public class AntiBallisticMissileSystem
     conditionsMetVector[12] = false;
     conditionsMetVector[13] = launchInterceptorConditionsParameters.lic13(planarPoints.length, planarPoints);
     conditionsMetVector[14] = false;
+  }
+
+  /**
+   * Initializes the preliminary unlocking matrix (PUM) based on if corresponding elements in the conditions met vector (CMV) fullfill the operator in the logical connector matrix (LCM).
+   * @param logicalConnectorMatrix
+   */
+  public static void evaluateLogicalConnectorMatrix(LogicalConnector[][] logicalConnectorMatrix)
+  {
+    
+    for (int i = 0; i<15; i++) {
+      for (int j = 0; j<15; j++) {
+        if (logicalConnectorMatrix[i][j] == LogicalConnector.ANDD)
+        {
+          preliminaryUnlockingMatrix[i][j] = conditionsMetVector[i] & conditionsMetVector[j];
+        }
+        else if (logicalConnectorMatrix[i][j] == LogicalConnector.ORR)
+        {
+          preliminaryUnlockingMatrix[i][j] = conditionsMetVector[i] | conditionsMetVector[j];
+        }
+        else if (logicalConnectorMatrix[i][j] == LogicalConnector.NOTUSED)
+        {
+          preliminaryUnlockingMatrix[i][j] = true;
+        }
+      }
+    }
   }
 }
