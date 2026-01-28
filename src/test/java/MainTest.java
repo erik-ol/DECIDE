@@ -390,10 +390,10 @@ public class MainTest
     public void lic9ValidateConsecutivePointsSeparationTooFewPoints()
     {
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                1, 1, 0, 0,
-                0, 0, 0, 0);
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            1, 1, 0, 0,
+                                                                                            0, 0, 0, 0);
         Point[] points = {new Point(1.0, 2.0),
                 new Point(2.0, 3.0)};
 
@@ -1193,7 +1193,7 @@ public class MainTest
     public void lic13FitBothR1AndR2() {
         // Uses A_PTS = B_PTR = RADIUS1 = 1 and RADIUS2 = 5
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
-        
+
         Point[] planarPoints = {new Point(0.0, 0.0),
                 new Point(0.2, 0),
                 new Point(0.4, 0.0),
