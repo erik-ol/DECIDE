@@ -298,6 +298,65 @@ public class LaunchInterceptorConditionParameters
     }
 
     /**
+<<<<<<< HEAD
+     * Verifies Launch Interceptor Condition 6
+     *
+     * LIC6 is true iff:
+     * There exists at least one set of N_PTS consecutive data points such that at least one of
+     * the points lies a distance greater than DIST from the line joining the first and last of
+     * these N_PTS points. If the first and last points are identical, the distance is measured
+     * from the coincident point to all other points. The condition is not met when NUMPOINTS < 3.
+     *
+     * @param planarPointAmount number of points in the planarPoints array
+     * @param planarPoints the array of 2D coordinates
+     * @return true if the LIC6 condition is satisfied; false otherwise
+     */
+    public boolean hasPointFarFromLine(int planarPointAmount, Point[] planarPoints)
+    {
+        if (planarPointAmount < 3)
+        {
+            return false;
+        }
+
+        for (int i = 0; i + N_PTS - 1 < planarPointAmount; i++)
+        {
+            Point first = planarPoints[i];
+            Point last = planarPoints[i + N_PTS - 1];
+
+            double dx = last.getX() - first.getX();
+            double dy = last.getY() - first.getY();
+            double lineLen = Math.sqrt(dx * dx + dy * dy);
+
+            for (int j = i + 1; j < i + N_PTS - 1; j++)
+            {
+                double dist;
+                if (lineLen < 1e-9)
+                {
+                    // First and last points are identical — measure distance from coincident point
+                    double px = planarPoints[j].getX() - first.getX();
+                    double py = planarPoints[j].getY() - first.getY();
+                    dist = Math.sqrt(px * px + py * py);
+                }
+                else
+                {
+                    // Perpendicular distance from point to line
+                    double px = planarPoints[j].getX() - first.getX();
+                    double py = planarPoints[j].getY() - first.getY();
+                    dist = Math.abs(dx * py - dy * px) / lineLen;
+                }
+
+                if (dist > DIST)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+=======
+>>>>>>> origin/main
      * Launch Interceptor Condition 7:
      * Verify if there are at least one set of 2 data points
      * that are separated by K_PTS (exclusively)
