@@ -443,7 +443,7 @@ public class LaunchInterceptorConditionParameters
         if((planarPointAmount < 5) || (1 > C_PTS) || (1 > D_PTS) || ((C_PTS + D_PTS) > (planarPointAmount - 3)))
             return false;
 
-        for(int point = 0; point < planarPointAmount; point += (3 + C_PTS + D_PTS))
+        for(int point = 0; point < (planarPointAmount - (2 + C_PTS + D_PTS)); point ++)
         {
             Point firstPoint = planarPoints[point];
             Point vertex     = planarPoints[point + C_PTS + 1];
