@@ -126,7 +126,7 @@ public class MainTest {
             new Point(0, 0),
             new Point(5, 5),
         };
-        assertFalse(licHandler.checkLic6(planarPoints.length, planarPoints));
+        assertFalse(licHandler.hasPointFarFromLine(planarPoints.length, planarPoints));
     }
 
     /**
@@ -144,7 +144,7 @@ public class MainTest {
             new Point(0, 10),
             new Point(10, 0),
         };
-        assertTrue(licHandler.checkLic6(planarPoints.length, planarPoints));
+        assertTrue(licHandler.hasPointFarFromLine(planarPoints.length, planarPoints));
     }
 
     /**
@@ -161,7 +161,7 @@ public class MainTest {
             new Point(5, 0),
             new Point(10, 0),
         };
-        assertFalse(licHandler.checkLic6(planarPoints.length, planarPoints));
+        assertFalse(licHandler.hasPointFarFromLine(planarPoints.length, planarPoints));
     }
 
     /**
@@ -178,7 +178,7 @@ public class MainTest {
             new Point(5, 5),
             new Point(0, 0),
         };
-        assertTrue(licHandler.checkLic6(planarPoints.length, planarPoints));
+        assertTrue(licHandler.hasPointFarFromLine(planarPoints.length, planarPoints));
     }
 
     /**
@@ -195,7 +195,7 @@ public class MainTest {
             new Point(0.5, 0.5),
             new Point(0, 0),
         };
-        assertFalse(licHandler.checkLic6(planarPoints.length, planarPoints));
+        assertFalse(licHandler.hasPointFarFromLine(planarPoints.length, planarPoints));
     }
 
     /**
