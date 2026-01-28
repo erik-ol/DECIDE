@@ -25,7 +25,7 @@ public class LaunchInterceptorConditionParameters
     
     /**
      * Constructs the LaunchInterceptorConditionParameters
-     * 
+     *
      * @param LENGTH1 Length in LICs 0, 7, 12
      * @param RADIUS1 Radius in LICs 1, 8, 13
      * @param EPSILON Deviation from PI in LICs 2, 9
@@ -413,7 +413,7 @@ public class LaunchInterceptorConditionParameters
 
             // Compute squared distances between points
             double distance12 = Math.pow(p1.getX()-p2.getX(), 2) + Math.pow(p1.getY()-p2.getY(), 2);
-            double distance13 = Math.pow(p1.getX()-p3.getX(), 2) + Math.pow(p3.getY()-p3.getY(), 2);
+            double distance13 = Math.pow(p1.getX()-p3.getX(), 2) + Math.pow(p1.getY()-p3.getY(), 2);
             double distance23 = Math.pow(p2.getX()-p3.getX(), 2) + Math.pow(p2.getY()-p3.getY(), 2);
             
             if (distance12 > diameterSquared || distance13 > diameterSquared || distance23 > diameterSquared)
