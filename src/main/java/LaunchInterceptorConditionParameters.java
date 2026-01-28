@@ -72,17 +72,17 @@ public class LaunchInterceptorConditionParameters
     }
     
     /**
-     * Launch Interceptor Condition 0
-     * 
+     * Launch Interceptor Condition 0:
      * Verifies if there exists at least one set of two consecutive 
      * data points that are at a distance greater than length LENGTH1 apart
      * 
-     * @param planarPointAmount Number of planar points
-     * @param planarPoints Planar points array
+     * @param planarPointAmount - Number of planar points
+     * @param planarPoints      - Planar points array
      * 
      * @return True iff at least one set of 2 consecutive data points that are a distance greater than length LENGTH1 apart
      */
-    public boolean doesTwoConsecutivePointsFurtherThanLength1(int planarPointAmount, Point[] planarPoints){
+    public boolean doesTwoConsecutivePointsFurtherThanLength1(int planarPointAmount, Point[] planarPoints)
+    {
         // Check all consecutive points
         for (int point = 1; point < planarPointAmount; point++){
             double deltaX = planarPoints[point].getX() - planarPoints[point-1].getX();
@@ -127,8 +127,9 @@ public class LaunchInterceptorConditionParameters
         return false;
     }
 
-
-    /* Verifies if there exists at least one set of three consecutive
+    /**
+     * Launch Interceptor Condition 2:
+     * Verifies if there exists at least one set of three consecutive
      * data points which form an angle such that (PI + EPSILON) < angle
      * or angle < (PI - EPSILON), as a part of the LICs.
      *
@@ -186,9 +187,11 @@ public class LaunchInterceptorConditionParameters
      * @return true if there exists a set of three consecutive datapoints
      *          that meets the conditions and false otherwise.
      */
-    public boolean validateTriangleArea(int planarPointAmount, Point[] planarPoints) {
+    public boolean validateTriangleArea(int planarPointAmount, Point[] planarPoints)
+    {
 
-        for (int i = 2; i < planarPointAmount; i++) {
+        for (int i = 2; i < planarPointAmount; i++)
+        {
 
             double area = triangleArea(planarPoints[i-2], planarPoints[i-1], planarPoints[i]);
            
@@ -201,28 +204,33 @@ public class LaunchInterceptorConditionParameters
   
     /**
      * Calculates area of triangle from coordinates of corners
-     * @param corner0 1st corner
-     * @param corner1 2nd corner
-     * @param corner2 3rd corner
+     *
+     * @param corner0 - 1st corner
+     * @param corner1 - 2nd corner
+     * @param corner2 - 3rd corner
+     *
      * @return area of triangle
      */
-    private double triangleArea(Point corner0, Point corner1, Point corner2) {
-         // shoelace formula for triangle area
-        double determinant =  
-            ((corner0.getX()-corner2.getX()) * 
-            (corner1.getY()-corner0.getY())) -
-            ((corner0.getX()-corner1.getX()) *
-            (corner2.getY()-corner0.getY()));
+    private double triangleArea(Point corner0, Point corner1, Point corner2)
+    {
+        // shoelace formula for triangle area
+        double determinant = ((corner0.getX()-corner2.getX()) *
+                              (corner1.getY()-corner0.getY())) -
+                             ((corner0.getX()-corner1.getX()) *
+                              (corner2.getY()-corner0.getY()));
         double area = Math.abs(determinant)/2;
+
         return area;
     }
 
     /**
      * Launch Interceptor Condition 5
      *
-     * @param planarPoints the planar points
-     * @param planarPointAmount the number of planar points
-     * @return True if there exists at least one set of 2 consecutive data points such that the difference in x-coordinates is less than 0.
+     * @param planarPointAmount - the number of planar points
+     * @param planarPoints      - the planar points
+     *
+     * @return True if there exists at least one set of 2 consecutive data points
+     *                 such that the difference in x-coordinates is less than 0.
      */
     public static boolean lic5(Point[] planarPoints, int planarPointAmount)
     {
@@ -247,28 +255,34 @@ public class LaunchInterceptorConditionParameters
     }
 
     /**
-     * Launch Interceptor Condition 7
-     * 
+     * Launch Interceptor Condition 7:
      * Verify if there are at least one set of 2 data points
      * that are separated by K_PTS (exclusively)
      * that has a distance larger than LENGHT1
-     * 
-     * @param planarPoints
-     * @param planarPointAmount
-     * @return True if there exists at least one set of 2 data points separated by K_PTS exclusively have a distance larger than LENGTH1.
+     *
+     * @param planarPointAmount - the number of planar points
+     * @param planarPoints      - the planar points
+     *
+     * @return True if there exists at least one set of 2 data points separated
+     *         by K_PTS exclusively have a distance larger than LENGTH1.
      */
-    public boolean doesPointsSeparatedByKFurtherThanLength1(Point[] planarPoints, int planarPointAmount){
-        if (planarPointAmount < 3) {
+    public boolean doesPointsSeparatedByKFurtherThanLength1(Point[] planarPoints, int planarPointAmount)
+    {
+        if (planarPointAmount < 3)
+        {
             return false;
         }
-        for (int i = K_PTS + 1; i < planarPointAmount; i++){
+
+        for (int i = K_PTS + 1; i < planarPointAmount; i++)
+        {
             double deltaX = planarPoints[i].getX() - planarPoints[i - K_PTS - 1].getX();
             double deltaY = planarPoints[i].getY() - planarPoints[i - K_PTS - 1].getY();
             double distance = (deltaX * deltaX) + (deltaY * deltaY);
 
             double distance_required = this.LENGTH1 * this.LENGTH1;
 
-            if (distance > distance_required){
+            if (distance > distance_required)
+            {
                 return true;
             }
         }
@@ -277,24 +291,25 @@ public class LaunchInterceptorConditionParameters
 
     /**
      * Verifies Launch Interceptor Condition 8
-     * 
      * LIC8 is true iff:
      * There exists at least one triplet of consequtive points, seperated by 
      * A_PTS and B_PTS, that cannot be contained with or on a circle of radius RADIUS1
      * 
-     * @param planarPointAmount number of points in the planarPoints array
-     * 
-     * @param planarPoints the array of 2D coordinates
+     * @param planarPointAmount - number of points in the planarPoints array
+     * @param planarPoints      - the array of 2D coordinates
      * 
      * @return true if the LIC13 condition is satisfied; false otherwise
      */
-    public boolean lic8(int planarPointAmount, Point[] planarPoints) {
+    public boolean lic8(int planarPointAmount, Point[] planarPoints)
+    {
 
-        if(planarPointAmount < 5) {
+        if(planarPointAmount < 5)
+        {
             return false;
         }
 
-        for(int i = 0; i + A_PTS + B_PTS + 2 < planarPointAmount; i++) {
+        for(int i = 0; i + A_PTS + B_PTS + 2 < planarPointAmount; i++)
+        {
             Point p1 = planarPoints[i];
             Point p2 = planarPoints[i+A_PTS+1];
             Point p3 = planarPoints[i+A_PTS+B_PTS+2];
@@ -306,30 +321,36 @@ public class LaunchInterceptorConditionParameters
             double distance13 = Math.pow(p1.getX()-p3.getX(), 2) + Math.pow(p3.getY()-p3.getY(), 2);
             double distance23 = Math.pow(p2.getX()-p3.getX(), 2) + Math.pow(p2.getY()-p3.getY(), 2);
             
-            if (distance12 > diameterSquared || distance13 > diameterSquared || distance23 > diameterSquared) {
+            if (distance12 > diameterSquared || distance13 > diameterSquared || distance23 > diameterSquared)
+            {
                 return true;
             }
         }
+
         return false;
     }
 
     /**
-     * Launch Interceptor Condition 12
-     * 
+     * Launch Interceptor Condition 12:
      * Verify if there exists at least one set of 2 points
      * that are separated by K_PTS (exclusively)
      * that is longer than LENGHT1
      * But shorter than LENGTH2
      * 
-     * @param planarPointAmount Number of planar points
-     * @param planarPoints Array of planar points
-     * @return True if there exists at least one set of 2 points separated by K_PTS exclusively that is longer than LENGTH1 but shorter than LENGHT2
+     * @param planarPointAmount - Number of planar points
+     * @param planarPoints      - Array of planar points
+     *
+     * @return True if there exists at least one set of 2 points separated by K_PTS
+     *         exclusively that is longer than LENGTH1 but shorter than LENGHT2
      */
-    public boolean doesPointsSeparatedByKApartByRange(Point[] planarPoints, int planarPointAmount){
-        if (planarPointAmount < 3) {
+    public boolean doesPointsSeparatedByKApartByRange(Point[] planarPoints, int planarPointAmount)
+    {
+        if (planarPointAmount < 3)
+        {
             return false;
         }
-        for (int i = K_PTS + 1; i < planarPointAmount; i++){
+        for (int i = K_PTS + 1; i < planarPointAmount; i++)
+        {
             double deltaX = planarPoints[i].getX() - planarPoints[i - K_PTS - 1].getX();
             double deltaY = planarPoints[i].getY() - planarPoints[i - K_PTS - 1].getY();
             double distance = (deltaX * deltaX) + (deltaY * deltaY);
@@ -337,37 +358,41 @@ public class LaunchInterceptorConditionParameters
             double distance_required_1 = this.LENGTH1 * this.LENGTH1;
             double distance_required_2 = this.LENGTH2 * this.LENGTH2;
 
-            if ((distance > distance_required_1)&&(distance < distance_required_2)){
+            if ((distance > distance_required_1)&&(distance < distance_required_2))
+            {
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * Verifies Launch Interceptor Condition 13
-     * 
      * LIC13 is true iff:
-     * 1) There exists at least one triplet of points, seperated by A_PTS and B_PTS,
+     * 1) There exists at least one triplet of points, separated by A_PTS and B_PTS,
      * that cannot be contained with or on a circle of radius RADIUS1, and
-     * 2) There exists at least one triplet of points, seperated by A_PTS and B_PTS,
+     * 2) There exists at least one triplet of points, separated by A_PTS and B_PTS,
      * that can be contained with or on a circle of radius RADIUS2.
      * 
-     * @param planarPointAmount number of points in the planarPoints array
-     * @param planarPoints the array of 2D coordinates
+     * @param planarPointAmount - number of points in the planarPoints array
+     * @param planarPoints      - the array of 2D coordinates
      * 
      * @return true if the LIC13 condition is satisfied; false otherwise
      */
-    public boolean lic13(int planarPointAmount, Point[] planarPoints) {
+    public boolean lic13(int planarPointAmount, Point[] planarPoints)
+    {
 
-        if(planarPointAmount < 5) {
+        if(planarPointAmount < 5)
+        {
             return false;
         }
 
         boolean condition1 = false;
         boolean condition2 = false;
 
-        for(int i = 0; i + A_PTS + B_PTS + 2 < planarPointAmount; i++) {
+        for(int i = 0; i + A_PTS + B_PTS + 2 < planarPointAmount; i++)
+        {
             Point p1 = planarPoints[i];
             Point p2 = planarPoints[i+A_PTS+1];
             Point p3 = planarPoints[i+A_PTS+B_PTS+2];
@@ -380,10 +405,12 @@ public class LaunchInterceptorConditionParameters
             double distance13 = Math.pow(p1.getX()-p3.getX(), 2) + Math.pow(p1.getY()-p3.getY(), 2);
             double distance23 = Math.pow(p2.getX()-p3.getX(), 2) + Math.pow(p2.getY()-p3.getY(), 2);
             
-            if(!(distance12 <= diameter1Squared && distance13 <= diameter1Squared && distance23 <= diameter1Squared)) {
+            if(!(distance12 <= diameter1Squared && distance13 <= diameter1Squared && distance23 <= diameter1Squared))
+            {
                 condition1 = true;
             }
-            if(distance12 <= diameter2Squared && distance13 <= diameter2Squared && distance23 <= diameter2Squared) {
+            if(distance12 <= diameter2Squared && distance13 <= diameter2Squared && distance23 <= diameter2Squared)
+            {
                 condition2 = true;
             }
         }
