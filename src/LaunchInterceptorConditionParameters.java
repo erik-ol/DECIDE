@@ -166,10 +166,16 @@ public class LaunchInterceptorConditionParameters {
     }
 
     /**
-     * Launch Interceptor Condition 4
+     * Launch Interceptor Condition 4:
+     * Verifies there exists at least one set of Q_PTS
+     * consecutive data points that lie in more than QUADS quadrants.
+     * 
+     * @param planarPointAmount Number of planar points
+     * @param planarPoints Planar points array
+     * 
      * @return True iff there exists at least one set of Q_PTS consecutive data points that lie in more than QUADS quadrants
      */
-    public boolean lic_4(int planarPointAmount, Point[] planarPoints) {
+    public boolean validateQuadrants(int planarPointAmount, Point[] planarPoints) {
 
         for (int i = Q_PTS-1; i < planarPointAmount; i++) {
 

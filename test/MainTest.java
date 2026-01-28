@@ -172,8 +172,6 @@ public class MainTest {
         
     }
 
-    //// TEST CASES FOR LIC 4
-    
     @Test
     /**
      * Tests situations where lic4 must be false due to more QUADS than Q_PTS
@@ -195,7 +193,7 @@ public class MainTest {
 
             LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             
-            Assert.assertFalse(licHandler.lic_4(points, pointArray));
+            Assert.assertFalse(licHandler.validateQuadrants(points, pointArray));
         }
         
     }
@@ -217,13 +215,13 @@ public class MainTest {
 
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         
-        Assert.assertFalse(licHandler.lic_4(points, pointArray));
+        Assert.assertFalse(licHandler.validateQuadrants(points, pointArray));
         
     }
 
     @Test
     /**
-     * Tests situations where lic4 should be true
+     * Tests situations where lic4 should be true since each quadrant contains a point and QUADS is 3
      */
     public void lic4Positive() {
 
@@ -238,7 +236,7 @@ public class MainTest {
 
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         
-        Assert.assertTrue(licHandler.lic_4(points, pointArray));
+        Assert.assertTrue(licHandler.validateQuadrants(points, pointArray));
         
     }
 
