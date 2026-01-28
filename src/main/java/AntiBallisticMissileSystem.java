@@ -34,7 +34,40 @@ public class AntiBallisticMissileSystem
 
     evaluateLogicalConnectorMatrix(logicalConnectorMatrix);
 
-    System.out.println("NO");
+    boolean launch = calculateFUV(preliminaryUnlockingVector, preliminaryUnlockingMatrix);
+    if(launch) {
+      System.out.println("YES");
+    } else {
+      System.out.println("NO");
+    }
+  }
+
+  /**
+   * Computes Final Unlocking Vector (FUV)
+   * 
+   * Function evaluates the PUM together with the PUV to determine whether the
+   * interceptor should be launched
+   * 
+   * @param PUV the Preliminary Unlocking Matrix
+   * @param PUM the Preliminary Unlocking Vector
+   * @return true if all required tows in PUM, as specified by PUV,
+   * contain only true values, otherwise false.
+   */
+  public static boolean calculateFUV(boolean[] PUV, boolean[][] PUM) {
+
+    for(int i = 0; i < 15; i++) {
+
+      if(!PUV[i]) { // Condition 2
+        continue;
+      }
+
+      for(int j = 0; j < 15; j++) {
+        if(!PUM[i][j]) { // Condition 1 and 3
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   /**
