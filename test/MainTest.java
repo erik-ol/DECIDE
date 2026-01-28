@@ -66,6 +66,8 @@ public class MainTest {
         
     }
 
+    //// TEST CASES FOR LIC 1
+
     @Test
     /**
      * Tests situations where lic1 should be false
@@ -121,6 +123,54 @@ public class MainTest {
         
     }
 
+    @Test
+    /**
+     * Tests that LIC-3 triangle verification is false for line of points where consecutive points are very close
+     */
+    public void lic3FalseForRandomizedLineOfPoints() {
+
+        Random random = new Random();
+        
+        for (int points = 0; points<100; points++) {
+
+            Point[] pointArray = new Point[points];
+
+            if (points>0) pointArray[0] = new Point(0, 0);
+
+            for (int point = 1; point<points; point++) {
+                double pointX = pointArray[point-1].getX() + random.nextDouble();
+                double pointY = pointArray[point-1].getY() + random.nextDouble() - 0.5;
+                pointArray[point] = new Point(pointX, pointY);
+
+            }
+
+            LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            
+            Assert.assertFalse(licHandler.validateTriangleArea(points, pointArray));
+        }
+        
+    }
+
+    @Test
+    /**
+     * Tests that LIC-3 triangle verification is true for a triangle with area greater than AREA1
+     */
+    public void lic3TrueWhenTriangleAreaSufficient() {
+
+        int points = 4;
+
+        Point[] pointArray = {
+            new Point(0.0, 0.0),
+            new Point(1.0, 0.0),
+            new Point(5.0, 0.0),
+            new Point(2.0, 11.0)
+        };
+
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        
+        Assert.assertTrue(licHandler.validateTriangleArea(points, pointArray));
+        
+    }
  
     //// TEST CASES FOR LIC 5
 
@@ -336,6 +386,135 @@ public class MainTest {
             new Point(0,0),
         };
         assertFalse(licHandler.lic8(planarPoints.length, planarPoints));
+    }
+
+    /**
+     * Test situation where number of points < 3
+     */
+    @Test
+    public void lic12FalseWhenNotEnoughPoints(){
+        for (int points = 1; points < 3; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                pointArray[point] = new Point(0, 0);
+            }
+
+            LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
+
+            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
+            Assert.assertFalse(res);
+        }
+    }
+
+    /**
+     * Test situation where all points are the same
+     */
+    @Test
+    public void lic12FalseWhenAllPointsSame(){
+        for (int points = 3; points < 10; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                pointArray[point] = new Point(0, 0);
+            }
+
+            LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
+
+            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
+            Assert.assertFalse(res);
+        }
+    }
+
+    /**
+     * Test situation when points pair differed by exactly LENGHT1
+     */
+    @Test
+    public void lic12FalseWhenPointsPairEqual1(){
+        for (int points = 10; points < 20; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                if (point < (points / 2) ){
+                    pointArray[point] = new Point(1, 1);
+                }
+                else{
+                    pointArray[point] = new Point(3, 4);
+                }
+            }
+
+            LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
+
+            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
+            System.out.println(res);
+            Assert.assertFalse(res);
+        }
+    }
+
+    /**
+     * Test situation where all pairs longer than LENGTH1, shorter than LENGTH2
+     */
+    @Test
+    public void lic12TrueWhenAllPair(){
+        for (int points = 10; points < 20; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                if (point < (points / 2) ){
+                    pointArray[point] = new Point(1, 1);
+                }
+                else{
+                    pointArray[point] = new Point(5, 11);
+                }
+            }
+
+            LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
+
+            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
+            Assert.assertTrue(res);
+        }
+    }
+
+    /**
+     * Test situation where all pairs equal to LENGTH2
+     */
+    @Test
+    public void lic12FalseWhenPointsPairEqual2(){
+        for (int points = 10; points < 20; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                if (point < (points / 2) ){
+                    pointArray[point] = new Point(1, 1);
+                }
+                else{
+                    pointArray[point] = new Point(6, 13);
+                }
+            }
+
+            LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
+
+            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
+            Assert.assertFalse(res);
+        }
+    }
+
+    /**
+     * Test situation where all pairs strictly larger than LENGTH2
+     */
+    @Test
+    public void lic12FalseWhenPointsPairGreater(){
+        for (int points = 10; points < 20; points++){
+            Point[] pointArray = new Point[points];
+            for (int point = 0; point < points; point++){
+                if (point < (points / 2) ){
+                    pointArray[point] = new Point(1, 1);
+                }
+                else{
+                    pointArray[point] = new Point(10, 20);
+                }
+            }
+
+            LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
+
+            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
+            Assert.assertFalse(res);
+        }
     }
 
     /**

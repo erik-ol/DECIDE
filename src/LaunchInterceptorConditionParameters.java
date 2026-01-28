@@ -111,9 +111,9 @@ public class LaunchInterceptorConditionParameters {
                     double distance = (deltaX*deltaX)+(deltaY*deltaY);
 
                     // compare squared distances rather than taking square root
-                    double diameter_squared = RADIUS1*RADIUS1*4;
+                    double diameterSquared = RADIUS1*RADIUS1*4;
 
-                    if (distance > diameter_squared) return true;
+                    if (distance > diameterSquared) return true;
                 }
             }
         }
@@ -121,6 +121,50 @@ public class LaunchInterceptorConditionParameters {
         // no points met conditions
         return false;
     }
+
+    /**
+     * Launch Interceptor Condition 3:
+     * Verifies there exists at least one set of three
+     * consecutive data points that are the vertices of
+     * a triangle with area greater than AREA1.
+     * 
+     * @param planarPoints      - The array of Points to validate
+     * @param planarPointAmount - The amount of planar Points within the planarPoints array
+     * 
+     * @return true if there exists a set of three consecutive datapoints
+     *          that meets the conditions and false otherwise.
+     */
+    public boolean validateTriangleArea(int planarPointAmount, Point[] planarPoints) {
+
+        for (int i = 2; i < planarPointAmount; i++) {
+
+            double area = triangleArea(planarPoints[i-2], planarPoints[i-1], planarPoints[i]);
+           
+            if (area>AREA1) return true;
+        }
+
+        // no points met conditions
+        return false;
+    }
+  
+    /**
+     * Calculates area of triangle from coordinates of corners
+     * @param corner0 1st corner
+     * @param corner1 2nd corner
+     * @param corner2 3rd corner
+     * @return area of triangle
+     */
+    private double triangleArea(Point corner0, Point corner1, Point corner2) {
+         // shoelace formula for triangle area
+        double determinant =  
+            ((corner0.getX()-corner2.getX()) * 
+            (corner1.getY()-corner0.getY())) -
+            ((corner0.getX()-corner1.getX()) *
+            (corner2.getY()-corner0.getY()));
+        double area = Math.abs(determinant)/2;
+        return area;
+    }
+
     /**
      * Launch Interceptor Condition 5
      * 
@@ -215,6 +259,37 @@ public class LaunchInterceptorConditionParameters {
     }
 
     /**
+     * Launch Interceptor Condition 12
+     * 
+     * Verify if there exists at least one set of 2 points
+     * that are separated by K_PTS (exclusively)
+     * that is longer than LENGHT1
+     * But shorter than LENGTH2
+     * 
+     * @param planarPointAmount Number of planar points
+     * @param planarPoints Array of planar points
+     * @return True if there exists at least one set of 2 points separated by K_PTS exclusively that is longer than LENGTH1 but shorter than LENGHT2
+     */
+    public boolean doesPointsSeparatedByKApartByRange(Point[] planarPoints, int planarPointAmount){
+        if (planarPointAmount < 3) {
+            return false;
+        }
+        for (int i = K_PTS + 1; i < planarPointAmount; i++){
+            double deltaX = planarPoints[i].getX() - planarPoints[i - K_PTS - 1].getX();
+            double deltaY = planarPoints[i].getY() - planarPoints[i - K_PTS - 1].getY();
+            double distance = (deltaX * deltaX) + (deltaY * deltaY);
+
+            double distance_required_1 = this.LENGTH1 * this.LENGTH1;
+            double distance_required_2 = this.LENGTH2 * this.LENGTH2;
+
+            if ((distance > distance_required_1)&&(distance < distance_required_2)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Verifies Launch Interceptor Condition 13
      * 
      * LIC13 is true iff:
@@ -259,4 +334,6 @@ public class LaunchInterceptorConditionParameters {
         }
         return condition1 && condition2;
     }
+
+
 }
