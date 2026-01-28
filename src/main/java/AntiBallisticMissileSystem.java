@@ -1,16 +1,20 @@
 /**
  * LIC operations for the logical connector matrix
  */
-enum LogicalConnector {
+enum LogicalConnector
+{
   ANDD,
   ORR,
   NOTUSED,
 }
 
 /**
- * Handles the anti ballistic missile system
+ * Handles the anti-ballistic missile system
  */
-public class AntiBallisticMissileSystem {
+public class AntiBallisticMissileSystem
+{
+  public static boolean[] conditionsMetVector = new boolean[15];
+
   /**
    * Determines whether an interceptor should be launched
    * based upon input radar tracking information and outputs
@@ -24,6 +28,34 @@ public class AntiBallisticMissileSystem {
    */
   static void decide(int planarPointAmount, Point[] planarPoints, LaunchInterceptorConditionParameters launchInterceptorConditionParameters, LogicalConnector[][] logicalConnectorMatrix, boolean[] preliminaryUnlockingVector)
   {
+    initConditionsMetVector(launchInterceptorConditionParameters, planarPoints);
+
     System.out.println("NO");
+  }
+
+  /**
+   * Initializes the conditions met vector (CMV) of which the elements shall
+   * represent all the launch interceptor conditions (LICs) in order.
+   *
+   * @param launchInterceptorConditionsParameters - The LIC object of which the condition parameters has been defined
+   * @param planarPoints                          - The array of Points to be validated by each LIC
+   */
+  public static void initConditionsMetVector(LaunchInterceptorConditionParameters launchInterceptorConditionsParameters, Point[] planarPoints)
+  {
+    conditionsMetVector[0]  = launchInterceptorConditionsParameters.doesTwoConsecutivePointsFurtherThanLength1(planarPoints.length, planarPoints);
+    conditionsMetVector[1]  = launchInterceptorConditionsParameters.lic_1(planarPoints.length, planarPoints);
+    conditionsMetVector[2]  = launchInterceptorConditionsParameters.validateAngle(planarPoints.length, planarPoints);
+    conditionsMetVector[3]  = launchInterceptorConditionsParameters.validateTriangleArea(planarPoints.length, planarPoints);
+    conditionsMetVector[4]  = launchInterceptorConditionsParameters.validateQuadrants(planarPoints.length, planarPoints);
+    conditionsMetVector[5]  = launchInterceptorConditionsParameters.lic5(planarPoints, planarPoints.length);
+    conditionsMetVector[6]  = launchInterceptorConditionsParameters.hasPointFarFromLine(planarPoints.length, planarPoints);
+    conditionsMetVector[7]  = launchInterceptorConditionsParameters.doesPointsSeparatedByKFurtherThanLength1(planarPoints, planarPoints.length);
+    conditionsMetVector[8]  = launchInterceptorConditionsParameters.lic8(planarPoints.length, planarPoints);
+    conditionsMetVector[9]  = launchInterceptorConditionsParameters.validateAngleConsecutivePointsSeparation(planarPoints.length, planarPoints);
+    conditionsMetVector[10] = launchInterceptorConditionsParameters.hasLargeTriangleArea(planarPoints.length, planarPoints);
+    conditionsMetVector[11] = launchInterceptorConditionsParameters.validateConsecutivePointsSeparation(planarPoints.length, planarPoints);
+    conditionsMetVector[12] = launchInterceptorConditionsParameters.doesPointsSeparatedByKApartByRange(planarPoints, planarPoints.length);
+    conditionsMetVector[13] = launchInterceptorConditionsParameters.lic13(planarPoints.length, planarPoints);
+    conditionsMetVector[14] = launchInterceptorConditionsParameters.hasTriangleAreaInRange(planarPoints.length, planarPoints);
   }
 }
