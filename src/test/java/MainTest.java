@@ -350,10 +350,15 @@ public class MainTest
 
     public void lic5TrueWhenXDecreases()
     {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0);
         Point[] points = {new Point(3.0, 0.0),
                           new Point(2.0, 0.0)};
 
-        boolean res = LaunchInterceptorConditionParameters.lic5(points, 2);
+        boolean res = lic.lic5(points, 2);
         assertTrue(res);
     }
 
@@ -363,10 +368,15 @@ public class MainTest
     @Test
     public void lic5FalseWhenXIncreases()
     {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0);
         Point[] points = {new Point(2.0, 0.0),
                           new Point(3.0, 0.0)};
 
-        boolean res = LaunchInterceptorConditionParameters.lic5(points, 2);
+        boolean res = lic.lic5(points, 2);
         assertFalse(res);
     }
 
@@ -376,12 +386,19 @@ public class MainTest
     @Test
     public void lic5FalseWhenXIsEqual()
     {
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0);
+
         Point[] points = {new Point(2.0, 0.0),
                           new Point(2.0, 0.0)};
 
-        boolean res = LaunchInterceptorConditionParameters.lic5(points, 2);
+        boolean res = lic.lic5(points, 2);
         assertFalse(res);
     }
+
     /*
      * LIC-9 consecutive points verification for the case when the Point array is
      * too short.
