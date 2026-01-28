@@ -10,6 +10,46 @@ import org.junit.*;
 public class MainTest
 {
     /**
+     * Tests the CMV for the case when all LICs are true.
+     */
+    @Test
+    public void cmvTrue()
+    {
+        Point[] points = {
+                new Point(0, 0),
+                new Point(3, 0),
+                new Point(1, 2),
+                new Point(7, 0),
+                new Point(2, 4),
+                new Point(6, 1)};
+
+
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(2, 1.5, 0.1,
+                                                                                            1, 0, 0, 0,
+                                                                                            0, 1, 1, 1,
+                                                                                            1, 1, 0, 0,
+                                                                                            1, 10, 10, 0);
+        AntiBallisticMissileSystem.initConditionsMetVector(lic, points);
+
+        AntiBallisticMissileSystem.conditionsMetVector[4] = true;
+        AntiBallisticMissileSystem.conditionsMetVector[6] = true;
+        AntiBallisticMissileSystem.conditionsMetVector[10] = true;
+        AntiBallisticMissileSystem.conditionsMetVector[14] = true;
+
+        for(int i = 0; i < AntiBallisticMissileSystem.conditionsMetVector.length; i++)
+            Assert.assertTrue("Element " + i + " = true", AntiBallisticMissileSystem.conditionsMetVector[i]);
+    }
+
+    /**
+     * Tests the CMV for the case when all LICs are true.
+     */
+    @Test
+    public void cmvFalse()
+    {
+
+    }
+
+    /**
      * Test situations where lic0 should be false
      */
     @Test
@@ -121,7 +161,11 @@ public class MainTest
             // outlier point
             pointArray[random.nextInt(0, points)] = new Point(300+random.nextDouble()*10, 300+random.nextDouble()*10);
 
-            LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 100, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0);
             
             Assert.assertTrue(licHandler.lic_1(points, pointArray));
         }
@@ -244,7 +288,11 @@ public class MainTest
 
             }
 
-            LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0,
+                                                                                                        10, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0);
 
             Assert.assertFalse(licHandler.validateTriangleArea(points, pointArray));
         }
@@ -266,7 +314,11 @@ public class MainTest
                 new Point(2.0, 11.0)
         };
 
-        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 20,
+                                                                                                    0, 0, 0, 0,
+                                                                                                    0, 0, 0, 0,
+                                                                                                    0, 0, 0, 0,
+                                                                                                    0, 0, 0);
 
         Assert.assertTrue(licHandler.validateTriangleArea(points, pointArray));
 
@@ -412,7 +464,7 @@ public class MainTest
                                                                                             1, 1, 0, 0,
                                                                                             0, 0, 0, 0);
         Point[] points = {new Point(1.0, 2.0),
-                new Point(2.0, 3.0)};
+                          new Point(2.0, 3.0)};
 
         Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
     }
@@ -481,6 +533,7 @@ public class MainTest
                                 new Point(5, 5),
                                 new Point(0, 0)};
 
+
         assertTrue(licHandler.hasPointFarFromLine(planarPoints.length, planarPoints));
     }
 
@@ -516,7 +569,11 @@ public class MainTest
                 pointArray[point] = new Point(0, 0);
             }
 
-            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 1, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0);
 
             boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
             Assert.assertFalse(res);
@@ -544,7 +601,11 @@ public class MainTest
                 }
             }
 
-            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points % 10 + 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, points % 10 + 1, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0);
 
             boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
             Assert.assertFalse(res);
@@ -566,7 +627,11 @@ public class MainTest
                 pointArray[point] = new Point(0, 0);
             }
 
-            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 1, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0);
 
             boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
             Assert.assertFalse(res);
@@ -594,7 +659,11 @@ public class MainTest
                 }
             }
 
-            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points % 10 + 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, points % 10 + 1, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0);
 
             boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
             Assert.assertTrue(res);
@@ -630,7 +699,11 @@ public class MainTest
                 System.out.println();
             }
 
-            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            LaunchInterceptorConditionParameters lic7Handler = new LaunchInterceptorConditionParameters(4, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, points / 2, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0);
 
             boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
             Assert.assertTrue(res);
@@ -644,7 +717,11 @@ public class MainTest
     @Test
     public void lic8TestInvalidInput()
     {
-        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0,
+                                                                                                    0, 0, 0, 0,
+                                                                                                    0, 0, 1, 1,
+                                                                                                    0, 0, 0, 0,
+                                                                                                    0, 0, 0, 0);
         Point[] planarPoints = {new Point(0,0),
                                 new Point(0,0),
                                 new Point(0,0)};
@@ -662,7 +739,11 @@ public class MainTest
     public void lic8CanFitR1()
     {
         // Uses A_PTS = B_PTS = 1 and RADIUS1 = 5
-        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0,
+                                                                                                    0, 0, 0, 0,
+                                                                                                    0, 0, 1, 1,
+                                                                                                    0, 0, 0, 0,
+                                                                                                    0, 0, 0, 0);
         Point[] planarPoints = {new Point(0,10),
                                 new Point(0,0), // skipped
                                 new Point(20,0),
@@ -682,7 +763,11 @@ public class MainTest
     public void lic8CannotFitR1()
     {
         // Uses A_PTS = B_PTS = 1 and RADIUS1 = 5
-        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0,
+                                                                                                    0, 0, 0, 0,
+                                                                                                    0, 0, 1, 1,
+                                                                                                    0, 0, 0, 0,
+                                                                                                    0, 0, 0, 0);
         Point[] planarPoints = {new Point(0,0),
                                 new Point(0,0), // skipped
                                 new Point(1,0),
@@ -1059,7 +1144,11 @@ public class MainTest
                 }
             }
 
-            LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
+            LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, points / 2, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 13, 0, 0);
 
             boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
             Assert.assertTrue(res);
@@ -1150,7 +1239,11 @@ public class MainTest
     public void lic13CanFitR2ButNotR1()
     {
         // Uses A_PTS = B_PTR = RADIUS1 = 1 and RADIUS2 = 5
-        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0,
+                                                                                                    0, 0, 0, 0,
+                                                                                                    0, 0, 1, 1,
+                                                                                                    0, 0, 0, 0,
+                                                                                                    0, 0, 5, 0);
 
         Point[] planarPoints = {new Point(0,0),
                                 new Point(10,0), // skipped
