@@ -344,11 +344,7 @@ public class MainTest
 
 
     /**
-<<<<<<< HEAD
-     * Test situation where the x-coordinate decreases
-=======
      * Tests situations where lic4 must be false due to more QUADS than Q_PTS
->>>>>>> main
      */
     @Test
     public void lic4FalseWhenMoreQuadsThanPoints() {
@@ -573,6 +569,7 @@ public class MainTest
 
         Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
     }
+    //// TEST CASES FOR LIC 6
 
     /**
      * Negative test for LIC6 with invalid input.
@@ -984,81 +981,6 @@ public class MainTest
         Assert.assertTrue(lic.validateAngleConsecutivePointsSeparation(points.length, points));
     }
 
-    /*
-     * LIC-11 consecutive points verification for the case when the Point
-     * array is too short.
-     */
-    @Test
-    public void lic11ValidateConsecutivePointsSeparationTooFewPoints()
-    {
-        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                1, 0, 0, 0);
-        Point[] points = {new Point(1.0, 0.0),
-                new Point(0.0, 0.0)};
-
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
-    }
-
-    /**
-     * LIC-11 consecutive points verification for the case when the Point
-     * array is too long.
-     */
-    @Test
-    public void lic11ValidateConsecutivePointsSeparationTooManyPoints()
-    {
-        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                1, 0, 0, 0);
-        Point[] points = {new Point(2.0, 0.0),
-                new Point(0.0, 0.0),
-                new Point(1.0, 0.0),
-                new Point(1.0, 1.0)};
-
-        Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
-    }
-
-    /**
-     * LIC-11 consecutive points verification for the case when there exist
-     * no consecutive Points.
-     */
-    @Test
-    public void lic11ValidateConsecutivePointsSeparationNoConsecutivePoints()
-    {
-        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0);
-        Point[] points = {new Point(2.0, 0.0),
-                new Point(0.0, 0.0),
-                new Point(1.0, 0.0)};
-
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
-    }
-
-    /**
-     * LIC-11 consecutive points verification for the case when all parameters
-     * are valid.
-     */
-    @Test
-    public void lic11ValidateConsecutivePointsSeparationValidParameters()
-    {
-        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                1, 0, 0, 0);
-        Point[] points = {new Point(2.0, 0.0),
-                new Point(0.0, 0.0),
-                new Point(1.0, 0.0)};
-
-        Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
-    }
 
     /**
      * Negative test for LIC10 with invalid input.
@@ -1594,7 +1516,7 @@ public class MainTest
         assertFalse(licHandler.hasTriangleAreaInRange(planarPoints.length, planarPoints));
     }
 
-        /**
+    /**
      * Verifies that the LCM operator NOTUSED always results in a TRUE element in the PUM.
      */
     @Test
@@ -1659,5 +1581,54 @@ public class MainTest
 
         assertTrue(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[4][5]);
         assertFalse(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[6][7]);
+    }
+    
+    private void setAllTruePUM(boolean[][] PUM) {
+        for(int i = 0; i < 15; i++) {
+            for(int j = 0; j < 15; j++) {
+                PUM[i][j] = true;
+            }
+        }
+    }
+
+    /**
+     * Positive test for calculateFuv
+     * Verifies that calculateFuv return true when all elements in PUV are false.
+     */
+    @Test
+    public void calculateFuvIsTrueWhenAllPuvFalse() {
+        boolean[][] PUM = new boolean[15][15];
+        setAllTruePUM(PUM);
+        boolean[] PUV = new boolean[15];
+        assertTrue(AntiBallisticMissileSystem.calculateFUV(PUV, PUM));
+    }
+
+    /**
+     * Negative test for calculateFuv
+     * Verifies that calculateFuv return false when one required row as 
+     * specified by PUV contains a false entry in the PUM.
+     */
+    @Test
+    public void calculateFuvIsFalseWhenSpecifiedRowHaveFalse() {
+        boolean[][] PUM = new boolean[15][15];
+        setAllTruePUM(PUM);
+        PUM[1][6] = false;
+        boolean[] PUV = new boolean[15];
+        PUV[1] = true;
+        assertFalse(AntiBallisticMissileSystem.calculateFUV(PUV, PUM));
+    }
+
+    /**
+     * Positive test for calculateFuv
+     * Verifies that calculateFuv return true when all rows required by PUV
+     * only contain true values.
+     */
+    @Test
+    public void calculateFuvIsTrueWhenSpecifiedRowContainOnlyTrue() {
+        boolean[][] PUM = new boolean[15][15];
+        setAllTruePUM(PUM);
+        boolean[] PUV = new boolean[15];
+        PUV[2] = true;
+        assertTrue(AntiBallisticMissileSystem.calculateFUV(PUV, PUM));
     }
 }
