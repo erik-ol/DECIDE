@@ -298,6 +298,7 @@ public class LaunchInterceptorConditionParameters
     }
 
     /**
+<<<<<<< HEAD
      * Verifies Launch Interceptor Condition 6
      *
      * LIC6 is true iff:
@@ -354,6 +355,8 @@ public class LaunchInterceptorConditionParameters
     }
 
     /**
+=======
+>>>>>>> origin/main
      * Launch Interceptor Condition 7:
      * Verify if there are at least one set of 2 data points
      * that are separated by K_PTS (exclusively)

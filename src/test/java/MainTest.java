@@ -383,6 +383,7 @@ public class MainTest
         assertFalse(res);
     }
 
+<<<<<<< HEAD
     //// TEST CASES FOR LIC 6
 
     /**
@@ -469,6 +470,8 @@ public class MainTest
         assertFalse(licHandler.hasPointFarFromLine(planarPoints.length, planarPoints));
     }
 
+=======
+>>>>>>> origin/main
     /**
      * Test situation where all points are the same
      */
