@@ -128,7 +128,7 @@ public class MainTest {
             new Point(0, 5),
             new Point(1, 1),
         };
-        assertFalse(licHandler.checkLic14(planarPoints.length, planarPoints));
+        assertFalse(licHandler.hasTriangleAreaInRange(planarPoints.length, planarPoints));
     }
 
     /**
@@ -148,7 +148,7 @@ public class MainTest {
             new Point(99, 99),  // skipped
             new Point(0, 10),
         };
-        assertTrue(licHandler.checkLic14(planarPoints.length, planarPoints));
+        assertTrue(licHandler.hasTriangleAreaInRange(planarPoints.length, planarPoints));
     }
 
     /**
@@ -168,7 +168,7 @@ public class MainTest {
             new Point(99, 99),
             new Point(0, 10),
         };
-        assertFalse(licHandler.checkLic14(planarPoints.length, planarPoints));
+        assertFalse(licHandler.hasTriangleAreaInRange(planarPoints.length, planarPoints));
     }
 
     /**
@@ -188,7 +188,7 @@ public class MainTest {
             new Point(99, 99),
             new Point(0, 1),
         };
-        assertFalse(licHandler.checkLic14(planarPoints.length, planarPoints));
+        assertFalse(licHandler.hasTriangleAreaInRange(planarPoints.length, planarPoints));
     }
 
     /**
@@ -208,7 +208,7 @@ public class MainTest {
             new Point(99, 99),
             new Point(10, 0),
         };
-        assertFalse(licHandler.checkLic14(planarPoints.length, planarPoints));
+        assertFalse(licHandler.hasTriangleAreaInRange(planarPoints.length, planarPoints));
     }
 
     /**
