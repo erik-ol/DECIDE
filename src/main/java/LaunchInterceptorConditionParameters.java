@@ -265,14 +265,17 @@ public class LaunchInterceptorConditionParameters
 
     /**
      * Launch Interceptor Condition 5
+     * Verifies that it exists at least one set of two consecutive data points
+     * such the difference in x-coordinate is less than 0.
      *
      * @param planarPointAmount - the number of planar points
      * @param planarPoints      - the planar points
      *
      * @return True if there exists at least one set of 2 consecutive data points
-     *         such that the difference in x-coordinates is less than 0.
+     * such that the difference in x-coordinates is less than 0; false otherwise
+     * 
      */
-    public boolean lic5(Point[] planarPoints, int planarPointAmount)
+    public boolean hasDecreasingConsecutivePoints(Point[] planarPoints, int planarPointAmount)
     {
         if (planarPointAmount < 2)
         {
@@ -395,7 +398,7 @@ public class LaunchInterceptorConditionParameters
      * 
      * @return true if the LIC13 condition is satisfied; false otherwise
      */
-    public boolean lic8(int planarPointAmount, Point[] planarPoints)
+    public boolean hasTripleNotContainedInRadius1Circle(int planarPointAmount, Point[] planarPoints)
     {
 
         if(planarPointAmount < 5)
@@ -574,7 +577,7 @@ public class LaunchInterceptorConditionParameters
      * 
      * @return true if the LIC13 condition is satisfied; false otherwise
      */
-    public boolean lic13(int planarPointAmount, Point[] planarPoints)
+    public boolean hasPointsThatFitCircleOfRadius2ButNotRadius1(int planarPointAmount, Point[] planarPoints)
     {
         if(planarPointAmount < 5)
         {
