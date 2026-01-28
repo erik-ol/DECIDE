@@ -68,6 +68,32 @@ public class LaunchInterceptorConditionParameters {
         this.RADIUS2 = RADIUS2;
         this.AREA2 = AREA2;
     }
+    
+    /**
+     * Launch Interceptor Condition 0
+     * 
+     * Verifies if there exists at least one set of two consecutive 
+     * data points that are at a distance greater than length LENGTH1 apart
+     * 
+     * @param planarPointAmount Number of planar points
+     * @param planarPoints Planar points array
+     * 
+     * @return True iff at least one set of 2 consecutive data points that are a distance greater than length LENGTH1 apart
+     */
+    public boolean doesTwoConsecutivePointsFurtherThanLength1(int planarPointAmount, Point[] planarPoints){
+        // Check all consecutive points
+        for (int point = 1; point < planarPointAmount; point++){
+            double deltaX = planarPoints[point].getX() - planarPoints[point-1].getX();
+            double deltaY = planarPoints[point].getY() - planarPoints[point-1].getY();
+            double distance = (deltaX * deltaX) + (deltaY * deltaY);
+            
+            // Compare the squared distance rather than taking square root
+            double distance_required = this.LENGTH1 * this.LENGTH1;
+
+            if (distance > distance_required) return true;
+        }
+        return false;
+    }
 
     /**
      * Launch Interceptor Condition 1
@@ -120,6 +146,24 @@ public class LaunchInterceptorConditionParameters {
         // no points met conditions
         return false;
     }
+  
+    /**
+     * Calculates area of triangle from coordinates of corners
+     * @param corner0 1st corner
+     * @param corner1 2nd corner
+     * @param corner2 3rd corner
+     * @return area of triangle
+     */
+    private double triangleArea(Point corner0, Point corner1, Point corner2) {
+         // shoelace formula for triangle area
+        double determinant =  
+            ((corner0.getX()-corner2.getX()) * 
+            (corner1.getY()-corner0.getY())) -
+            ((corner0.getX()-corner1.getX()) *
+            (corner2.getY()-corner0.getY()));
+        double area = Math.abs(determinant)/2;
+        return area;
+    }
 
     /**
      * Launch Interceptor Condition 5
@@ -148,20 +192,86 @@ public class LaunchInterceptorConditionParameters {
     }
 
     /**
-     * Calculates area of triangle from coordinates of corners
-     * @param corner0 1st corner
-     * @param corner1 2nd corner
-     * @param corner2 3rd corner
-     * @return area of triangle
+     * Verifies Launch Interceptor Condition 8
+     * 
+     * LIC8 is true iff:
+     * There exists at least one triplet of consequtive points, seperated by 
+     * A_PTS and B_PTS, that cannot be contained with or on a circle of radius RADIUS1
+     * 
+     * @param planarPointAmount number of points in the planarPoints array
+     * 
+     * @param planarPoints the array of 2D coordinates
+     * 
+     * @return true if the LIC13 condition is satisfied; false otherwise
      */
-    private double triangleArea(Point corner0, Point corner1, Point corner2) {
-         // shoelace formula for triangle area
-        double determinant =  
-            ((corner0.getX()-corner2.getX()) * 
-            (corner1.getY()-corner0.getY())) -
-            ((corner0.getX()-corner1.getX()) *
-            (corner2.getY()-corner0.getY()));
-        double area = Math.abs(determinant)/2;
-        return area;
+    public boolean lic8(int planarPointAmount, Point[] planarPoints) {
+
+        if(planarPointAmount < 5) {
+            return false;
+        }
+
+        for(int i = 0; i + A_PTS + B_PTS + 2 < planarPointAmount; i++) {
+            Point p1 = planarPoints[i];
+            Point p2 = planarPoints[i+A_PTS+1];
+            Point p3 = planarPoints[i+A_PTS+B_PTS+2];
+
+            double diameterSquared = 4*Math.pow(RADIUS1, 2);
+
+            // Compute squared distances between points
+            double distance12 = Math.pow(p1.getX()-p2.getX(), 2) + Math.pow(p1.getY()-p2.getY(), 2);
+            double distance13 = Math.pow(p1.getX()-p3.getX(), 2) + Math.pow(p3.getY()-p3.getY(), 2);
+            double distance23 = Math.pow(p2.getX()-p3.getX(), 2) + Math.pow(p2.getY()-p3.getY(), 2);
+            
+            if (distance12 > diameterSquared || distance13 > diameterSquared || distance23 > diameterSquared) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Verifies Launch Interceptor Condition 13
+     * 
+     * LIC13 is true iff:
+     * 1) There exists at least one triplet of points, seperated by A_PTS and B_PTS,
+     * that cannot be contained with or on a circle of radius RADIUS1, and
+     * 2) There exists at least one triplet of points, seperated by A_PTS and B_PTS,
+     * that can be contained with or on a circle of radius RADIUS2.
+     * 
+     * @param planarPointAmount number of points in the planarPoints array
+     * @param planarPoints the array of 2D coordinates
+     * 
+     * @return true if the LIC13 condition is satisfied; false otherwise
+     */
+    public boolean lic13(int planarPointAmount, Point[] planarPoints) {
+
+        if(planarPointAmount < 5) {
+            return false;
+        }
+
+        boolean condition1 = false;
+        boolean condition2 = false;
+
+        for(int i = 0; i + A_PTS + B_PTS + 2 < planarPointAmount; i++) {
+            Point p1 = planarPoints[i];
+            Point p2 = planarPoints[i+A_PTS+1];
+            Point p3 = planarPoints[i+A_PTS+B_PTS+2];
+
+            double diameter1Squared = 4*Math.pow(RADIUS1, 2);
+            double diameter2Squared = 4*Math.pow(RADIUS2, 2);
+
+            // Compute squared distances between points
+            double distance12 = Math.pow(p1.getX()-p2.getX(), 2) + Math.pow(p1.getY()-p2.getY(), 2);
+            double distance13 = Math.pow(p1.getX()-p3.getX(), 2) + Math.pow(p1.getY()-p3.getY(), 2);
+            double distance23 = Math.pow(p2.getX()-p3.getX(), 2) + Math.pow(p2.getY()-p3.getY(), 2);
+            
+            if(!(distance12 <= diameter1Squared && distance13 <= diameter1Squared && distance23 <= diameter1Squared)) {
+                condition1 = true;
+            }
+            if(distance12 <= diameter2Squared && distance13 <= diameter2Squared && distance23 <= diameter2Squared) {
+                condition2 = true;
+            }
+        }
+        return condition1 && condition2;
     }
 }
