@@ -482,7 +482,7 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean hasLargeTriangleArea(int planarPointAmount, Point[] planarPoints)
     {
-        if (planarPointAmount < 5)
+        if (planarPointAmount < 5 || E_PTS < 1 || F_PTS < 1 || (E_PTS + F_PTS) > (planarPointAmount - 3))
         {
             return false;
         }
