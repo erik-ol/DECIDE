@@ -84,6 +84,9 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean doesTwoConsecutivePointsFurtherThanLength1(int planarPointAmount, Point[] planarPoints)
     {
+        if(LENGTH1 < 0)
+            return false;
+
         // Check all consecutive points
         for (int point = 1; point < planarPointAmount; point++){
             double deltaX = planarPoints[point].getX() - planarPoints[point-1].getX();
