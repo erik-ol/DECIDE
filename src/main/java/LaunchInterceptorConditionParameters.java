@@ -374,7 +374,7 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean doesPointsSeparatedByKFurtherThanLength1(Point[] planarPoints, int planarPointAmount)
     {
-        if (planarPointAmount < 3)
+        if (planarPointAmount < 3 || K_PTS < 1 || K_PTS > (planarPointAmount - 2))
         {
             return false;
         }
