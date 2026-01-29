@@ -15,21 +15,18 @@ public class MainTest
     @Test
     public void cmvTrue()
     {
-        Point[] points = {
-                new Point(0, 0),
-                new Point(3, 0),
-                new Point(1, 2),
-                new Point(7, 0),
-                new Point(2, 4),
-                new Point(6, 1)};
-
+        Point[] points = {new Point(0, 0),
+                          new Point(3, 0),
+                          new Point(1, 2),
+                          new Point(7, 0),
+                          new Point(2, 4),
+                          new Point(6, 1)};
 
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(2, 1.5, 0.1,
                                                                                             1, 1, 0, 0,
                                                                                             3, 1, 1, 1,
                                                                                             1, 1, 1, 1,
                                                                                             1, 10, 10, 6);
-
 
         AntiBallisticMissileSystem.initConditionsMetVector(lic, points);
 
@@ -50,12 +47,37 @@ public class MainTest
                           new Point(2, 0),
                           new Point(2.5, 0)};
 
-
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(2, 1.5, 0.1,
                                                                                             1, 2, 1, 0.1,
                                                                                             3, 1, 1, 1,
                                                                                             1, 1, 0, 0,
                                                                                             1, 10, 10, 2);
+
+        AntiBallisticMissileSystem.initConditionsMetVector(lic, points);
+
+        for(int i = 0; i < AntiBallisticMissileSystem.conditionsMetVector.length; i++)
+            Assert.assertFalse("Element " + i + " = false", AntiBallisticMissileSystem.conditionsMetVector[i]);
+    }
+
+    /**
+     * Tests the CMV for the case when all LICs are false.
+     */
+    @Test
+    public void cmvAllLICParametersZero()
+    {
+        Point[] points = {new Point(0, 0),
+                          new Point(3, 0),
+                          new Point(1, 2),
+                          new Point(7, 0),
+                          new Point(2, 4),
+                          new Point(6, 1)};
+
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0);
+
         AntiBallisticMissileSystem.initConditionsMetVector(lic, points);
 
         for(int i = 0; i < AntiBallisticMissileSystem.conditionsMetVector.length; i++)
