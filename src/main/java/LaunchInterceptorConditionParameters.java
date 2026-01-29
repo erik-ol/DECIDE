@@ -409,7 +409,7 @@ public class LaunchInterceptorConditionParameters
     public boolean hasTripleNotContainedInRadius1Circle(int planarPointAmount, Point[] planarPoints)
     {
 
-        if(planarPointAmount < 5)
+        if(planarPointAmount < 5 || A_PTS < 1 || B_PTS < 1 || (A_PTS + B_PTS) > (planarPointAmount - 3))
         {
             return false;
         }
