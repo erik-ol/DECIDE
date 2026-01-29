@@ -57,12 +57,12 @@ public class AntiBallisticMissileSystem
 
     for(int i = 0; i < 15; i++) {
 
-      if(!PUV[i]) { // Condition 2
+      if(PUV[i] == false) { // Condition 2
         continue;
       }
 
       for(int j = 0; j < 15; j++) {
-        if(!PUM[i][j]) { // Condition 1 and 3
+        if(PUM[i][j] == false) { // Condition 1 and 3
           return false;
         }
       }
@@ -79,21 +79,21 @@ public class AntiBallisticMissileSystem
    */
   public static void initConditionsMetVector(LaunchInterceptorConditionParameters launchInterceptorConditionsParameters, Point[] planarPoints)
   {
-    conditionsMetVector[0]  = launchInterceptorConditionsParameters.doesTwoConsecutivePointsFurtherThanLength1(planarPoints.length, planarPoints);
-    conditionsMetVector[1]  = launchInterceptorConditionsParameters.lic_1(planarPoints.length, planarPoints);
-    conditionsMetVector[2]  = launchInterceptorConditionsParameters.validateAngle(planarPoints.length, planarPoints);
-    conditionsMetVector[3]  = launchInterceptorConditionsParameters.validateTriangleArea(planarPoints.length, planarPoints);
-    conditionsMetVector[4]  = launchInterceptorConditionsParameters.validateQuadrants(planarPoints.length, planarPoints);
-    conditionsMetVector[5]  = launchInterceptorConditionsParameters.hasDecreasingConsecutivePoints(planarPoints, planarPoints.length);
-    conditionsMetVector[6]  = launchInterceptorConditionsParameters.hasPointFarFromLine(planarPoints.length, planarPoints);
-    conditionsMetVector[7]  = launchInterceptorConditionsParameters.doesPointsSeparatedByKFurtherThanLength1(planarPoints, planarPoints.length);
-    conditionsMetVector[8]  = launchInterceptorConditionsParameters.hasTripleNotContainedInRadius1Circle(planarPoints.length, planarPoints);
-    conditionsMetVector[9]  = launchInterceptorConditionsParameters.validateAngleConsecutivePointsSeparation(planarPoints.length, planarPoints);
-    conditionsMetVector[10] = launchInterceptorConditionsParameters.hasLargeTriangleArea(planarPoints.length, planarPoints);
-    conditionsMetVector[11] = launchInterceptorConditionsParameters.validateConsecutivePointsSeparation(planarPoints.length, planarPoints);
-    conditionsMetVector[12] = launchInterceptorConditionsParameters.doesPointsSeparatedByKApartByRange(planarPoints, planarPoints.length);
-    conditionsMetVector[13] = launchInterceptorConditionsParameters.hasPointsThatFitCircleOfRadius2ButNotRadius1(planarPoints.length, planarPoints);
-    conditionsMetVector[14] = launchInterceptorConditionsParameters.hasTriangleAreaInRange(planarPoints.length, planarPoints);
+    conditionsMetVector[0]  = launchInterceptorConditionsParameters.lic0(planarPoints.length, planarPoints);
+    conditionsMetVector[1]  = launchInterceptorConditionsParameters.lic1(planarPoints.length, planarPoints);
+    conditionsMetVector[2]  = launchInterceptorConditionsParameters.lic2(planarPoints.length, planarPoints);
+    conditionsMetVector[3]  = launchInterceptorConditionsParameters.lic3(planarPoints.length, planarPoints);
+    conditionsMetVector[4]  = launchInterceptorConditionsParameters.lic4(planarPoints.length, planarPoints);
+    conditionsMetVector[5]  = launchInterceptorConditionsParameters.lic5(planarPoints, planarPoints.length);
+    conditionsMetVector[6]  = launchInterceptorConditionsParameters.lic6(planarPoints.length, planarPoints);
+    conditionsMetVector[7]  = launchInterceptorConditionsParameters.lic7(planarPoints, planarPoints.length);
+    conditionsMetVector[8]  = launchInterceptorConditionsParameters.lic8(planarPoints.length, planarPoints);
+    conditionsMetVector[9]  = launchInterceptorConditionsParameters.lic9(planarPoints.length, planarPoints);
+    conditionsMetVector[10] = launchInterceptorConditionsParameters.lic10(planarPoints.length, planarPoints);
+    conditionsMetVector[11] = launchInterceptorConditionsParameters.lic11(planarPoints.length, planarPoints);
+    conditionsMetVector[12] = launchInterceptorConditionsParameters.lic12(planarPoints, planarPoints.length);
+    conditionsMetVector[13] = launchInterceptorConditionsParameters.lic13(planarPoints.length, planarPoints);
+    conditionsMetVector[14] = launchInterceptorConditionsParameters.lic14(planarPoints.length, planarPoints);
   }
 
   /**
