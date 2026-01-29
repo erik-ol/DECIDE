@@ -1,5 +1,30 @@
 # DECIDE REPORT
 
+## Way of working
+Following this instance of the project the team members have been taught new tools and practices resulting in the current state. Right now all members have gotten a general hang of the tools and practises but still with some minor mistakes. The current state following this instance of the project would be somewhere in between "In Use" and "In Place" in accordance to the Essence standard. In regard to the checklist for Way-of-Working the following notations can be made
+ - Some tools and practices were not found initially, but instead when the related issue occurred.
+ - The knowledge gap regarding certain tools was initially established, where, for instance, some members had not used GitHub or JUnit previously.
+ - The whole team is using the practises and tools to perform their work, but there was a learning faze when certain tools were new where some "mistakes" were made.
+ - The practices are not fully naturally applied for the whole team yet, the learning phase is still ongoing. At the same time it is notices that all members are tuning their skills constantly.
+
+The tools and practices thus far are then too summarized as
+ - GitHub is to be used as the version handling platform
+ - Commenting follow the JavaDoc standard in code
+ - Naming conventions are to follow camel case
+ - JUnit 4 together with Maven is to be used for testing
+
+ - Commits follow the Conventional Commits standard
+ - Pull-requests are to be squash-merged with main
+
+ - Everyone is to be available during regular work hours
+ - Everyone is responsible for reviewing and approving pull-requests
+
+The key obstacles, in regard to reaching the next state, would then be concluded as
+ - Making all team members comfortable enough with all tools and practices such that is becomes natural. 
+ - Leaving thorough reviews making it possible to learn from mistakes to then be able to apply tools and practices naturally.
+ - Increase awareness of the whole teams methods in use to catch mistakes early on.
+ - Increase communication so the whole team are actively involved in occurring issues, making sure everyone is informed.
+
 ## Statements of contributions
 
 | Name | Contribution                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
