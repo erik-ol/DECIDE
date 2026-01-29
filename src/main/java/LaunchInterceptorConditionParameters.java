@@ -111,6 +111,9 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean lic_1(int planarPointAmount, Point[] planarPoints)
     {
+        if(RADIUS1 < 0)
+            return false;
+
         for (int i = 2; i < planarPointAmount; i++)
         {
             // compare pairwise distances
