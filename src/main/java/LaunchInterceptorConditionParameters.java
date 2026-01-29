@@ -201,6 +201,8 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean validateTriangleArea(int planarPointAmount, Point[] planarPoints)
     {
+        if(AREA1 < 0)
+            return false;
 
         for (int i = 2; i < planarPointAmount; i++)
         {
