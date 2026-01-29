@@ -311,7 +311,7 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean hasPointFarFromLine(int planarPointAmount, Point[] planarPoints)
     {
-        if (planarPointAmount < 3)
+        if(planarPointAmount < N_PTS || 3 > N_PTS || DIST < 0)
         {
             return false;
         }
