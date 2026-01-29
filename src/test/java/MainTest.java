@@ -80,7 +80,14 @@ public class MainTest
 
         AntiBallisticMissileSystem.initConditionsMetVector(lic, points);
 
-        for(int i = 0; i < AntiBallisticMissileSystem.conditionsMetVector.length; i++)
+        for(int i = 0; i < 4; i++)
+            Assert.assertTrue("Element " + i + " = true", AntiBallisticMissileSystem.conditionsMetVector[i]);
+
+        Assert.assertFalse("Element " + 4 + " = false", AntiBallisticMissileSystem.conditionsMetVector[4]);
+        Assert.assertTrue("Element " + 5 + " = true", AntiBallisticMissileSystem.conditionsMetVector[5]);
+        Assert.assertFalse("Element " + 6 + " = false", AntiBallisticMissileSystem.conditionsMetVector[6]);
+
+        for(int i = 6; i < AntiBallisticMissileSystem.conditionsMetVector.length; i++)
             Assert.assertFalse("Element " + i + " = false", AntiBallisticMissileSystem.conditionsMetVector[i]);
     }
 
