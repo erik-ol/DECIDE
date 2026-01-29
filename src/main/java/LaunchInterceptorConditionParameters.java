@@ -84,6 +84,9 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean doesTwoConsecutivePointsFurtherThanLength1(int planarPointAmount, Point[] planarPoints)
     {
+        if(LENGTH1 < 0)
+            return false;
+
         // Check all consecutive points
         for (int point = 1; point < planarPointAmount; point++){
             double deltaX = planarPoints[point].getX() - planarPoints[point-1].getX();
@@ -108,6 +111,9 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean lic_1(int planarPointAmount, Point[] planarPoints)
     {
+        if(RADIUS1 < 0)
+            return false;
+
         for (int i = 2; i < planarPointAmount; i++)
         {
             // compare pairwise distances
@@ -195,6 +201,8 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean validateTriangleArea(int planarPointAmount, Point[] planarPoints)
     {
+        if(AREA1 < 0)
+            return false;
 
         for (int i = 2; i < planarPointAmount; i++)
         {
@@ -311,7 +319,7 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean hasPointFarFromLine(int planarPointAmount, Point[] planarPoints)
     {
-        if (planarPointAmount < 3)
+        if(planarPointAmount < N_PTS || 3 > N_PTS || DIST < 0)
         {
             return false;
         }
@@ -366,7 +374,7 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean doesPointsSeparatedByKFurtherThanLength1(Point[] planarPoints, int planarPointAmount)
     {
-        if (planarPointAmount < 3)
+        if (planarPointAmount < 3 || K_PTS < 1 || K_PTS > (planarPointAmount - 2))
         {
             return false;
         }
@@ -401,7 +409,7 @@ public class LaunchInterceptorConditionParameters
     public boolean hasTripleNotContainedInRadius1Circle(int planarPointAmount, Point[] planarPoints)
     {
 
-        if(planarPointAmount < 5)
+        if(planarPointAmount < 5 || A_PTS < 1 || B_PTS < 1 || (A_PTS + B_PTS) > (planarPointAmount - 3))
         {
             return false;
         }
@@ -474,7 +482,7 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean hasLargeTriangleArea(int planarPointAmount, Point[] planarPoints)
     {
-        if (planarPointAmount < 5)
+        if (planarPointAmount < 5 || E_PTS < 1 || F_PTS < 1 || (E_PTS + F_PTS) > (planarPointAmount - 3))
         {
             return false;
         }

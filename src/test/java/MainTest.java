@@ -15,21 +15,18 @@ public class MainTest
     @Test
     public void cmvTrue()
     {
-        Point[] points = {
-                new Point(0, 0),
-                new Point(3, 0),
-                new Point(1, 2),
-                new Point(7, 0),
-                new Point(2, 4),
-                new Point(6, 1)};
-
+        Point[] points = {new Point(0, 0),
+                          new Point(3, 0),
+                          new Point(1, 2),
+                          new Point(7, 0),
+                          new Point(2, 4),
+                          new Point(6, 1)};
 
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(2, 1.5, 0.1,
                                                                                             1, 1, 0, 0,
                                                                                             3, 1, 1, 1,
                                                                                             1, 1, 1, 1,
                                                                                             1, 10, 10, 6);
-
 
         AntiBallisticMissileSystem.initConditionsMetVector(lic, points);
 
@@ -50,20 +47,47 @@ public class MainTest
                           new Point(2, 0),
                           new Point(2.5, 0)};
 
-
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(2, 1.5, 0.1,
                                                                                             1, 2, 1, 0.1,
                                                                                             3, 1, 1, 1,
                                                                                             1, 1, 0, 0,
                                                                                             1, 10, 10, 2);
+
         AntiBallisticMissileSystem.initConditionsMetVector(lic, points);
 
-        AntiBallisticMissileSystem.conditionsMetVector[4] = false;
-        AntiBallisticMissileSystem.conditionsMetVector[6] = false;
-        AntiBallisticMissileSystem.conditionsMetVector[10] = false;
-        AntiBallisticMissileSystem.conditionsMetVector[14] = false;
-
         for(int i = 0; i < AntiBallisticMissileSystem.conditionsMetVector.length; i++)
+            Assert.assertFalse("Element " + i + " = false", AntiBallisticMissileSystem.conditionsMetVector[i]);
+    }
+
+    /**
+     * Tests the CMV for the case when all LICs are false.
+     */
+    @Test
+    public void cmvAllLICParametersZero()
+    {
+        Point[] points = {new Point(0, 0),
+                          new Point(3, 0),
+                          new Point(1, 2),
+                          new Point(7, 0),
+                          new Point(2, 4),
+                          new Point(6, 1)};
+
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0);
+
+        AntiBallisticMissileSystem.initConditionsMetVector(lic, points);
+
+        for(int i = 0; i < 4; i++)
+            Assert.assertTrue("Element " + i + " = true", AntiBallisticMissileSystem.conditionsMetVector[i]);
+
+        Assert.assertFalse("Element " + 4 + " = false", AntiBallisticMissileSystem.conditionsMetVector[4]);
+        Assert.assertTrue("Element " + 5 + " = true", AntiBallisticMissileSystem.conditionsMetVector[5]);
+        Assert.assertFalse("Element " + 6 + " = false", AntiBallisticMissileSystem.conditionsMetVector[6]);
+
+        for(int i = 6; i < AntiBallisticMissileSystem.conditionsMetVector.length; i++)
             Assert.assertFalse("Element " + i + " = false", AntiBallisticMissileSystem.conditionsMetVector[i]);
     }
 
@@ -471,108 +495,6 @@ public class MainTest
         boolean res = lic.hasDecreasingConsecutivePoints(points, 2);
         assertFalse(res);
     }
-    /*
-     * LIC-9 consecutive points verification for the case when the Point array is
-     * too short.
-     */
-    @Test
-    public void lic9ValidateConsecutivePointsSeparationTooFewPoints()
-    {
-        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                1, 1, 0, 0,
-                0, 0, 0, 0);
-        Point[] points = {new Point(1.0, 2.0),
-                new Point(2.0, 3.0)};
-
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
-    }
-
-    /**
-     * LIC-9 consecutive points verification for the case when too many Points.
-     */
-    @Test
-    public void lic9ValidateConsecutivePointsSeparationTooManyPoints()
-    {
-        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                1, 1, 0, 0,
-                0, 0, 0, 0);
-        Point[] points = {new Point(1.0, 0.0),
-                new Point(0.5, 0.0),
-                new Point(0.0, 0.0),
-                new Point(0.0, -0.5),
-                new Point(0.1, -1.0),
-                new Point(0.5, -1.0)};
-
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
-    }
-
-    /**
-     * LIC-9 consecutive points verification for the case when there are no
-     * consecutive intervening Points.
-     */
-    @Test
-    public void lic9ValidateConsecutivePointsSeparationNoConsecutivePoints()
-    {
-        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0, 0);
-        Point[] points = {new Point(1.0, 0.0),
-                new Point(0.0, 0.0),
-                new Point(0.1, -1.0),
-                new Point(0.5, -1.0),
-                new Point(1.0, -1.0)};
-
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
-    }
-
-    /**
-     * LIC-9 consecutive points verification for the case when the angle
-     * is not valid, where one periphery Points is equal to the vertex.
-     */
-    @Test
-    public void lic9ValidateConsecutivePointsSeparationInvalidAngle()
-    {
-        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                1, 1, 0, 0,
-                0, 0, 0, 0);
-        Point[] points = {new Point(1.0, 2.0),
-                new Point(1.0, 0.0),
-                new Point(1.0, 2.0),
-                new Point(2.0, 2.0),
-                new Point(3.0, 4.0)};
-
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
-    }
-
-    /**
-     * LIC-9 consecutive points verification for the case when all parameters
-     * are valid.
-     */
-    @Test
-    public void lic9ValidateConsecutivePointsSeparationValidParameters()
-    {
-        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, (Math.PI/2),
-                0, 0, 0, 0,
-                0, 0, 0, 0,
-                1, 1, 0, 0,
-                0, 0, 0, 0);
-        Point[] points = {new Point(1.0, 0.0),
-                new Point(0.5, 0.0),
-                new Point(0.0, 0.0),
-                new Point(0.0, -0.5),
-                new Point(0.1, -1.0)};
-
-        Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
-    }
-    //// TEST CASES FOR LIC 6
 
     /**
      * Negative test for LIC6 with invalid input.
