@@ -120,6 +120,122 @@ public class MainTest
             Assert.assertFalse(resII);
         }
     }
+    
+    /**
+     * Verifies that the LCM operator NOTUSED always results in a TRUE element in the PUM.
+     */
+    @Test
+    public void preliminaryUnlockingMatrixAlwaysTrueForNotUsed() {
+        LogicalConnector[][] logicalConnectorMatrix = new LogicalConnector[15][15];
+        for (int i = 0; i<15; i++) {
+            for (int j = 0; j<15; j++) {
+                logicalConnectorMatrix[i][j] = LogicalConnector.NOTUSED;
+            }
+        }
+
+        Random random = new Random();
+
+        AntiBallisticMissileSystem.conditionsMetVector = new boolean[15];
+        for (int i = 0; i<15; i++) {
+            AntiBallisticMissileSystem.conditionsMetVector[i] = random.nextBoolean();
+        }
+
+
+        AntiBallisticMissileSystem.evaluateLogicalConnectorMatrix(logicalConnectorMatrix);
+
+        for (int i = 0; i<15; i++) {
+            for (int j = 0; j<15; j++) {
+                assertTrue(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[i][j]);
+            }
+        }
+
+    }
+
+    /**
+     * Tests that ANDD and ORR operations in the logical connector matrix yield the right results to the preliminary unlocking matrix.
+     */
+    @Test
+    public void logicalConnectorMatrixOperationResults() {
+        LogicalConnector[][] logicalConnectorMatrix = new LogicalConnector[15][15];
+        for (int i = 0; i<15; i++) {
+            for (int j = 0; j<15; j++) {
+                logicalConnectorMatrix[i][j] = LogicalConnector.NOTUSED;
+            }
+        }
+
+        AntiBallisticMissileSystem.conditionsMetVector = new boolean[15];
+        for (int i = 0; i<15; i++) {
+            AntiBallisticMissileSystem.conditionsMetVector[i] = true;
+        }
+
+        logicalConnectorMatrix[0][1] = LogicalConnector.ANDD;
+        logicalConnectorMatrix[2][3] = LogicalConnector.ANDD;
+        AntiBallisticMissileSystem.conditionsMetVector[3] = false;
+
+        logicalConnectorMatrix[4][5] = LogicalConnector.ORR;
+        logicalConnectorMatrix[6][7] = LogicalConnector.ORR;
+        AntiBallisticMissileSystem.conditionsMetVector[5] = false;
+        AntiBallisticMissileSystem.conditionsMetVector[6] = false;
+        AntiBallisticMissileSystem.conditionsMetVector[7] = false;
+        
+
+        AntiBallisticMissileSystem.evaluateLogicalConnectorMatrix(logicalConnectorMatrix);
+
+        assertTrue(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[0][1]);
+        assertFalse(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[2][3]);
+
+        assertTrue(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[4][5]);
+        assertFalse(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[6][7]);
+    }
+    
+    private void setAllTruePUM(boolean[][] PUM) {
+        for(int i = 0; i < 15; i++) {
+            for(int j = 0; j < 15; j++) {
+                PUM[i][j] = true;
+            }
+        }
+    }
+
+    /**
+     * Positive test for calculateFuv
+     * Verifies that calculateFuv return true when all elements in PUV are false.
+     */
+    @Test
+    public void calculateFuvIsTrueWhenAllPuvFalse() {
+        boolean[][] PUM = new boolean[15][15];
+        setAllTruePUM(PUM);
+        boolean[] PUV = new boolean[15];
+        assertTrue(AntiBallisticMissileSystem.calculateFUV(PUV, PUM));
+    }
+
+    /**
+     * Negative test for calculateFuv
+     * Verifies that calculateFuv return false when one required row as 
+     * specified by PUV contains a false entry in the PUM.
+     */
+    @Test
+    public void calculateFuvIsFalseWhenSpecifiedRowHaveFalse() {
+        boolean[][] PUM = new boolean[15][15];
+        setAllTruePUM(PUM);
+        PUM[1][6] = false;
+        boolean[] PUV = new boolean[15];
+        PUV[1] = true;
+        assertFalse(AntiBallisticMissileSystem.calculateFUV(PUV, PUM));
+    }
+
+    /**
+     * Positive test for calculateFuv
+     * Verifies that calculateFuv return true when all rows required by PUV
+     * only contain true values.
+     */
+    @Test
+    public void calculateFuvIsTrueWhenSpecifiedRowContainOnlyTrue() {
+        boolean[][] PUM = new boolean[15][15];
+        setAllTruePUM(PUM);
+        boolean[] PUV = new boolean[15];
+        PUV[2] = true;
+        assertTrue(AntiBallisticMissileSystem.calculateFUV(PUV, PUM));
+    }
 
     /**
      * Test situations where lic0 should be true
@@ -1527,121 +1643,5 @@ public class MainTest
                                 new Point(10, 0)};
 
         assertFalse(licHandler.lic14(planarPoints.length, planarPoints));
-    }
-
-    /**
-     * Verifies that the LCM operator NOTUSED always results in a TRUE element in the PUM.
-     */
-    @Test
-    public void preliminaryUnlockingMatrixAlwaysTrueForNotUsed() {
-        LogicalConnector[][] logicalConnectorMatrix = new LogicalConnector[15][15];
-        for (int i = 0; i<15; i++) {
-            for (int j = 0; j<15; j++) {
-                logicalConnectorMatrix[i][j] = LogicalConnector.NOTUSED;
-            }
-        }
-
-        Random random = new Random();
-
-        AntiBallisticMissileSystem.conditionsMetVector = new boolean[15];
-        for (int i = 0; i<15; i++) {
-            AntiBallisticMissileSystem.conditionsMetVector[i] = random.nextBoolean();
-        }
-
-
-        AntiBallisticMissileSystem.evaluateLogicalConnectorMatrix(logicalConnectorMatrix);
-
-        for (int i = 0; i<15; i++) {
-            for (int j = 0; j<15; j++) {
-                assertTrue(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[i][j]);
-            }
-        }
-
-    }
-
-    /**
-     * Tests that ANDD and ORR operations in the logical connector matrix yield the right results to the preliminary unlocking matrix.
-     */
-    @Test
-    public void logicalConnectorMatrixOperationResults() {
-        LogicalConnector[][] logicalConnectorMatrix = new LogicalConnector[15][15];
-        for (int i = 0; i<15; i++) {
-            for (int j = 0; j<15; j++) {
-                logicalConnectorMatrix[i][j] = LogicalConnector.NOTUSED;
-            }
-        }
-
-        AntiBallisticMissileSystem.conditionsMetVector = new boolean[15];
-        for (int i = 0; i<15; i++) {
-            AntiBallisticMissileSystem.conditionsMetVector[i] = true;
-        }
-
-        logicalConnectorMatrix[0][1] = LogicalConnector.ANDD;
-        logicalConnectorMatrix[2][3] = LogicalConnector.ANDD;
-        AntiBallisticMissileSystem.conditionsMetVector[3] = false;
-
-        logicalConnectorMatrix[4][5] = LogicalConnector.ORR;
-        logicalConnectorMatrix[6][7] = LogicalConnector.ORR;
-        AntiBallisticMissileSystem.conditionsMetVector[5] = false;
-        AntiBallisticMissileSystem.conditionsMetVector[6] = false;
-        AntiBallisticMissileSystem.conditionsMetVector[7] = false;
-        
-
-        AntiBallisticMissileSystem.evaluateLogicalConnectorMatrix(logicalConnectorMatrix);
-
-        assertTrue(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[0][1]);
-        assertFalse(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[2][3]);
-
-        assertTrue(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[4][5]);
-        assertFalse(AntiBallisticMissileSystem.preliminaryUnlockingMatrix[6][7]);
-    }
-    
-    private void setAllTruePUM(boolean[][] PUM) {
-        for(int i = 0; i < 15; i++) {
-            for(int j = 0; j < 15; j++) {
-                PUM[i][j] = true;
-            }
-        }
-    }
-
-    /**
-     * Positive test for calculateFuv
-     * Verifies that calculateFuv return true when all elements in PUV are false.
-     */
-    @Test
-    public void calculateFuvIsTrueWhenAllPuvFalse() {
-        boolean[][] PUM = new boolean[15][15];
-        setAllTruePUM(PUM);
-        boolean[] PUV = new boolean[15];
-        assertTrue(AntiBallisticMissileSystem.calculateFUV(PUV, PUM));
-    }
-
-    /**
-     * Negative test for calculateFuv
-     * Verifies that calculateFuv return false when one required row as 
-     * specified by PUV contains a false entry in the PUM.
-     */
-    @Test
-    public void calculateFuvIsFalseWhenSpecifiedRowHaveFalse() {
-        boolean[][] PUM = new boolean[15][15];
-        setAllTruePUM(PUM);
-        PUM[1][6] = false;
-        boolean[] PUV = new boolean[15];
-        PUV[1] = true;
-        assertFalse(AntiBallisticMissileSystem.calculateFUV(PUV, PUM));
-    }
-
-    /**
-     * Positive test for calculateFuv
-     * Verifies that calculateFuv return true when all rows required by PUV
-     * only contain true values.
-     */
-    @Test
-    public void calculateFuvIsTrueWhenSpecifiedRowContainOnlyTrue() {
-        boolean[][] PUM = new boolean[15][15];
-        setAllTruePUM(PUM);
-        boolean[] PUV = new boolean[15];
-        PUV[2] = true;
-        assertTrue(AntiBallisticMissileSystem.calculateFUV(PUV, PUM));
     }
 }
