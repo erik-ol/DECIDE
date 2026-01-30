@@ -11,6 +11,11 @@ The final output of the program is printed as "YES" if the interceptor should be
 
 The project uses practices including structured code organization, issue tracking, unit testing, and collaborative development using Git and pull requests.
 
+## Dependencies
+**Testing:**
+ - Maven: junit:junit:4.13.2
+ - Maven: org.hamcrest:hamcrest-core:1.3
+
 ## Way of working
 Following this instance of the project the team members have been taught new tools and practices resulting in the current state. Right now all members have gotten a general hang of the tools and practises but still with some minor mistakes. The current state following this instance of the project would be somewhere in between "In Use" and "In Place" in accordance to the Essence standard. In regard to the checklist for Way-of-Working the following notations can be made
  - Some tools and practices were not found initially, but instead when the related issue occurred.
