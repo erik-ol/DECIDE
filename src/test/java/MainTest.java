@@ -67,14 +67,13 @@ public class MainTest
     {
         Point[] points = {new Point(0, 0),
                           new Point(3, 0),
-                          new Point(1, 2),
-                          new Point(7, 0),
                           new Point(2, 4),
                           new Point(6, 1)};
 
+
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
                                                                                             0, 0, 0, 0,
-                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 1, 1,
                                                                                             0, 0, 0, 0,
                                                                                             0, 0, 0, 0);
 
@@ -613,6 +612,29 @@ public class MainTest
     }
 
     /**
+     * Asserts that lic5() throws expection for invalid input
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void lic5ThrowsExpection() {
+
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0);
+        
+        Point[] points = {new Point(1.0, 0.0),
+                          new Point(0.5, 0.0),
+                          new Point(0.0, 0.0),
+                          new Point(0.0, -0.5),
+                          new Point(0.1, -1.0),
+                          new Point(0.5, -1.0)};
+
+        lic.lic5(points, -1);    
+    }
+
+
+    /**
      * Negative test for LIC6 with invalid input.
      * Verifies that LIC6 returns false when NUMPOINTS < 3.
      */
@@ -858,7 +880,7 @@ public class MainTest
      * Verifies that LIC8 returns false when the number of input points is < 5.
      */
     @Test
-    public void lic8TestInvalidInput()
+    public void lic8TestNotEnoughDataPoints()
     {
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 5, 0,
                                                                                                     0, 0, 0, 0,
@@ -918,6 +940,50 @@ public class MainTest
                                 new Point(0,0)};
 
         assertFalse(licHandler.lic8(planarPoints.length, planarPoints));
+    }
+
+    /**
+     * Asserts that lic8() throws expection for invalid input
+     * when A_PTS or B_PTS < 1
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void lic8ThrowsExpectionForInvalidPTS() {
+
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 3, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0);
+        
+        Point[] points = {new Point(1.0, 0.0),
+                          new Point(0.5, 0.0),
+                          new Point(0.0, 0.0),
+                          new Point(0.0, -0.5),
+                          new Point(0.1, -1.0),
+                          new Point(0.5, -1.0)};
+        lic.lic8(points.length, points);    
+    }
+
+    /**
+     * Asserts that lic8() throws expection for invalid input
+     * when A_PTS or B_PTS < 1
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void lic8ThrowsExpectionForInvalidPTSWithRegardToNumPoints() {
+
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 3, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 2, 2,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 0, 0);
+        
+        Point[] points = {new Point(1.0, 0.0),
+                          new Point(0.5, 0.0),
+                          new Point(0.0, 0.0),
+                          new Point(0.0, -0.5),
+                          new Point(0.1, -1.0),
+                          new Point(0.5, -1.0)};
+        lic.lic8(points.length, points);    
     }
 
     /**
@@ -1361,7 +1427,7 @@ public class MainTest
      * Verifies that LIC13 returns false when the number of input points is < 5.
      */
     @Test
-    public void lic13TestInvalidInput()
+    public void lic13TestNotEnoughDataPoints()
     {
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 5, 0);
 
@@ -1456,6 +1522,28 @@ public class MainTest
                 new Point(0.3, 0.1)};
 
         assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
+    }
+
+    /**
+     * Asserts that lic13() throws expection for invalid input
+     * when RADIUS2 < 0
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void lic13ThrowsExpectionForInvalidRADIUS2() {
+
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 3, 0,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, 2, 2,
+                                                                                            0, 0, 0, 0,
+                                                                                            0, 0, -1, 0);
+        
+        Point[] points = {new Point(1.0, 0.0),
+                          new Point(0.5, 0.0),
+                          new Point(0.0, 0.0),
+                          new Point(0.0, -0.5),
+                          new Point(0.1, -1.0),
+                          new Point(0.5, -1.0)};
+        lic.lic13(points.length, points);    
     }
 
     //// TEST CASES FOR LIC 14
