@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.*;
@@ -209,6 +210,21 @@ public class MainTest
     }
 
     /**
+     * Tests that lic1 throws exception for negative radius
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void lic1ExceptionForInvalidInput()
+    {
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, -1, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0);
+
+        licHandler.lic1(0, new Point[0]);
+    }
+
+    /**
      * Tests LIC-2 angle verification for the case when the array is too short.
      */
     @Test
@@ -360,6 +376,20 @@ public class MainTest
 
     }
 
+    /**
+     * Tests that lic3 throws exception for negative area
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void lic3ExceptionForInvalidInput()
+    {
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0,
+                                                                                                        -1, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0);
+
+        licHandler.lic3(0, new Point[0]);
+    }
 
     /**
      * Tests situations where lic4 must be false due to more QUADS than Q_PTS
@@ -424,6 +454,21 @@ public class MainTest
         
         Assert.assertTrue(licHandler.lic4(points, pointArray));
         
+    }
+
+    /**
+     * Tests that lic4 throws exception for quads outside range 1-3
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void lic4ExceptionForInvalidInput()
+    {
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0);
+
+        licHandler.lic4(0, new Point[0]);
     }
 
     /**
