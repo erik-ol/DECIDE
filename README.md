@@ -12,7 +12,7 @@
  - IntelliJ IDEA (Community or Ultimate Edition)
  - Maven version: 3.2.5 (IntelliJ has built-in Maven)
 
-1. Clone the repository
+Clone the repository
 ```bash
 git clone https://github.com/erik-ol/DECIDE.git
 ```
@@ -20,12 +20,23 @@ git clone https://github.com/erik-ol/DECIDE.git
 
 >Note: Make sure pom.xml is located in the root directory.
 
-2. Open the repository in IntelliJ IDEA.
-3. IntelliJ will automatically import Maven dependencies.
-4. To build and run tests:
+<details>
+<summary><span style="font-size:15px; font-weight:bold;">Test the code</span></summary>
+
+1. Open the repository in IntelliJ IDEA.
+2. IntelliJ will automatically import Maven dependencies.
+3. To build and run tests:
    - Open `pom.xml`
    - Navigate to the **Maven** toolbar and **Run Maven Build** 
 
+</details>
+
+<details>
+<summary><span style="font-size:15px; font-weight:bold;">Execute the code</span></summary>
+
+Run the code by navigating to `DECIDE/src/main/java`, open `Main.java` and select **Run Main**.
+
+</details>
 </details>
 
 ---
@@ -36,12 +47,13 @@ git clone https://github.com/erik-ol/DECIDE.git
 - Java (JDK) 1.8 (Java 8) (recommended)
 - Maven version: 3.2.5
 
-Step 1: Building packages
 Clone the repository
-
 ```bash
 git clone https://github.com/erik-ol/DECIDE.git
 ```
+<details>
+<summary><span style="font-size:15px; font-weight:bold;">Test the code</span></summary>
+
 Enter the root directory
 ```bash
 cd DECIDE
@@ -50,7 +62,8 @@ cd DECIDE
 Ensure old builds are removed
 
 >Note: The file structure is required to use Maven successfully
-> .
+
+Remove any pre-existing builds
 ```bash
 mvn clean
 ```
@@ -64,6 +77,22 @@ Run tests
 ```bash
 mvn test
 ```
+
+</details>
+
+<details>
+<summary><span style="font-size:15px; font-weight:bold;">Execute the code</span></summary>
+
+Navigate to the correct directory
+```bash
+cd DECIDE/src/main/java
+```
+Execute the code
+```bash
+java Main
+```
+
+</details>
 
 </details>
 
