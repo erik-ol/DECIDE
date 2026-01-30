@@ -285,6 +285,11 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean lic5(Point[] planarPoints, int planarPointAmount)
     {
+
+        if(planarPointAmount < 0) {
+            throw new IllegalArgumentException("planarPointAmount must be >= 0");
+        }
+
         if (planarPointAmount < 2)
         {
             return false;
@@ -409,9 +414,21 @@ public class LaunchInterceptorConditionParameters
     public boolean lic8(int planarPointAmount, Point[] planarPoints)
     {
 
-        if(planarPointAmount < 5 || A_PTS < 1 || B_PTS < 1 || (A_PTS + B_PTS) > (planarPointAmount - 3))
+        if(planarPointAmount < 5)
         {
             return false;
+        }
+
+        if(planarPointAmount < 0) {
+            throw new IllegalArgumentException("planarPointAmount must be >= 0");
+        }
+
+        if(A_PTS < 1 || B_PTS < 1) {
+            throw new IllegalArgumentException("A_PTS and B_PTS must be >= 1");
+        }
+
+        if((A_PTS + B_PTS) > (planarPointAmount - 3)) {
+            throw new IllegalArgumentException("Sum of A_PTS + B_PTS is too large given the datapoints");
         }
 
         for(int i = 0; i + A_PTS + B_PTS + 2 < planarPointAmount; i++)
@@ -587,9 +604,18 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean lic13(int planarPointAmount, Point[] planarPoints)
     {
+
         if(planarPointAmount < 5)
         {
             return false;
+        }
+
+        if(planarPointAmount < 0) {
+            throw new IllegalArgumentException("planarPointAmount must be >= 0");
+        }
+        
+        if(RADIUS2 < 0 || RADIUS1 < 0) {
+            throw new IllegalArgumentException("RADIUS1 and RADIUS2 must be >= 0");
         }
 
         boolean condition1 = false;
