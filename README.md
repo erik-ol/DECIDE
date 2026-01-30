@@ -16,6 +16,110 @@ The project uses practices including structured code organization, issue trackin
  - Maven: junit:junit:4.13.2
  - Maven: org.hamcrest:hamcrest-core:1.3
 
+---
+
+## Build instructions
+
+<details>
+<summary><span style="font-size:18px; font-weight:bold;">Option 1: Using IntelliJ IDEA</span></summary>
+
+#### Requirements
+ - JDK 22 (OpenJDK 22.0.1 recommended)
+ - IntelliJ IDEA (Community or Ultimate Edition)
+ - Maven version: 3.2.5 (IntelliJ has built-in Maven)
+
+Clone the repository
+```bash
+git clone https://github.com/erik-ol/DECIDE.git
+```
+>Note: The file structure is required to use Maven successfully.
+
+>Note: Make sure pom.xml is located in the root directory.
+
+<details>
+<summary><span style="font-size:15px; font-weight:bold;">Test the code</span></summary>
+
+1. Open the repository in IntelliJ IDEA.
+2. IntelliJ will automatically import Maven dependencies.
+3. To build and run tests:
+   - Open `pom.xml`
+   - Navigate to the **Maven** toolbar and **Run Maven Build** 
+
+</details>
+
+<details>
+<summary><span style="font-size:15px; font-weight:bold;">Execute the code</span></summary>
+
+Run the code by navigating to `DECIDE/src/main/java`, open `Main.java` and select **Run Main**.
+
+</details>
+</details>
+
+---
+<details>
+<summary><span style="font-size:18px; font-weight:bold;">Option 2: Using terminal</span></summary>
+
+#### Requirements
+- Java (JDK) 1.8 (Java 8) (recommended)
+- Maven version: 3.2.5
+
+Clone the repository
+```bash
+git clone https://github.com/erik-ol/DECIDE.git
+```
+<details>
+<summary><span style="font-size:15px; font-weight:bold;">Test the code</span></summary>
+
+Enter the root directory
+```bash
+cd DECIDE
+```
+>Note: Make sure pom.xml is located in the root directory.
+Ensure old builds are removed
+
+>Note: The file structure is required to use Maven successfully
+
+Remove any pre-existing builds
+```bash
+mvn clean
+```
+>Note: Maven will automatically download JUnit 4 and required dependencies.
+
+Compile the code
+```bash
+mvn compile
+```
+Run tests
+```bash
+mvn test
+```
+
+</details>
+
+<details>
+<summary><span style="font-size:15px; font-weight:bold;">Execute the code</span></summary>
+
+Navigate to the correct directory
+```bash
+cd DECIDE/src/main/java
+```
+Execute the code
+```bash
+java Main
+```
+
+</details>
+
+</details>
+
+---
+## Dependencies
+**Testing:**
+ - Maven: junit:junit:4.13.2
+ - Maven: org.hamcrest:hamcrest-core:1.3
+
+---
+
 ## Way of working
 Following this instance of the project the team members have been taught new tools and practices resulting in the current state. Right now all members have gotten a general hang of the tools and practises but still with some minor mistakes. The current state following this instance of the project would be somewhere in between "In Use" and "In Place" in accordance to the Essence standard. In regard to the checklist for Way-of-Working the following notations can be made
  - Some tools and practices were not found initially, but instead when the related issue occurred.
@@ -40,7 +144,7 @@ The key obstacles, in regard to reaching the next state, would then be concluded
  - Leaving thorough reviews making it possible to learn from mistakes to then be able to apply tools and practices naturally.
  - Increase awareness of the whole teams methods in use to catch mistakes early on.
  - Increase communication so the whole team are actively involved in occurring issues, making sure everyone is informed.
-
+---
 ## Statements of contributions
 
 | Name                           | Contribution                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
