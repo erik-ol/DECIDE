@@ -111,8 +111,13 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean lic1(int planarPointAmount, Point[] planarPoints)
     {
-        if(RADIUS1 < 0)
-            return false;
+        if(RADIUS1 < 0) {
+            throw new IllegalArgumentException("RADIUS1 must be >= 0");
+        }
+
+        if(planarPointAmount < 0) {
+            throw new IllegalArgumentException("planarPointAmount must be >= 0");
+        }
 
         for (int i = 2; i < planarPointAmount; i++)
         {
@@ -201,8 +206,13 @@ public class LaunchInterceptorConditionParameters
      */
     public boolean lic3(int planarPointAmount, Point[] planarPoints)
     {
-        if(AREA1 < 0)
-            return false;
+        if(AREA1 < 0) {
+            throw new IllegalArgumentException("AREA1 must be >= 0");
+        }
+
+        if(planarPointAmount < 0) {
+            throw new IllegalArgumentException("planarPointAmount must be >= 0");
+        }
 
         for (int i = 2; i < planarPointAmount; i++)
         {
@@ -249,6 +259,18 @@ public class LaunchInterceptorConditionParameters
      * @return True iff there exists at least one set of Q_PTS consecutive data points that lie in more than QUADS quadrants
      */
     public boolean lic4(int planarPointAmount, Point[] planarPoints) {
+
+        if(Q_PTS < 2 | Q_PTS > planarPointAmount) {
+            throw new IllegalArgumentException("Q_PTS must be >= 2 and <= planarPointAmount");
+        }
+
+        if(QUADS < 1 | QUADS > 3) {
+            throw new IllegalArgumentException("QUADS must be >= 1 and <= 3");
+        }
+
+        if(planarPointAmount < 0) {
+            throw new IllegalArgumentException("planarPointAmount must be >= 0");
+        }
 
         for (int i = Q_PTS-1; i < planarPointAmount; i++) {
 

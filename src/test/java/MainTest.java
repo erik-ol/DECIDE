@@ -1,6 +1,6 @@
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import java.util.Random;
 
 import org.junit.*;
 
@@ -20,10 +20,11 @@ public class MainTest
                           new Point(1, 2),
                           new Point(7, 0),
                           new Point(2, 4),
-                          new Point(6, 1)};
+                          new Point(6, 1),
+                          new Point(-1, -1)};
 
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(2, 1.5, 0.1,
-                                                                                            1, 1, 0, 0,
+                                                                                            1, 2, 1, 0,
                                                                                             3, 1, 1, 1,
                                                                                             1, 1, 1, 1,
                                                                                             1, 10, 10, 6);
@@ -72,7 +73,7 @@ public class MainTest
 
 
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
-                                                                                            0, 0, 0, 0,
+                                                                                            0, 2, 1, 0,
                                                                                             0, 0, 1, 1,
                                                                                             0, 0, 0, 0,
                                                                                             0, 0, 0, 0);
@@ -149,13 +150,11 @@ public class MainTest
     }
 
     /**
-     * Tests situations where lic1 should be false
+     * Tests that lic1 is false for line of points where consecutive points are closer than RADIUS1
      */
     @Test
-    public void lic1Negative()
+    public void lic1FalseForLineOfClosePoints()
     {
-
-        Random random = new Random();
         
         for (int points = 0; points<100; points++)
         {
@@ -164,13 +163,13 @@ public class MainTest
 
             for (int point = 0; point<points; point++)
             {
-                double pointX = random.nextDouble()*9;
-                double pointY = random.nextDouble()*9;
+                double pointX = point;
+                double pointY = point;
                 pointArray[point] = new Point(pointX, pointY);
 
             }
 
-            LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             
             Assert.assertFalse(licHandler.lic1(points, pointArray));
         }
@@ -178,13 +177,11 @@ public class MainTest
     }
 
     /**
-     * Tests situations where lic1 should be true
+     * Tests that lic1 is true when a far away outlier point exists
      */
     @Test
-    public void lic1Positive()
+    public void lic1TrueWhenOneOutlierPoint()
     {
-
-        Random random = new Random();
         
         for (int points = 3; points<100; points++)
         {
@@ -193,14 +190,14 @@ public class MainTest
 
             for (int point = 0; point<points; point++)
             {
-                double pointX = random.nextDouble()*9;
-                double pointY = random.nextDouble()*9;
+                double pointX = point;
+                double pointY = point;
                 pointArray[point] = new Point(pointX, pointY);
 
             }
 
             // outlier point
-            pointArray[random.nextInt(0, points)] = new Point(300+random.nextDouble()*10, 300+random.nextDouble()*10);
+            pointArray[points/2] = new Point(500, -500);
 
             LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 100, 0,
                                                                                                         0, 0, 0, 0,
@@ -210,6 +207,21 @@ public class MainTest
             
             Assert.assertTrue(licHandler.lic1(points, pointArray));
         }
+    }
+
+    /**
+     * Tests that lic1 throws exception for negative radius
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void lic1ExceptionForInvalidInput()
+    {
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, -1, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0);
+
+        licHandler.lic1(0, new Point[0]);
     }
 
     /**
@@ -311,9 +323,8 @@ public class MainTest
      * Tests that LIC-3 triangle verification is false for line of points where consecutive points are very close
      */
     @Test
-    public void lic3FalseForRandomizedLineOfPoints()
+    public void lic3FalseForLineOfPoints()
     {
-        Random random = new Random();
 
         for (int points = 0; points<100; points++)
         {
@@ -323,8 +334,8 @@ public class MainTest
 
             for (int point = 1; point<points; point++)
             {
-                double pointX = pointArray[point-1].getX() + random.nextDouble();
-                double pointY = pointArray[point-1].getY() + random.nextDouble() - 0.5;
+                double pointX = pointArray[point-1].getX() + 1;
+                double pointY = pointArray[point-1].getY() + 1;
                 pointArray[point] = new Point(pointX, pointY);
 
             }
@@ -365,30 +376,39 @@ public class MainTest
 
     }
 
+    /**
+     * Tests that lic3 throws exception for negative area
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void lic3ExceptionForInvalidInput()
+    {
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0,
+                                                                                                        -1, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0);
+
+        licHandler.lic3(0, new Point[0]);
+    }
 
     /**
      * Tests situations where lic4 must be false due to more QUADS than Q_PTS
      */
     @Test
     public void lic4FalseWhenMoreQuadsThanPoints() {
-
-        Random random = new Random();
         
-        for (int points = 0; points<100; points++) {
+        int points = 4;
 
-            Point[] pointArray = new Point[points];
+        Point[] pointArray = {
+            new Point(1.0, -1.0),
+            new Point(-1.0, -1.0),
+            new Point(-1.0, 1.0),
+            new Point(1.0, 1.0)
+        };
 
-            for (int point = 0; point<points; point++) {
-                double pointX = (random.nextDouble() - 0.5) * 100;
-                double pointY = (random.nextDouble() - 0.5) * 100;
-                pointArray[point] = new Point(pointX, pointY);
-
-            }
-
-            LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             
-            Assert.assertFalse(licHandler.lic4(points, pointArray));
-        }
+        Assert.assertFalse(licHandler.lic4(points, pointArray));
         
     }
 
@@ -434,6 +454,21 @@ public class MainTest
         
         Assert.assertTrue(licHandler.lic4(points, pointArray));
         
+    }
+
+    /**
+     * Tests that lic4 throws exception for quads outside range 1-3
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void lic4ExceptionForInvalidInput()
+    {
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        0, 0, 0, 0);
+
+        licHandler.lic4(0, new Point[0]);
     }
 
     /**
@@ -1541,11 +1576,9 @@ public class MainTest
             }
         }
 
-        Random random = new Random();
-
         AntiBallisticMissileSystem.conditionsMetVector = new boolean[15];
         for (int i = 0; i<15; i++) {
-            AntiBallisticMissileSystem.conditionsMetVector[i] = random.nextBoolean();
+            AntiBallisticMissileSystem.conditionsMetVector[i] = false;
         }
 
 
