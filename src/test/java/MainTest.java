@@ -1,6 +1,10 @@
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import org.junit.*;
 
@@ -1676,5 +1680,148 @@ public class MainTest
         boolean[] PUV = new boolean[15];
         PUV[2] = true;
         assertTrue(AntiBallisticMissileSystem.calculateFUV(PUV, PUM));
+    }
+
+    /**
+     * Tests that decide throws exception for negative inputs
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void decideExceptionForInvalidInput()
+    {
+        LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, -1, -1,
+                                                                                                        0, 0, -1, 0,
+                                                                                                        0, 0, 0, 0,
+                                                                                                        -1, 0, 0, 0,
+                                                                                                        0, 0, 0, 0);
+
+        
+        AntiBallisticMissileSystem.decide(0, new Point[0], licHandler, new LogicalConnector[0][0], new boolean[0]);
+    }
+
+    /**
+     * Tests that decide outputs yes when all criteria are fulfilled
+     */
+    @Test
+    public void decidePositive() {
+
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream systemOutCatcher = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(systemOutCatcher));
+
+        Point[] points = {new Point(0, 0),
+                          new Point(3, 0),
+                          new Point(1, 2),
+                          new Point(7, 0),
+                          new Point(2, 4),
+                          new Point(6, 1),
+                          new Point(-1, -1)};
+
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(2, 1.5, 0.1,
+                                                                                            1, 2, 1, 0,
+                                                                                            3, 1, 1, 1,
+                                                                                            1, 1, 1, 1,
+                                                                                            1, 10, 10, 6);
+
+        LogicalConnector[][] logicalConnectorMatrix = new LogicalConnector[15][15];
+        for (int i = 0; i<15; i++) {
+            for (int j = 0; j<15; j++) {
+                logicalConnectorMatrix[i][j] = LogicalConnector.ANDD;
+            }
+        }
+
+        boolean[] puv = new boolean[15];
+        for (int i = 0; i<15; i++) {
+            puv[i] = true;
+        }
+
+        AntiBallisticMissileSystem.decide(points.length, points, lic, logicalConnectorMatrix, puv);
+
+        assertEquals("YES\n", systemOutCatcher.toString());
+        System.setOut(originalOut);
+    }
+
+    /**
+     * Tests that decide outputs yes when some criteria fail but are not required
+     */
+    @Test
+    public void decidePositiveWhenNotAllTrueRequired() {
+
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream systemOutCatcher = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(systemOutCatcher));
+
+        Point[] points = {new Point(0, 0),
+                          new Point(3, 0),
+                          new Point(1, 2),
+                          new Point(7, 0),
+                          new Point(2, 4),
+                          new Point(6, 1)};
+
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(2, 1.5, 0.1,
+                                                                                            1, 2, 1, 0,
+                                                                                            3, 1, 1, 1,
+                                                                                            1, 1, 1, 1,
+                                                                                            1, 10, 10, 6);
+
+        LogicalConnector[][] logicalConnectorMatrix = new LogicalConnector[15][15];
+        for (int i = 0; i<15; i++) {
+            for (int j = 0; j<15; j++) {
+                if (i==4 | j==4) logicalConnectorMatrix[i][j] = LogicalConnector.ORR;
+                else logicalConnectorMatrix[i][j] = LogicalConnector.ANDD;
+            }
+        }
+
+        boolean[] puv = new boolean[15];
+        for (int i = 0; i<15; i++) {
+            puv[i] = true;
+        }
+
+        puv[4] = false;
+
+        AntiBallisticMissileSystem.decide(points.length, points, lic, logicalConnectorMatrix, puv);
+
+        assertEquals("YES\n", systemOutCatcher.toString());
+        System.setOut(originalOut);
+    }
+
+    /**
+     * Tests that decide outputs no when some criteria are not fulfilled
+     */
+    @Test
+    public void decideNegative() {
+
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream systemOutCatcher = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(systemOutCatcher));
+
+        Point[] points = {new Point(0, 0),
+                          new Point(3, 0),
+                          new Point(1, 2),
+                          new Point(7, 0),
+                          new Point(2, 4),
+                          new Point(6, 1)};
+
+        LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(2, 1.5, 0.1,
+                                                                                            1, 2, 1, 0,
+                                                                                            3, 1, 1, 1,
+                                                                                            1, 1, 1, 1,
+                                                                                            1, 10, 10, 6);
+
+        LogicalConnector[][] logicalConnectorMatrix = new LogicalConnector[15][15];
+        for (int i = 0; i<15; i++) {
+            for (int j = 0; j<15; j++) {
+                logicalConnectorMatrix[i][j] = LogicalConnector.ANDD;
+            }
+        }
+
+        boolean[] puv = new boolean[15];
+        for (int i = 0; i<15; i++) {
+            puv[i] = true;
+        }
+
+        AntiBallisticMissileSystem.decide(points.length, points, lic, logicalConnectorMatrix, puv);
+
+        assertEquals("NO\n", systemOutCatcher.toString());
+        System.setOut(originalOut);
     }
 }

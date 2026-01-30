@@ -1,32 +1,15 @@
-# DECIDE
+# DECIDE REPORT
+## Project description
+This repository contain an implementation of the DECIDE program for Assignment 1. The goal of the assignment is to construct a launch decision system for an anti-ballistic missile interceptor based on radar data.
 
-An implementation of a hypothetical anti-ballistic missile system's launch decision algorithm. The system evaluates radar tracking data against 15 Launch Interceptor Conditions (LICs) to determine whether to launch an interceptor.
+The decision system evaluates a set of 15 Launch Interceptor Conditions (LIC) and computes the decision using the following pipeline:
+- CMV (Condition Met Vector) - evauluates each LIC
+- PUM (Preliminary Unlocking Matrix) - combinines LIC results using logical connectors
+- FUV (Final Unlocking Vector) - determines whether the interceptor should be launced
 
-## Dependencies
+The final output of the program is printed as "YES" if the interceptor should be launced and "NO" if it should not.
 
-- **Java**: JDK 8 or higher
-- **JUnit 4**: For running unit tests
-- **Maven**: For build automation and dependency management
-
-## Build and Run Instructions
-
-### Compile the project
-```bash
-javac -d out src/main/java/*.java
-```
-
-### Run with custom input
-Create a main method or modify `AntiBallisticMissileSystem.java` to call the `decide()` method with your input parameters.
-
-### Run tests
-```bash
-# Using Maven
-mvn test
-
-# Or compile and run tests manually with JUnit
-javac -cp .:junit-4.13.2.jar:hamcrest-core-1.3.jar -d out src/main/java/*.java src/test/java/*.java
-java -cp out:junit-4.13.2.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore MainTest
-```
+The project uses practices including structured code organization, issue tracking, unit testing, and collaborative development using Git and pull requests.
 
 ## Way of working
 Following this instance of the project the team members have been taught new tools and practices resulting in the current state. Right now all members have gotten a general hang of the tools and practises but still with some minor mistakes. The current state following this instance of the project would be somewhere in between "In Use" and "In Place" in accordance to the Essence standard. In regard to the checklist for Way-of-Working the following notations can be made
