@@ -114,8 +114,8 @@ public class MainTest
             }
             LaunchInterceptorConditionParameters lic0Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-            boolean resI = lic0Handler.doesTwoConsecutivePointsFurtherThanLength1(points, pointArraySame);
-            boolean resII = lic0Handler.doesTwoConsecutivePointsFurtherThanLength1(points, pointArrayEqualSpace);
+            boolean resI = lic0Handler.lic0(points, pointArraySame);
+            boolean resII = lic0Handler.lic0(points, pointArrayEqualSpace);
 
             Assert.assertFalse(resI);
             Assert.assertFalse(resII);
@@ -144,7 +144,7 @@ public class MainTest
 
             LaunchInterceptorConditionParameters lic0Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-            boolean res = lic0Handler.doesTwoConsecutivePointsFurtherThanLength1(points, pointArray);
+            boolean res = lic0Handler.lic0(points, pointArray);
             Assert.assertTrue(res);
         }
     }
@@ -173,7 +173,7 @@ public class MainTest
 
             LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             
-            Assert.assertFalse(licHandler.lic_1(points, pointArray));
+            Assert.assertFalse(licHandler.lic1(points, pointArray));
         }
         
     }
@@ -209,7 +209,7 @@ public class MainTest
                                                                                                         0, 0, 0, 0,
                                                                                                         0, 0, 0, 0);
             
-            Assert.assertTrue(licHandler.lic_1(points, pointArray));
+            Assert.assertTrue(licHandler.lic1(points, pointArray));
         }
     }
 
@@ -227,7 +227,7 @@ public class MainTest
         Point[] points = {new Point(1.0, 2.0),
                           new Point(3.0, 4.0)};
 
-        Assert.assertFalse(lic.validateAngle(points.length, points));
+        Assert.assertFalse(lic.lic2(points.length, points));
     }
 
     /**
@@ -247,7 +247,7 @@ public class MainTest
                           new Point(1.0, 2.0),
                           new Point(3.0, 4.0)};
 
-        Assert.assertTrue(lic.validateAngle(points.length, points));
+        Assert.assertTrue(lic.lic2(points.length, points));
     }
 
     /**
@@ -266,7 +266,7 @@ public class MainTest
                           new Point(1.0, 2.0),
                           new Point(3.0, 4.0)};
 
-        Assert.assertFalse(lic.validateAngle(points.length, points));
+        Assert.assertFalse(lic.lic2(points.length, points));
     }
 
     /**
@@ -286,7 +286,7 @@ public class MainTest
                           new Point(3.0, 4.0),
                           new Point(1.0, 2.0)};
 
-        Assert.assertTrue(lic.validateAngle(points.length, points));
+        Assert.assertTrue(lic.lic2(points.length, points));
     }
 
     /**
@@ -305,7 +305,7 @@ public class MainTest
                           new Point(0.0, 0.0),
                           new Point(0.1, -1.0)};
 
-        Assert.assertTrue(lic.validateAngle(points.length, points));
+        Assert.assertTrue(lic.lic2(points.length, points));
     }
 
     /**
@@ -336,7 +336,7 @@ public class MainTest
                                                                                                         0, 0, 0, 0,
                                                                                                         0, 0, 0, 0);
 
-            Assert.assertFalse(licHandler.validateTriangleArea(points, pointArray));
+            Assert.assertFalse(licHandler.lic3(points, pointArray));
         }
     }
 
@@ -362,7 +362,7 @@ public class MainTest
                                                                                                     0, 0, 0, 0,
                                                                                                     0, 0, 0);
 
-        Assert.assertTrue(licHandler.validateTriangleArea(points, pointArray));
+        Assert.assertTrue(licHandler.lic3(points, pointArray));
 
     }
 
@@ -388,7 +388,7 @@ public class MainTest
 
             LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             
-            Assert.assertFalse(licHandler.validateQuadrants(points, pointArray));
+            Assert.assertFalse(licHandler.lic4(points, pointArray));
         }
         
     }
@@ -411,7 +411,7 @@ public class MainTest
 
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         
-        Assert.assertFalse(licHandler.validateQuadrants(points, pointArray));
+        Assert.assertFalse(licHandler.lic4(points, pointArray));
         
     }
 
@@ -433,7 +433,7 @@ public class MainTest
 
         LaunchInterceptorConditionParameters licHandler = new LaunchInterceptorConditionParameters(0, 0, 0, 0, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         
-        Assert.assertTrue(licHandler.validateQuadrants(points, pointArray));
+        Assert.assertTrue(licHandler.lic4(points, pointArray));
         
     }
 
@@ -453,7 +453,7 @@ public class MainTest
         Point[] points = {new Point(3.0, 0.0),
                           new Point(2.0, 0.0)};
 
-        boolean res = lic.hasDecreasingConsecutivePoints(points, 2);
+        boolean res = lic.lic5(points, 2);
         assertTrue(res);
     }
 
@@ -472,7 +472,7 @@ public class MainTest
         Point[] points = {new Point(2.0, 0.0),
                           new Point(3.0, 0.0)};
 
-        boolean res = lic.hasDecreasingConsecutivePoints(points, 2);
+        boolean res = lic.lic5(points, 2);
         assertFalse(res);
     }
 
@@ -492,7 +492,7 @@ public class MainTest
         Point[] points = {new Point(2.0, 0.0),
                           new Point(2.0, 0.0)};
 
-        boolean res = lic.hasDecreasingConsecutivePoints(points, 2);
+        boolean res = lic.lic5(points, 2);
         assertFalse(res);
     }
 
@@ -508,7 +508,7 @@ public class MainTest
         Point[] planarPoints = {new Point(0, 0),
                                 new Point(5, 5)};
 
-        assertFalse(licHandler.hasPointFarFromLine(planarPoints.length, planarPoints));
+        assertFalse(licHandler.lic6(planarPoints.length, planarPoints));
     }
 
     /**
@@ -526,7 +526,7 @@ public class MainTest
                                 new Point(0, 10),
                                 new Point(10, 0)};
 
-        assertTrue(licHandler.hasPointFarFromLine(planarPoints.length, planarPoints));
+        assertTrue(licHandler.lic6(planarPoints.length, planarPoints));
     }
 
     /**
@@ -543,7 +543,7 @@ public class MainTest
                                 new Point(5, 0),
                                 new Point(10, 0)};
 
-        assertFalse(licHandler.hasPointFarFromLine(planarPoints.length, planarPoints));
+        assertFalse(licHandler.lic6(planarPoints.length, planarPoints));
     }
 
     /**
@@ -561,7 +561,7 @@ public class MainTest
                                 new Point(0, 0)};
 
 
-        assertTrue(licHandler.hasPointFarFromLine(planarPoints.length, planarPoints));
+        assertTrue(licHandler.lic6(planarPoints.length, planarPoints));
     }
 
     /**
@@ -578,7 +578,7 @@ public class MainTest
                                 new Point(0.5, 0.5),
                                 new Point(0, 0)};
 
-        assertFalse(licHandler.hasPointFarFromLine(planarPoints.length, planarPoints));
+        assertFalse(licHandler.lic6(planarPoints.length, planarPoints));
     }
 
     /**
@@ -602,7 +602,7 @@ public class MainTest
                                                                                                         0, 0, 0, 0,
                                                                                                         0, 0, 0, 0);
 
-            boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
+            boolean res = lic7Handler.lic7(pointArray, points);
             Assert.assertFalse(res);
         }
     }
@@ -634,7 +634,7 @@ public class MainTest
                                                                                                         0, 0, 0, 0,
                                                                                                         0, 0, 0, 0);
 
-            boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
+            boolean res = lic7Handler.lic7(pointArray, points);
             Assert.assertFalse(res);
         }
     }
@@ -660,7 +660,7 @@ public class MainTest
                                                                                                         0, 0, 0, 0,
                                                                                                         0, 0, 0, 0);
 
-            boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
+            boolean res = lic7Handler.lic7(pointArray, points);
             Assert.assertFalse(res);
         }
     }
@@ -692,7 +692,7 @@ public class MainTest
                                                                                                         0, 0, 0, 0,
                                                                                                         0, 0, 0, 0);
 
-            boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
+            boolean res = lic7Handler.lic7(pointArray, points);
             Assert.assertTrue(res);
         }
     }
@@ -732,7 +732,7 @@ public class MainTest
                                                                                                         0, 0, 0, 0,
                                                                                                         0, 0, 0, 0);
 
-            boolean res = lic7Handler.doesPointsSeparatedByKFurtherThanLength1(pointArray, points);
+            boolean res = lic7Handler.lic7(pointArray, points);
             Assert.assertTrue(res);
         }
     }
@@ -753,7 +753,7 @@ public class MainTest
                                 new Point(0,0),
                                 new Point(0,0)};
 
-        assertFalse(licHandler.hasTripleNotContainedInRadius1Circle(planarPoints.length, planarPoints));
+        assertFalse(licHandler.lic8(planarPoints.length, planarPoints));
     }
 
     /**
@@ -777,7 +777,7 @@ public class MainTest
                                 new Point(20,0), // skipped
                                 new Point(30,0)};
 
-        assertTrue(licHandler.hasTripleNotContainedInRadius1Circle(planarPoints.length, planarPoints));
+        assertTrue(licHandler.lic8(planarPoints.length, planarPoints));
     }
 
     /**
@@ -801,7 +801,7 @@ public class MainTest
                                 new Point(0,1), // skipped
                                 new Point(0,0)};
 
-        assertFalse(licHandler.hasTripleNotContainedInRadius1Circle(planarPoints.length, planarPoints));
+        assertFalse(licHandler.lic8(planarPoints.length, planarPoints));
     }
 
     /**
@@ -819,7 +819,7 @@ public class MainTest
         Point[] points = {new Point(1.0, 2.0),
                           new Point(2.0, 3.0)};
 
-        Assert.assertFalse(lic.validateAngleConsecutivePointsSeparation(points.length, points));
+        Assert.assertFalse(lic.lic9(points.length, points));
     }
 
     /**
@@ -840,7 +840,7 @@ public class MainTest
                           new Point(0.1, -1.0),
                           new Point(0.5, -1.0)};
 
-        Assert.assertTrue(lic.validateAngleConsecutivePointsSeparation(points.length, points));
+        Assert.assertTrue(lic.lic9(points.length, points));
     }
 
     /**
@@ -861,7 +861,7 @@ public class MainTest
                           new Point(0.5, -1.0),
                           new Point(1.0, -1.0)};
 
-        Assert.assertFalse(lic.validateAngleConsecutivePointsSeparation(points.length, points));
+        Assert.assertFalse(lic.lic9(points.length, points));
     }
 
     /**
@@ -882,7 +882,7 @@ public class MainTest
                           new Point(2.0, 2.0),
                           new Point(3.0, 4.0)};
 
-        Assert.assertFalse(lic.validateAngleConsecutivePointsSeparation(points.length, points));
+        Assert.assertFalse(lic.lic9(points.length, points));
     }
 
     /**
@@ -903,7 +903,7 @@ public class MainTest
                           new Point(0.0, -0.5),
                           new Point(0.1, -1.0)};
 
-        Assert.assertTrue(lic.validateAngleConsecutivePointsSeparation(points.length, points));
+        Assert.assertTrue(lic.lic9(points.length, points));
     }
 
 
@@ -921,7 +921,7 @@ public class MainTest
                                 new Point(0, 5),
                                 new Point(1, 1)};
 
-        assertFalse(licHandler.hasLargeTriangleArea(planarPoints.length, planarPoints));
+        assertFalse(licHandler.lic10(planarPoints.length, planarPoints));
     }
 
     /**
@@ -941,7 +941,7 @@ public class MainTest
                                 new Point(99, 99),  // skipped
                                 new Point(0, 10)};
 
-        assertTrue(licHandler.hasLargeTriangleArea(planarPoints.length, planarPoints));
+        assertTrue(licHandler.lic10(planarPoints.length, planarPoints));
     }
 
     /**
@@ -961,7 +961,7 @@ public class MainTest
                                 new Point(99, 99),  // skipped
                                 new Point(0, 1)};
 
-        assertFalse(licHandler.hasLargeTriangleArea(planarPoints.length, planarPoints));
+        assertFalse(licHandler.lic10(planarPoints.length, planarPoints));
     }
 
     /**
@@ -980,7 +980,7 @@ public class MainTest
                                 new Point(99, 99),
                                 new Point(10, 0)};
 
-        assertFalse(licHandler.hasLargeTriangleArea(planarPoints.length, planarPoints));
+        assertFalse(licHandler.lic10(planarPoints.length, planarPoints));
     }
 
     /**
@@ -999,7 +999,7 @@ public class MainTest
                                 new Point(99, 99),
                                 new Point(0, 2)};
 
-        assertTrue(licHandler.hasLargeTriangleArea(planarPoints.length, planarPoints));
+        assertTrue(licHandler.lic10(planarPoints.length, planarPoints));
     }
 
     /*
@@ -1017,7 +1017,7 @@ public class MainTest
         Point[] points = {new Point(1.0, 0.0),
                           new Point(0.0, 0.0)};
 
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+        Assert.assertFalse(lic.lic11(points.length, points));
     }
 
     /**
@@ -1037,7 +1037,7 @@ public class MainTest
                           new Point(1.0, 0.0),
                           new Point(1.0, 1.0)};
 
-        Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
+        Assert.assertTrue(lic.lic11(points.length, points));
     }
 
     /**
@@ -1056,7 +1056,7 @@ public class MainTest
                           new Point(0.0, 0.0),
                           new Point(1.0, 0.0)};
 
-        Assert.assertFalse(lic.validateConsecutivePointsSeparation(points.length, points));
+        Assert.assertFalse(lic.lic11(points.length, points));
     }
 
     /**
@@ -1075,7 +1075,7 @@ public class MainTest
                           new Point(0.0, 0.0),
                           new Point(1.0, 0.0)};
 
-        Assert.assertTrue(lic.validateConsecutivePointsSeparation(points.length, points));
+        Assert.assertTrue(lic.lic11(points.length, points));
     }
 
     /**
@@ -1095,7 +1095,7 @@ public class MainTest
 
             LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
 
-            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
+            boolean res = lic12Handler.lic12(pointArray, points);
             Assert.assertFalse(res);
         }
     }
@@ -1116,7 +1116,7 @@ public class MainTest
 
             LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
 
-            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
+            boolean res = lic12Handler.lic12(pointArray, points);
             Assert.assertFalse(res);
         }
     }
@@ -1145,7 +1145,7 @@ public class MainTest
 
             LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
 
-            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
+            boolean res = lic12Handler.lic12(pointArray, points);
             System.out.println(res);
             Assert.assertFalse(res);
         }
@@ -1178,7 +1178,7 @@ public class MainTest
                                                                                                         0, 0, 0, 0,
                                                                                                         0, 13, 0, 0);
 
-            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
+            boolean res = lic12Handler.lic12(pointArray, points);
             Assert.assertTrue(res);
         }
     }
@@ -1206,7 +1206,7 @@ public class MainTest
 
             LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
 
-            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
+            boolean res = lic12Handler.lic12(pointArray, points);
             Assert.assertFalse(res);
         }
     }
@@ -1235,7 +1235,7 @@ public class MainTest
 
             LaunchInterceptorConditionParameters lic12Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, points / 2, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0);
 
-            boolean res = lic12Handler.doesPointsSeparatedByKApartByRange(pointArray, points);
+            boolean res = lic12Handler.lic12(pointArray, points);
             Assert.assertFalse(res);
         }
     }
@@ -1253,7 +1253,7 @@ public class MainTest
                                 new Point(0,0),
                                 new Point(0,0)};
 
-        assertFalse(licHandler.hasPointsThatFitCircleOfRadius2ButNotRadius1(planarPoints.length, planarPoints));
+        assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
     }
 
     /**
@@ -1279,7 +1279,7 @@ public class MainTest
                                 new Point(20,0), // skipped
                                 new Point(0,3)};
 
-        assertTrue(licHandler.hasPointsThatFitCircleOfRadius2ButNotRadius1(planarPoints.length, planarPoints));
+        assertTrue(licHandler.lic13(planarPoints.length, planarPoints));
     }
 
     /**
@@ -1299,7 +1299,7 @@ public class MainTest
                                 new Point(0,1), // skipped
                                 new Point(0,0)};
 
-        assertFalse(licHandler.hasPointsThatFitCircleOfRadius2ButNotRadius1(5, planarPoints));
+        assertFalse(licHandler.lic13(5, planarPoints));
     }
 
     /**
@@ -1319,7 +1319,7 @@ public class MainTest
                                 new Point(0,10),
                                 new Point(0,20)};
 
-        assertFalse(licHandler.hasPointsThatFitCircleOfRadius2ButNotRadius1(planarPoints.length, planarPoints));
+        assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
     }
 
     /**
@@ -1339,7 +1339,7 @@ public class MainTest
                 new Point(0.4, 0.2),
                 new Point(0.3, 0.1)};
 
-        assertFalse(licHandler.hasPointsThatFitCircleOfRadius2ButNotRadius1(planarPoints.length, planarPoints));
+        assertFalse(licHandler.lic13(planarPoints.length, planarPoints));
     }
 
     //// TEST CASES FOR LIC 14
@@ -1358,7 +1358,7 @@ public class MainTest
                                 new Point(0, 5),
                                 new Point(1, 1)};
 
-        assertFalse(licHandler.hasTriangleAreaInRange(planarPoints.length, planarPoints));
+        assertFalse(licHandler.lic14(planarPoints.length, planarPoints));
     }
 
     /**
@@ -1378,7 +1378,7 @@ public class MainTest
                                 new Point(99, 99),  // skipped
                                 new Point(0, 10)};
 
-        assertTrue(licHandler.hasTriangleAreaInRange(planarPoints.length, planarPoints));
+        assertTrue(licHandler.lic14(planarPoints.length, planarPoints));
     }
 
     /**
@@ -1398,7 +1398,7 @@ public class MainTest
                                 new Point(99, 99),
                                 new Point(0, 10)};
 
-        assertFalse(licHandler.hasTriangleAreaInRange(planarPoints.length, planarPoints));
+        assertFalse(licHandler.lic14(planarPoints.length, planarPoints));
     }
 
     /**
@@ -1418,7 +1418,7 @@ public class MainTest
                                 new Point(99, 99),
                                 new Point(0, 1)};
 
-        assertFalse(licHandler.hasTriangleAreaInRange(planarPoints.length, planarPoints));
+        assertFalse(licHandler.lic14(planarPoints.length, planarPoints));
     }
 
     /**
@@ -1438,7 +1438,7 @@ public class MainTest
                                 new Point(99, 99),
                                 new Point(10, 0)};
 
-        assertFalse(licHandler.hasTriangleAreaInRange(planarPoints.length, planarPoints));
+        assertFalse(licHandler.lic14(planarPoints.length, planarPoints));
     }
 
     /**
