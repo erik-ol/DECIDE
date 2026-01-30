@@ -19,10 +19,11 @@ public class MainTest
                           new Point(1, 2),
                           new Point(7, 0),
                           new Point(2, 4),
-                          new Point(6, 1)};
+                          new Point(6, 1),
+                          new Point(-1, -1)};
 
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(2, 1.5, 0.1,
-                                                                                            1, 1, 0, 0,
+                                                                                            1, 2, 1, 0,
                                                                                             3, 1, 1, 1,
                                                                                             1, 1, 1, 1,
                                                                                             1, 10, 10, 6);
@@ -71,7 +72,7 @@ public class MainTest
 
 
         LaunchInterceptorConditionParameters lic = new LaunchInterceptorConditionParameters(0, 0, 0,
-                                                                                            0, 0, 0, 0,
+                                                                                            0, 2, 1, 0,
                                                                                             0, 0, 1, 1,
                                                                                             0, 0, 0, 0,
                                                                                             0, 0, 0, 0);
