@@ -89,43 +89,12 @@ public class MainTest
         for(int i = 6; i < AntiBallisticMissileSystem.conditionsMetVector.length; i++)
             Assert.assertFalse("Element " + i + " = false", AntiBallisticMissileSystem.conditionsMetVector[i]);
     }
-
-    /**
-     * Test situations where lic0 should be false
-     */
-    @Test
-    public void lic0Negative()
-    {
-        for (int points = 2; points < 20; points++)
-        {
-            // Case I: When all points are the same
-            // Case II: When all points are equally spaced
-            Point[] pointArraySame = new Point[points];
-            Point[] pointArrayEqualSpace = new Point[points];
-
-            pointArraySame[0] = new Point(0, 0);
-            pointArrayEqualSpace[0] = new Point(0, 0);
-
-            for (int point = 1; point < points; point++)
-            {
-                pointArraySame[point] = new Point(0, 0);
-                pointArrayEqualSpace[point] = new Point(2 * point, 3 * point);
-            }
-            LaunchInterceptorConditionParameters lic0Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
-            boolean resI = lic0Handler.lic0(points, pointArraySame);
-            boolean resII = lic0Handler.lic0(points, pointArrayEqualSpace);
-
-            Assert.assertFalse(resI);
-            Assert.assertFalse(resII);
-        }
-    }
     
     /**
      * Verifies that the LCM operator NOTUSED always results in a TRUE element in the PUM.
      */
     @Test
-    public void preliminaryUnlockingMatrixAlwaysTrueForNotUsed() {
+    public void pumAlwaysTrueForNotUsed() {
         LogicalConnector[][] logicalConnectorMatrix = new LogicalConnector[15][15];
         for (int i = 0; i<15; i++) {
             for (int j = 0; j<15; j++) {
@@ -155,7 +124,7 @@ public class MainTest
      * Tests that ANDD and ORR operations in the logical connector matrix yield the right results to the preliminary unlocking matrix.
      */
     @Test
-    public void logicalConnectorMatrixOperationResults() {
+    public void lcmOperationResults() {
         LogicalConnector[][] logicalConnectorMatrix = new LogicalConnector[15][15];
         for (int i = 0; i<15; i++) {
             for (int j = 0; j<15; j++) {
@@ -201,7 +170,7 @@ public class MainTest
      * Verifies that calculateFuv return true when all elements in PUV are false.
      */
     @Test
-    public void calculateFuvIsTrueWhenAllPuvFalse() {
+    public void fuvTrueWhenAllPuvFalse() {
         boolean[][] PUM = new boolean[15][15];
         setAllTruePUM(PUM);
         boolean[] PUV = new boolean[15];
@@ -214,7 +183,7 @@ public class MainTest
      * specified by PUV contains a false entry in the PUM.
      */
     @Test
-    public void calculateFuvIsFalseWhenSpecifiedRowHaveFalse() {
+    public void fuvFalseWhenSpecifiedRowHaveFalse() {
         boolean[][] PUM = new boolean[15][15];
         setAllTruePUM(PUM);
         PUM[1][6] = false;
@@ -229,12 +198,43 @@ public class MainTest
      * only contain true values.
      */
     @Test
-    public void calculateFuvIsTrueWhenSpecifiedRowContainOnlyTrue() {
+    public void fuvIsTrueWhenSpecifiedRowContainOnlyTrue() {
         boolean[][] PUM = new boolean[15][15];
         setAllTruePUM(PUM);
         boolean[] PUV = new boolean[15];
         PUV[2] = true;
         assertTrue(AntiBallisticMissileSystem.calculateFUV(PUV, PUM));
+    }
+
+    /**
+     * Test situations where lic0 should be false
+     */
+    @Test
+    public void lic0Negative()
+    {
+        for (int points = 2; points < 20; points++)
+        {
+            // Case I: When all points are the same
+            // Case II: When all points are equally spaced
+            Point[] pointArraySame = new Point[points];
+            Point[] pointArrayEqualSpace = new Point[points];
+
+            pointArraySame[0] = new Point(0, 0);
+            pointArrayEqualSpace[0] = new Point(0, 0);
+
+            for (int point = 1; point < points; point++)
+            {
+                pointArraySame[point] = new Point(0, 0);
+                pointArrayEqualSpace[point] = new Point(2 * point, 3 * point);
+            }
+            LaunchInterceptorConditionParameters lic0Handler = new LaunchInterceptorConditionParameters(4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+            boolean resI = lic0Handler.lic0(points, pointArraySame);
+            boolean resII = lic0Handler.lic0(points, pointArrayEqualSpace);
+
+            Assert.assertFalse(resI);
+            Assert.assertFalse(resII);
+        }
     }
 
     /**
