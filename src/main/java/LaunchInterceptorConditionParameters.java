@@ -82,8 +82,11 @@ public class LaunchInterceptorConditionParameters
      * 
      * @return True if at least one set of 2 consecutive data points that are a distance greater than length LENGTH1 apart
      */
-    public boolean doesTwoConsecutivePointsFurtherThanLength1(int planarPointAmount, Point[] planarPoints)
+    public boolean lic0(int planarPointAmount, Point[] planarPoints)
     {
+        if(LENGTH1 < 0)
+            return false;
+
         // Check all consecutive points
         for (int point = 1; point < planarPointAmount; point++){
             double deltaX = planarPoints[point].getX() - planarPoints[point-1].getX();
@@ -106,8 +109,16 @@ public class LaunchInterceptorConditionParameters
      *
      * @return True if there exists 3 consecutive points that cannot all be contained within or on a circle of radius RADIUS1
      */
-    public boolean lic_1(int planarPointAmount, Point[] planarPoints)
+    public boolean lic1(int planarPointAmount, Point[] planarPoints)
     {
+        if(RADIUS1 < 0) {
+            throw new IllegalArgumentException("RADIUS1 must be >= 0");
+        }
+
+        if(planarPointAmount < 0) {
+            throw new IllegalArgumentException("planarPointAmount must be >= 0");
+        }
+
         for (int i = 2; i < planarPointAmount; i++)
         {
             // compare pairwise distances
@@ -145,7 +156,7 @@ public class LaunchInterceptorConditionParameters
      * @return true if there exists a set of three consecutive data points
      *         that meets the conditions and false otherwise.
      */
-    public boolean validateAngle(int planarPointAmount, Point[] planarPoints)
+    public boolean lic2(int planarPointAmount, Point[] planarPoints)
     {
         // Check if the array has enough elements
         if(planarPointAmount < 3)
@@ -193,8 +204,15 @@ public class LaunchInterceptorConditionParameters
      * @return true if there exists a set of three consecutive data points
      *         that meets the conditions and false otherwise.
      */
-    public boolean validateTriangleArea(int planarPointAmount, Point[] planarPoints)
+    public boolean lic3(int planarPointAmount, Point[] planarPoints)
     {
+        if(AREA1 < 0) {
+            throw new IllegalArgumentException("AREA1 must be >= 0");
+        }
+
+        if(planarPointAmount < 0) {
+            throw new IllegalArgumentException("planarPointAmount must be >= 0");
+        }
 
         for (int i = 2; i < planarPointAmount; i++)
         {
@@ -240,7 +258,19 @@ public class LaunchInterceptorConditionParameters
      * 
      * @return True iff there exists at least one set of Q_PTS consecutive data points that lie in more than QUADS quadrants
      */
-    public boolean validateQuadrants(int planarPointAmount, Point[] planarPoints) {
+    public boolean lic4(int planarPointAmount, Point[] planarPoints) {
+
+        if(Q_PTS < 2 | Q_PTS > planarPointAmount) {
+            throw new IllegalArgumentException("Q_PTS must be >= 2 and <= planarPointAmount");
+        }
+
+        if(QUADS < 1 | QUADS > 3) {
+            throw new IllegalArgumentException("QUADS must be >= 1 and <= 3");
+        }
+
+        if(planarPointAmount < 0) {
+            throw new IllegalArgumentException("planarPointAmount must be >= 0");
+        }
 
         for (int i = Q_PTS-1; i < planarPointAmount; i++) {
 
@@ -275,8 +305,13 @@ public class LaunchInterceptorConditionParameters
      * such that the difference in x-coordinates is less than 0; false otherwise
      * 
      */
-    public boolean hasDecreasingConsecutivePoints(Point[] planarPoints, int planarPointAmount)
+    public boolean lic5(Point[] planarPoints, int planarPointAmount)
     {
+
+        if(planarPointAmount < 0) {
+            throw new IllegalArgumentException("planarPointAmount must be >= 0");
+        }
+
         if (planarPointAmount < 2)
         {
             return false;
@@ -309,9 +344,9 @@ public class LaunchInterceptorConditionParameters
      * @param planarPoints the array of 2D coordinates
      * @return true if the LIC6 condition is satisfied; false otherwise
      */
-    public boolean hasPointFarFromLine(int planarPointAmount, Point[] planarPoints)
+    public boolean lic6(int planarPointAmount, Point[] planarPoints)
     {
-        if (planarPointAmount < 3)
+        if(planarPointAmount < N_PTS || 3 > N_PTS || DIST < 0)
         {
             return false;
         }
@@ -364,9 +399,9 @@ public class LaunchInterceptorConditionParameters
      * @return True if there exists at least one set of 2 data points separated
      *         by K_PTS exclusively have a distance larger than LENGTH1.
      */
-    public boolean doesPointsSeparatedByKFurtherThanLength1(Point[] planarPoints, int planarPointAmount)
+    public boolean lic7(Point[] planarPoints, int planarPointAmount)
     {
-        if (planarPointAmount < 3)
+        if (planarPointAmount < 3 || K_PTS < 1 || K_PTS > (planarPointAmount - 2))
         {
             return false;
         }
@@ -398,12 +433,24 @@ public class LaunchInterceptorConditionParameters
      * 
      * @return true if the LIC13 condition is satisfied; false otherwise
      */
-    public boolean hasTripleNotContainedInRadius1Circle(int planarPointAmount, Point[] planarPoints)
+    public boolean lic8(int planarPointAmount, Point[] planarPoints)
     {
 
         if(planarPointAmount < 5)
         {
             return false;
+        }
+
+        if(planarPointAmount < 0) {
+            throw new IllegalArgumentException("planarPointAmount must be >= 0");
+        }
+
+        if(A_PTS < 1 || B_PTS < 1) {
+            throw new IllegalArgumentException("A_PTS and B_PTS must be >= 1");
+        }
+
+        if((A_PTS + B_PTS) > (planarPointAmount - 3)) {
+            throw new IllegalArgumentException("Sum of A_PTS + B_PTS is too large given the datapoints");
         }
 
         for(int i = 0; i + A_PTS + B_PTS + 2 < planarPointAmount; i++)
@@ -441,7 +488,7 @@ public class LaunchInterceptorConditionParameters
      * @return true if the points are separated by C_PTS and D_PTS as well as
      *         fulfilling the validateAngle() condition, otherwise false.
      */
-    public boolean validateAngleConsecutivePointsSeparation(int planarPointAmount, Point[] planarPoints)
+    public boolean lic9(int planarPointAmount, Point[] planarPoints)
     {
         if((planarPointAmount < 5) || (1 > C_PTS) || (1 > D_PTS) || ((C_PTS + D_PTS) > (planarPointAmount - 3)))
             return false;
@@ -454,7 +501,7 @@ public class LaunchInterceptorConditionParameters
 
             Point[] cornerPoints = {firstPoint, vertex, lastPoint};
 
-            if(validateAngle(cornerPoints.length, cornerPoints))
+            if(lic2(cornerPoints.length, cornerPoints))
                 return true;
         }
 
@@ -472,9 +519,9 @@ public class LaunchInterceptorConditionParameters
      * @param planarPoints the array of 2D coordinates
      * @return true if the LIC10 condition is satisfied; false otherwise
      */
-    public boolean hasLargeTriangleArea(int planarPointAmount, Point[] planarPoints)
+    public boolean lic10(int planarPointAmount, Point[] planarPoints)
     {
-        if (planarPointAmount < 5)
+        if (planarPointAmount < 5 || E_PTS < 1 || F_PTS < 1 || (E_PTS + F_PTS) > (planarPointAmount - 3))
         {
             return false;
         }
@@ -513,7 +560,7 @@ public class LaunchInterceptorConditionParameters
      * @return true if two points separated by G_PTS exists and their
      *         difference is lesser than zero, otherwise false.
      */
-    public boolean validateConsecutivePointsSeparation(int planarPointAmount, Point[] planarPoints)
+    public boolean lic11(int planarPointAmount, Point[] planarPoints)
     {
         if((planarPointAmount < 3) || (G_PTS < 1) || (G_PTS > (planarPointAmount - 2)))
             return false;
@@ -540,7 +587,7 @@ public class LaunchInterceptorConditionParameters
      * @return True if there exists at least one set of 2 points separated by K_PTS
      *         exclusively that is longer than LENGTH1 but shorter than LENGHT2
      */
-    public boolean doesPointsSeparatedByKApartByRange(Point[] planarPoints, int planarPointAmount)
+    public boolean lic12(Point[] planarPoints, int planarPointAmount)
     {
         if (planarPointAmount < 3)
         {
@@ -577,11 +624,20 @@ public class LaunchInterceptorConditionParameters
      * 
      * @return true if the LIC13 condition is satisfied; false otherwise
      */
-    public boolean hasPointsThatFitCircleOfRadius2ButNotRadius1(int planarPointAmount, Point[] planarPoints)
+    public boolean lic13(int planarPointAmount, Point[] planarPoints)
     {
+
         if(planarPointAmount < 5)
         {
             return false;
+        }
+
+        if(planarPointAmount < 0) {
+            throw new IllegalArgumentException("planarPointAmount must be >= 0");
+        }
+        
+        if(RADIUS2 < 0 || RADIUS1 < 0) {
+            throw new IllegalArgumentException("RADIUS1 and RADIUS2 must be >= 0");
         }
 
         boolean condition1 = false;
@@ -627,7 +683,7 @@ public class LaunchInterceptorConditionParameters
      * @param planarPoints the array of 2D coordinates
      * @return true if the LIC14 condition is satisfied; false otherwise
      */
-    public boolean hasTriangleAreaInRange(int planarPointAmount, Point[] planarPoints)
+    public boolean lic14(int planarPointAmount, Point[] planarPoints)
     {
         if (planarPointAmount < 5)
         {
